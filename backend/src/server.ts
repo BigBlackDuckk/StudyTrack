@@ -72,4 +72,42 @@ app.post('/auth/login', (req, res) => {
   res.json({id:usuario.id,nome:usuario.nome,email:usuario.email,nivelEscolar:usuario.nivel_escolar,idade:usuario.idade,sexo:usuario.sexo,foto:usuario.foto});
 });
 
+app.get('/disciplinas', (req, res) => {
+  const usuarioId = id(req.query.usuarioId);
+  const disciplinas = all('SELECT * FROM disciplina WHERE usuario_id=? ORDER BY nome', [usuarioId]);
+  const conteudos = all('SELECT * FROM conteudo WHERE disciplina_id IN (SELECT id FROM disciplina WHERE usuario_id=?) ORDER BY nome', [usuarioId]);
+  res.json(disciplinas.map((d: any) => ({ ...d, usuario_id: undefined, conteudos: conteudos.filter((c: any) => c.disciplina_id === d.id) })));
+});
+
+app.post('/disciplinas', (req, res) => {
+  try {
+    const { usuarioId, nome, area, nota = 0 } = req.body;
+    const result = run('INSERT INTO disciplina (usuario_id,nome,area,nota) VALUES (?,?,?,?)', [id(usuarioId), nome, area, Number(nota)]);
+    res.status(201).json(get('SELECT * FROM disciplina WHERE id=?', [result.lastInsertRowid]));
+  } catch { res.status(400).json({ error: 'Não foi possível criar a disciplina' }); }
+});
+
+app.put('/disciplinas/:id', (req, res) => {
+  const { nome, area, nota } = req.body;
+  run('UPDATE disciplina SET nome=?,area=?,nota=? WHERE id=?', [nome, area, Number(nota ?? 0), id(req.params.id)]);
+  res.json(get('SELECT * FROM disciplina WHERE id=?', [id(req.params.id)]));
+});
+
+app.delete('/disciplinas/:id', (req, res) => {
+  run('DELETE FROM disciplina WHERE id=?', [id(req.params.id)]);
+  res.status(204).end();
+});
+
+app.get('/conteudos', (req, res) => res.json(all('SELECT * FROM conteudo WHERE disciplina_id=? ORDER BY nome', [id(req.query.disciplinaId)])));
+app.post('/conteudos', (req, res) => {
+  const { disciplinaId, nome } = req.body;
+  const result = run('INSERT INTO conteudo (disciplina_id,nome) VALUES (?,?)', [id(disciplinaId), nome]);
+  res.status(201).json(get('SELECT * FROM conteudo WHERE id=?', [result.lastInsertRowid]));
+});
+app.put('/conteudos/:id', (req, res) => {
+  run('UPDATE conteudo SET nome=?,estudado=? WHERE id=?', [req.body.nome, req.body.estudado ? 1 : 0, id(req.params.id)]);
+  res.json(get('SELECT * FROM conteudo WHERE id=?', [id(req.params.id)]));
+});
+app.delete('/conteudos/:id', (req, res) => { run('DELETE FROM conteudo WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+
 app.listen(port, () => console.log(`StudyTrack API SQL em http://localhost:${port}`));
