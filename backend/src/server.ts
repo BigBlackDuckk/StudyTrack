@@ -48,4 +48,28 @@ function id(value: unknown) {
 
 app.get('/health', (_req, res) => res.json({ ok: true, service: 'StudyTrack API', database: 'SQLite + SQL puro' }));
 
+app.post('/auth/register', (req, res) => {
+  try {
+    const { nome, email, senha, nivelEscolar, idade, sexo } = req.body;
+    const normalizedEmail = String(email ?? '').trim().toLowerCase();
+    if (!nome || !normalizedEmail || !senha) return res.status(400).json({ error: 'nome, email e senha são obrigatórios' });
+    if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) return res.status(400).json({ error: 'Informe um e-mail válido' });
+    if (String(senha).length < 6) return res.status(400).json({ error: 'A senha precisa ter pelo menos 6 caracteres' });
+    const result = run('INSERT INTO usuario (nome,email,senha,nivel_escolar,idade,sexo) VALUES (?,?,?,?,?,?)', [String(nome).trim(), normalizedEmail, hashPassword(String(senha)), nivelEscolar ?? null, idade ?? null, sexo ?? null]);
+    const usuario = get('SELECT id,nome,email,nivel_escolar AS nivelEscolar,idade,sexo,foto FROM usuario WHERE id=?', [result.lastInsertRowid]);
+    res.status(201).json(usuario);
+  } catch {
+    res.status(400).json({ error: 'Não foi possível criar a conta. O e-mail pode já estar cadastrado.' });
+  }
+});
+
+app.post('/auth/login', (req, res) => {
+  const { email, senha } = req.body;
+  const normalizedEmail = String(email ?? '').trim().toLowerCase();
+  const usuario = get<any>('SELECT * FROM usuario WHERE email=?', [normalizedEmail]);
+  if (!usuario || !verifyPassword(String(senha ?? ''), String(usuario.senha))) return res.status(401).json({ error: 'E-mail ou senha inválidos' });
+  if (!String(usuario.senha).includes(':')) run('UPDATE usuario SET senha=? WHERE id=?', [hashPassword(String(senha)), usuario.id]);
+  res.json({id:usuario.id,nome:usuario.nome,email:usuario.email,nivelEscolar:usuario.nivel_escolar,idade:usuario.idade,sexo:usuario.sexo,foto:usuario.foto});
+});
+
 app.listen(port, () => console.log(`StudyTrack API SQL em http://localhost:${port}`));
