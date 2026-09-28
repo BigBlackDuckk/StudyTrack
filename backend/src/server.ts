@@ -130,4 +130,23 @@ app.put('/cronograma/:id', (req, res) => {
 });
 app.delete('/cronograma/:id', (req, res) => { run('DELETE FROM cronograma WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
+app.get('/metas', (req, res) => res.json(all('SELECT * FROM meta WHERE usuario_id=? ORDER BY id DESC', [id(req.query.usuarioId)])));
+app.post('/metas', (req, res) => {
+  const { usuarioId, texto, observacao } = req.body;
+  const result = run('INSERT INTO meta (usuario_id,texto,observacao) VALUES (?,?,?)', [id(usuarioId), texto, observacao ?? null]);
+  res.status(201).json(get('SELECT * FROM meta WHERE id=?', [result.lastInsertRowid]));
+});
+app.put('/metas/:id', (req, res) => { run('UPDATE meta SET texto=?,observacao=?,feita=? WHERE id=?', [req.body.texto, req.body.observacao ?? null, req.body.feita ? 1 : 0, id(req.params.id)]); res.json(get('SELECT * FROM meta WHERE id=?', [id(req.params.id)])); });
+app.delete('/metas/:id', (req, res) => { run('DELETE FROM meta WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+
+app.get('/simulados', (req, res) => res.json(all('SELECT s.*, d.nome AS disciplina_nome FROM simulado s LEFT JOIN disciplina d ON d.id=s.disciplina_id WHERE s.usuario_id=? ORDER BY s.data_adicionado DESC', [id(req.query.usuarioId)])));
+app.post('/simulados', (req, res) => { const { usuarioId, disciplinaId, titulo, arquivo } = req.body; const result = run('INSERT INTO simulado (usuario_id,disciplina_id,titulo,arquivo) VALUES (?,?,?,?)', [id(usuarioId), disciplinaId ? id(disciplinaId) : null, titulo, arquivo]); res.status(201).json(get('SELECT * FROM simulado WHERE id=?', [result.lastInsertRowid])); });
+app.delete('/simulados/:id', (req, res) => { run('DELETE FROM simulado WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+
+app.patch('/usuarios/:id', (req, res) => {
+  const { nome, email, foto, nivelEscolar, idade, sexo } = req.body;
+  run('UPDATE usuario SET nome=COALESCE(?,nome),email=COALESCE(?,email),foto=COALESCE(?,foto),nivel_escolar=COALESCE(?,nivel_escolar),idade=COALESCE(?,idade),sexo=COALESCE(?,sexo) WHERE id=?', [nome ?? null, email ?? null, foto ?? null, nivelEscolar ?? null, idade ?? null, sexo ?? null, id(req.params.id)]);
+  res.json(get('SELECT id,nome,email,foto,nivel_escolar AS nivelEscolar,idade,sexo FROM usuario WHERE id=?', [id(req.params.id)]));
+});
+
 app.listen(port, () => console.log(`StudyTrack API SQL em http://localhost:${port}`));
