@@ -3,6 +3,7 @@ export type DisciplinaDb={id:string;nome:string;area:string;nota:number};
 export type ConteudoDb={id:string;disciplina_id:string;nome:string;estudado:number};
 export type RegistroDb={id:string;disciplina_id:string;conteudo_id:string|null;data:string;duracao:number;observacao:string|null;fotos:string|null};
 export type CronogramaDb={id:string;disciplina_id:string;data:string;inicio:string;fim:string;titulo:string;observacao:string|null;concluido:number};
+export type MetaDb={id:string;texto:string;feita:number;observacao:string|null;foto:string|null};
 export async function listarDisciplinas(){const db=await initDatabase();return db.getAllAsync<DisciplinaDb>('SELECT * FROM disciplina ORDER BY nome');}
 export async function adicionarDisciplina(nome:string,area:string,nota=0){const db=await getDatabase();const id=`disc-${Date.now()}`;await db.runAsync('INSERT INTO disciplina(id,nome,area,nota) VALUES(?,?,?,?)',id,nome.trim(),area,nota);return id;}
 export async function editarDisciplina(id:string,nome:string,area:string,nota:number){const db=await getDatabase();await db.runAsync('UPDATE disciplina SET nome=?,area=?,nota=? WHERE id=?',nome.trim(),area,nota,id);}
@@ -21,3 +22,8 @@ export async function adicionarBloco(disciplinaId:string,data:string,inicio:stri
 export async function editarBloco(id:string,disciplinaId:string,data:string,inicio:string,fim:string,titulo:string,observacao=''){const db=await getDatabase();await db.runAsync('UPDATE cronograma SET disciplina_id=?,data=?,inicio=?,fim=?,titulo=?,observacao=? WHERE id=?',disciplinaId,data,inicio,fim,titulo,observacao,id);}
 export async function alternarBloco(id:string,done:boolean){const db=await getDatabase();await db.runAsync('UPDATE cronograma SET concluido=? WHERE id=?',done?1:0,id);}
 export async function excluirBloco(id:string){const db=await getDatabase();await db.runAsync('DELETE FROM cronograma WHERE id=?',id);}
+export async function listarMetas(){const db=await initDatabase();return db.getAllAsync<MetaDb>('SELECT * FROM meta ORDER BY id');}
+export async function adicionarMeta(texto:string,observacao='',foto?:string){const db=await getDatabase();const id=`meta-${Date.now()}`;await db.runAsync('INSERT INTO meta(id,texto,feita,observacao,foto) VALUES(?,?,0,?,?)',id,texto.trim(),observacao,foto??null);return id;}
+export async function editarMeta(id:string,texto:string,observacao='',foto?:string|null){const db=await getDatabase();await db.runAsync('UPDATE meta SET texto=?,observacao=?,foto=? WHERE id=?',texto.trim(),observacao,foto??null,id);}
+export async function alternarMetaDb(id:string,done:boolean){const db=await getDatabase();await db.runAsync('UPDATE meta SET feita=? WHERE id=?',done?1:0,id);}
+export async function excluirMeta(id:string){const db=await getDatabase();await db.runAsync('DELETE FROM meta WHERE id=?',id);}
