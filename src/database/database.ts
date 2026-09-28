@@ -45,6 +45,26 @@ export async function initDatabase() {
   return db;
 }
 
+export async function registerUsuario(nome:string,email:string,senha:string,nivel:string,idade:string,sexo:string) {
+  const db = await initDatabase();
+  const normalizedEmail = email.trim().toLowerCase();
+  const existing = await db.getFirstAsync<{id:string}>('SELECT id FROM usuario WHERE email=?', normalizedEmail);
+  if (existing) throw new Error('Este e-mail já está cadastrado.');
+  const id = `usr-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+  await db.runAsync('INSERT INTO usuario(id,nome,email,senha_hash,nivel,idade,sexo,criado_em) VALUES(?,?,?,?,?,?,?,?)', id, nome.trim(), normalizedEmail, hashPassword(senha), nivel || null, idade || null, sexo || null, new Date().toISOString());
+  await db.runAsync('INSERT INTO configuracao(chave,valor) VALUES(?,?) ON CONFLICT(chave) DO UPDATE SET valor=excluded.valor', 'sessao_usuario_id', id);
+  return (await db.getFirstAsync<UsuarioDb>('SELECT * FROM usuario WHERE id=?', id))!;
+}
+
+export async function loginUsuario(email:string,senha:string) {
+  const db = await initDatabase();
+  const normalizedEmail = email.trim().toLowerCase();
+  const usuario = await db.getFirstAsync<UsuarioDb>('SELECT * FROM usuario WHERE email=? AND senha_hash=?', normalizedEmail, hashPassword(senha));
+  if (!usuario) throw new Error('E-mail ou senha inválidos.');
+  await db.runAsync('INSERT INTO configuracao(chave,valor) VALUES(?,?) ON CONFLICT(chave) DO UPDATE SET valor=excluded.valor', 'sessao_usuario_id', usuario.id);
+  return usuario;
+}
+
 export async function seedDatabase() {
   const db = await initDatabase();
   const result = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM disciplina');
