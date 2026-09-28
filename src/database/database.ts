@@ -17,6 +17,11 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS cronograma (id TEXT PRIMARY KEY NOT NULL, disciplina_id TEXT NOT NULL, data TEXT NOT NULL, inicio TEXT NOT NULL, fim TEXT NOT NULL, titulo TEXT NOT NULL, observacao TEXT, concluido INTEGER NOT NULL DEFAULT 0, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
     CREATE TABLE IF NOT EXISTS simulado (id TEXT PRIMARY KEY NOT NULL, titulo TEXT NOT NULL, materia TEXT, arquivo TEXT NOT NULL, data_adicionado TEXT NOT NULL);
   `);
+  for (const sql of [
+    'ALTER TABLE registro_estudo ADD COLUMN fotos TEXT',
+    'ALTER TABLE meta ADD COLUMN observacao TEXT',
+    'ALTER TABLE meta ADD COLUMN foto TEXT',
+  ]) { try { await db.execAsync(sql); } catch {} }
   return db;
 }
 
