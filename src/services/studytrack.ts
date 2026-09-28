@@ -4,6 +4,7 @@ export type ConteudoDb={id:string;disciplina_id:string;nome:string;estudado:numb
 export type RegistroDb={id:string;disciplina_id:string;conteudo_id:string|null;data:string;duracao:number;observacao:string|null;fotos:string|null};
 export type CronogramaDb={id:string;disciplina_id:string;data:string;inicio:string;fim:string;titulo:string;observacao:string|null;concluido:number};
 export type MetaDb={id:string;texto:string;feita:number;observacao:string|null;foto:string|null};
+export type SimuladoDb={id:string;titulo:string;materia:string|null;arquivo:string;data_adicionado:string};
 export async function listarDisciplinas(){const db=await initDatabase();return db.getAllAsync<DisciplinaDb>('SELECT * FROM disciplina ORDER BY nome');}
 export async function adicionarDisciplina(nome:string,area:string,nota=0){const db=await getDatabase();const id=`disc-${Date.now()}`;await db.runAsync('INSERT INTO disciplina(id,nome,area,nota) VALUES(?,?,?,?)',id,nome.trim(),area,nota);return id;}
 export async function editarDisciplina(id:string,nome:string,area:string,nota:number){const db=await getDatabase();await db.runAsync('UPDATE disciplina SET nome=?,area=?,nota=? WHERE id=?',nome.trim(),area,nota,id);}
@@ -27,3 +28,6 @@ export async function adicionarMeta(texto:string,observacao='',foto?:string){con
 export async function editarMeta(id:string,texto:string,observacao='',foto?:string|null){const db=await getDatabase();await db.runAsync('UPDATE meta SET texto=?,observacao=?,foto=? WHERE id=?',texto.trim(),observacao,foto??null,id);}
 export async function alternarMetaDb(id:string,done:boolean){const db=await getDatabase();await db.runAsync('UPDATE meta SET feita=? WHERE id=?',done?1:0,id);}
 export async function excluirMeta(id:string){const db=await getDatabase();await db.runAsync('DELETE FROM meta WHERE id=?',id);}
+export async function listarSimulados(){const db=await initDatabase();return db.getAllAsync<SimuladoDb>('SELECT * FROM simulado ORDER BY data_adicionado DESC');}
+export async function adicionarSimulado(titulo:string,materia:string,arquivo:string){const db=await getDatabase();const id=`sim-${Date.now()}`;await db.runAsync('INSERT INTO simulado(id,titulo,materia,arquivo,data_adicionado) VALUES(?,?,?,?,?)',id,titulo,materia||null,arquivo,new Date().toISOString());return id;}
+export async function excluirSimulado(id:string){const db=await getDatabase();await db.runAsync('DELETE FROM simulado WHERE id=?',id);}
