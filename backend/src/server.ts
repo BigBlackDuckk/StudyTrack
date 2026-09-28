@@ -110,4 +110,24 @@ app.put('/conteudos/:id', (req, res) => {
 });
 app.delete('/conteudos/:id', (req, res) => { run('DELETE FROM conteudo WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
+app.get('/registros', (req, res) => res.json(all('SELECT r.*, d.nome AS disciplina_nome, c.nome AS conteudo_nome FROM registro_estudo r JOIN disciplina d ON d.id=r.disciplina_id LEFT JOIN conteudo c ON c.id=r.conteudo_id WHERE r.usuario_id=? ORDER BY r.data DESC', [id(req.query.usuarioId)])));
+app.post('/registros', (req, res) => {
+  const { usuarioId, disciplinaId, conteudoId, data, duracao = 0, observacao } = req.body;
+  const result = run('INSERT INTO registro_estudo (usuario_id,disciplina_id,conteudo_id,data,duracao,observacao) VALUES (?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), conteudoId ? id(conteudoId) : null, data ?? new Date().toISOString(), Number(duracao), observacao ?? null]);
+  res.status(201).json(get('SELECT * FROM registro_estudo WHERE id=?', [result.lastInsertRowid]));
+});
+
+app.get('/cronograma', (req, res) => res.json(all('SELECT c.*, d.nome AS disciplina_nome FROM cronograma c JOIN disciplina d ON d.id=c.disciplina_id WHERE c.usuario_id=? ORDER BY c.data,c.inicio', [id(req.query.usuarioId)])));
+app.post('/cronograma', (req, res) => {
+  const { usuarioId, disciplinaId, data, inicio, fim, titulo, observacao } = req.body;
+  const result = run('INSERT INTO cronograma (usuario_id,disciplina_id,data,inicio,fim,titulo,observacao) VALUES (?,?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), data, inicio, fim, titulo, observacao ?? null]);
+  res.status(201).json(get('SELECT * FROM cronograma WHERE id=?', [result.lastInsertRowid]));
+});
+app.put('/cronograma/:id', (req, res) => {
+  const { disciplinaId, data, inicio, fim, titulo, observacao, concluido } = req.body;
+  run('UPDATE cronograma SET disciplina_id=?,data=?,inicio=?,fim=?,titulo=?,observacao=?,concluido=? WHERE id=?', [id(disciplinaId), data, inicio, fim, titulo, observacao ?? null, concluido ? 1 : 0, id(req.params.id)]);
+  res.json(get('SELECT * FROM cronograma WHERE id=?', [id(req.params.id)]));
+});
+app.delete('/cronograma/:id', (req, res) => { run('DELETE FROM cronograma WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+
 app.listen(port, () => console.log(`StudyTrack API SQL em http://localhost:${port}`));
