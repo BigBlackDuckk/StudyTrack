@@ -1,3 +1,4 @@
+import { Asset } from 'expo-asset';
 import * as SQLite from 'expo-sqlite';
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -98,6 +99,18 @@ export async function seedDatabase() {
     }
     const cc = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM conteudo');
     if ((cc?.total ?? 0) === 0) for (const c of [['mat-1','mat','Funções',1],['mat-2','mat','Progressão Aritmética',1],['mat-3','mat','Progressão Geométrica',0],['fis-1','fis','Cinemática',1],['fis-2','fis','Dinâmica',0],['red-1','red','Estrutura da redação ENEM',1],['red-2','red','Proposta de intervenção',0],['his-1','his','Revolução Francesa',1],['his-2','his','Era Vargas',0]] as const) await db.runAsync('INSERT INTO conteudo(id,disciplina_id,nome,estudado) VALUES(?,?,?,?)',...c);
+    const ss = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM simulado');
+    if ((ss?.total ?? 0) === 0) {
+      const bundled = [
+        ['sim-mat','Simulado ENEM — Matemática','Matemática',require('../../assets/simulados/simulado-matematica.pdf')],
+        ['sim-fis','Simulado ENEM — Física','Física',require('../../assets/simulados/simulado-fisica.pdf')],
+        ['sim-his','Simulado — História','História',require('../../assets/simulados/simulado-historia.pdf')],
+      ] as const;
+      for (const [id,titulo,materia,moduleId] of bundled) {
+        const asset=Asset.fromModule(moduleId); await asset.downloadAsync();
+        await db.runAsync('INSERT INTO simulado(id,titulo,materia,arquivo,data_adicionado) VALUES(?,?,?,?,?)',id,titulo,materia,asset.localUri||asset.uri,new Date().toISOString());
+      }
+    }
   });
 }
 export async function getSetting(chave:string){ const db=await initDatabase(); const r=await db.getFirstAsync<{valor:string}>('SELECT valor FROM configuracao WHERE chave=?',chave); return r?.valor ?? null; }
