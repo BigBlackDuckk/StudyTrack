@@ -1,6 +1,9 @@
 import React from 'react';
 import { ImageBackground, StatusBar, Text } from 'react-native';
 
+type IconProps={name:string;size?:number;color?:string};
+function Ionicons({name,size=22,color='#000'}:IconProps){const m:Record<string,string>={'home-outline':'⌂','calendar-outline':'□','time-outline':'◷','ribbon-outline':'◇','person-outline':'◯','book-outline':'▤','add':'+','trash-outline':'♧','checkmark':'✓','chevron-back':'‹','chevron-forward':'›','create-outline':'✎','close':'×','image-outline':'▧','document-text-outline':'▤','bar-chart-outline':'▥','play':'▶','pause':'Ⅱ','stop':'■','search':'⌕','arrow-forward':'→','log-out-outline':'↪','cloud-outline':'☁','sparkles':'✦'};return <Text style={{fontSize:size,lineHeight:size,color,fontWeight:'800'}}>{m[name]||'•'}</Text>}
+
 type Theme={bg:string;card:string;surface:string;text:string;muted:string;accent:string;nav:string;line:string;good:string;warn:string};
 const LIGHT:Theme={bg:'#6D35A5',card:'#6940A4',surface:'rgba(255,255,255,0.94)',text:'#24133B',muted:'#746580',accent:'#6840C7',nav:'#30115A',line:'#E9DDF5',good:'#10B981',warn:'#F59E0B'};
 const DARK:Theme={bg:'#21102F',card:'#35184F',surface:'rgba(39,22,58,0.96)',text:'#FFFFFF',muted:'#C5B3D7',accent:'#B99BFF',nav:'#160A25',line:'#503A61',good:'#34D399',warn:'#FBBF24'};
