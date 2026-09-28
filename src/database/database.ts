@@ -25,5 +25,17 @@ export async function initDatabase() {
   return db;
 }
 
+export async function seedDatabase() {
+  const db = await initDatabase();
+  const result = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM disciplina');
+  await db.withTransactionAsync(async () => {
+    if ((result?.total ?? 0) === 0) {
+      const ds = [['mat','Matemática','Exatas',74],['fis','Física','Exatas',60],['red','Redação','Humanas',85],['his','História','Humanas',78]] as const;
+      for (const d of ds) await db.runAsync('INSERT INTO disciplina(id,nome,area,nota) VALUES(?,?,?,?)',...d);
+    }
+    const cc = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM conteudo');
+    if ((cc?.total ?? 0) === 0) for (const c of [['mat-1','mat','Funções',1],['mat-2','mat','Progressão Aritmética',1],['mat-3','mat','Progressão Geométrica',0],['fis-1','fis','Cinemática',1],['fis-2','fis','Dinâmica',0],['red-1','red','Estrutura da redação ENEM',1],['red-2','red','Proposta de intervenção',0],['his-1','his','Revolução Francesa',1],['his-2','his','Era Vargas',0]] as const) await db.runAsync('INSERT INTO conteudo(id,disciplina_id,nome,estudado) VALUES(?,?,?,?)',...c);
+  });
+}
 export async function getSetting(chave:string){ const db=await initDatabase(); const r=await db.getFirstAsync<{valor:string}>('SELECT valor FROM configuracao WHERE chave=?',chave); return r?.valor ?? null; }
 export async function setSetting(chave:string,valor:string){ const db=await initDatabase(); await db.runAsync('INSERT INTO configuracao(chave,valor) VALUES(?,?) ON CONFLICT(chave) DO UPDATE SET valor=excluded.valor',chave,valor); }
