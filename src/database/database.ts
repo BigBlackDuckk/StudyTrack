@@ -3,6 +3,26 @@ import * as SQLite from 'expo-sqlite';
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 export function getDatabase() { if (!dbPromise) dbPromise = SQLite.openDatabaseAsync('studytrack.db'); return dbPromise; }
 
+function hashPassword(value: string) {
+  // Hash determinístico para não armazenar a senha em texto puro no SQLite local.
+  let h1 = 0x811c9dc5;
+  let h2 = 0x9e3779b9;
+  for (let round = 0; round < 120; round++) {
+    for (let i = 0; i < value.length; i++) {
+      const c = value.charCodeAt(i) + round;
+      h1 ^= c;
+      h1 = Math.imul(h1, 16777619);
+      h2 ^= (c * 31 + i);
+      h2 = Math.imul(h2, 2246822519);
+    }
+    h1 = Math.imul(h1 ^ (h1 >>> 13), 1274126177);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 3266489917);
+  }
+  return `${(h1 >>> 0).toString(16).padStart(8,'0')}${(h2 >>> 0).toString(16).padStart(8,'0')}`;
+}
+
+export type UsuarioDb = { id:string; nome:string; email:string; senha_hash:string; nivel:string|null; idade:string|null; sexo:string|null; avatar:string|null };
+
 export async function initDatabase() {
   const db = await getDatabase();
   await db.execAsync(`
