@@ -25,3 +25,5 @@ export async function initDatabase() {
   return db;
 }
 
+export async function getSetting(chave:string){ const db=await initDatabase(); const r=await db.getFirstAsync<{valor:string}>('SELECT valor FROM configuracao WHERE chave=?',chave); return r?.valor ?? null; }
+export async function setSetting(chave:string,valor:string){ const db=await initDatabase(); await db.runAsync('INSERT INTO configuracao(chave,valor) VALUES(?,?) ON CONFLICT(chave) DO UPDATE SET valor=excluded.valor',chave,valor); }
