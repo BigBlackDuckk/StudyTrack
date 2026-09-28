@@ -65,6 +65,29 @@ export async function loginUsuario(email:string,senha:string) {
   return usuario;
 }
 
+export async function getSessaoUsuario() {
+  const db = await initDatabase();
+  const setting = await db.getFirstAsync<{valor:string}>('SELECT valor FROM configuracao WHERE chave=?','sessao_usuario_id');
+  if (!setting?.valor) return null;
+  return db.getFirstAsync<UsuarioDb>('SELECT * FROM usuario WHERE id=?', setting.valor);
+}
+
+export async function logoutUsuario() {
+  const db = await initDatabase();
+  await db.runAsync('DELETE FROM configuracao WHERE chave=?','sessao_usuario_id');
+}
+
+export async function updateUsuario(id:string, data:Partial<Pick<UsuarioDb,'nome'|'email'|'nivel'|'idade'|'sexo'|'avatar'>>) {
+  const db = await initDatabase();
+  if (data.email) {
+    const normalizedEmail=data.email.trim().toLowerCase();
+    const other=await db.getFirstAsync<{id:string}>('SELECT id FROM usuario WHERE email=? AND id<>?',normalizedEmail,id);
+    if(other) throw new Error('Este e-mail já está em uso.');
+  }
+  await db.runAsync(`UPDATE usuario SET nome=COALESCE(?,nome), email=COALESCE(?,email), nivel=COALESCE(?,nivel), idade=COALESCE(?,idade), sexo=COALESCE(?,sexo), avatar=COALESCE(?,avatar) WHERE id=?`, data.nome??null, data.email?data.email.trim().toLowerCase():null, data.nivel??null, data.idade??null, data.sexo??null, data.avatar??null, id);
+  return (await db.getFirstAsync<UsuarioDb>('SELECT * FROM usuario WHERE id=?',id))!;
+}
+
 export async function seedDatabase() {
   const db = await initDatabase();
   const result = await db.getFirstAsync<{ total:number }>('SELECT COUNT(*) total FROM disciplina');
