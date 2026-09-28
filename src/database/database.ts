@@ -11,6 +11,9 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS usuario (id TEXT PRIMARY KEY NOT NULL, nome TEXT NOT NULL, email TEXT NOT NULL UNIQUE, senha_hash TEXT NOT NULL, nivel TEXT, idade TEXT, sexo TEXT, avatar TEXT, criado_em TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS disciplina (id TEXT PRIMARY KEY NOT NULL, nome TEXT NOT NULL, area TEXT NOT NULL, nota REAL NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS conteudo (id TEXT PRIMARY KEY NOT NULL, disciplina_id TEXT NOT NULL, nome TEXT NOT NULL, estudado INTEGER NOT NULL DEFAULT 0, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
+    CREATE TABLE IF NOT EXISTS registro_estudo (id TEXT PRIMARY KEY NOT NULL, disciplina_id TEXT NOT NULL, conteudo_id TEXT, data TEXT NOT NULL, duracao INTEGER NOT NULL DEFAULT 0, observacao TEXT, fotos TEXT, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE, FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE SET NULL);
+    CREATE TABLE IF NOT EXISTS meta (id TEXT PRIMARY KEY NOT NULL, texto TEXT NOT NULL, feita INTEGER NOT NULL DEFAULT 0, observacao TEXT, foto TEXT);
+    CREATE TABLE IF NOT EXISTS configuracao (chave TEXT PRIMARY KEY NOT NULL, valor TEXT NOT NULL);
   `);
   return db;
 }
