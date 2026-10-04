@@ -3,6 +3,11 @@
 # dependencies
 node_modules/
 
+# IDE
+.idea/
+.vscode/
+*.iml
+
 # Expo
 .expo/
 dist/
@@ -39,3 +44,9 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# bancos SQLite gerados em tempo de execução
+backend/database/*.db
+backend/database/*.db-journal
+backend/database/*.db-wal
+backend/database/*.db-shm

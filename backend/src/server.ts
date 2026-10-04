@@ -6,6 +6,7 @@ import cors from 'cors';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 
 const app = express();
@@ -13,13 +14,22 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 const port = Number(process.env.PORT) || 3333;
-const dbFile = process.env.DATABASE_FILE || path.resolve(process.cwd(), 'database', 'studytrack.db');
+
+// Resolve os caminhos a partir do arquivo, e não do diretório atual, para que o
+// servidor suba corretamente tanto em `npm start` (raiz) quanto em `backend/`.
+const backendRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const databaseDir = path.resolve(backendRoot, 'database');
+
+const dbFile = process.env.DATABASE_FILE || path.join(databaseDir, 'studytrack.db');
 fs.mkdirSync(path.dirname(dbFile), { recursive: true });
 
 const db = new DatabaseSync(dbFile);
 db.exec('PRAGMA foreign_keys = ON;');
 
-const schemaPath = path.resolve(process.cwd(), '..', 'database', 'schema.sql');
+const schemaPath = path.join(databaseDir, 'schema.sql');
+if (!fs.existsSync(schemaPath)) {
+  throw new Error(`Arquivo de schema não encontrado em: ${schemaPath}`);
+}
 
 db.exec(fs.readFileSync(schemaPath, 'utf8'));
 

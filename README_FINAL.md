@@ -26,21 +26,35 @@ Na pasta do projeto:
 
 ```bash
 npm install
-npx expo install react-native-webview
-npx expo start
+npm start
 ```
 
-Para Android:
+O `npm start` sobe **tudo de uma vez**:
+
+- **API** (Express + SQLite) em `http://localhost:3333` — teste em `http://localhost:3333/health`
+- **App Expo** com o QR code para abrir no Expo Go
+
+### Comandos disponíveis
 
 ```bash
-npx expo start --android
+npm start              # API + app (recomendado)
+npm start -- --android # API + app já abrindo no Android
+npm start -- --ios     # API + app já abrindo no iOS
+npm start -- --web     # API + app no navegador
+
+npm run start:api      # somente o backend
+npm run start:app      # somente o app Expo
+npm run typecheck      # verificação de tipos
 ```
 
-Para web:
+Se aparecer **"Porta em uso?"**, outro processo já está usando a porta `3333` (API) ou `8081` (Metro). Feche o processo anterior e rode `npm start` de novo. Para trocar a porta da API, defina `PORT` no ambiente.
 
-```bash
-npx expo start --web
-```
+### Requisitos
+
+- **Node.js 22 ou superior** — o backend usa o módulo nativo `node:sqlite`.
+- Use `Ctrl+C` uma única vez para parar os dois serviços.
+
+> **Observação:** a interface usa SQLite local (`expo-sqlite`) e funciona mesmo sem o backend. A API é a base de dados relacional em Node/Express, mantida disponível conforme a seção "Backend" abaixo. Para o app falar com ela em um celular físico, crie um arquivo `.env` na raiz com `EXPO_PUBLIC_API_URL=http://SEU_IP:3333`.
 
 ### Observação sobre PDFs
 A visualização local por WebView depende do suporte da plataforma a PDF. Em alguns aparelhos Android/Expo Go, o WebView pode não renderizar PDF local diretamente; nesse caso, abra o PDF pelo navegador/visualizador do aparelho ou use um development build com uma biblioteca de PDF nativa.
