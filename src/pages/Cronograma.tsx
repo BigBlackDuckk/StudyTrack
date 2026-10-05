@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Btn, Card, Check, Chip, Field, Header, Icon, ModalBox, TopPill } from '../componets/ui';
+import DateTimeField from '../componets/DataTimeField';
 import { Theme, TOP, areaColor, shadow } from '../global/theme';
 import { DIAS, Disciplina, durBloco, isoDate, semanaDe } from '../global/utils';
 import { adicionarBloco, alternarBloco, editarBloco, excluirBloco } from '../services/studytrack';
@@ -113,13 +114,13 @@ function ScheduleForm({ t, visible, onClose, reload, initial, defaultDate, discs
   return (
     <ModalBox visible={visible} onClose={onClose} t={t} title={initial ? 'Editar estudo' : 'Adicionar estudo'}>
       <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        <Field t={t} value={date} onChangeText={setDate} placeholder="Data (AAAA-MM-DD)" />
+        <DateTimeField t={t} label="Data" value={date} mode="date" onChange={setDate} />
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
           {discs.map((d) => <Chip key={d.id} t={t} label={d.nome} on={disc === d.id} onPress={() => setDisc(d.id)} />)}
         </View>
-        <View style={{ flexDirection: 'row', gap: 10 }}>
-          <Field t={t} value={ini} onChangeText={setIni} placeholder="Início" style={{ flex: 1 }} />
-          <Field t={t} value={fim} onChangeText={setFim} placeholder="Fim" style={{ flex: 1 }} />
+        <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
+          <DateTimeField t={t} label="Início" value={ini} mode="time" onChange={setIni} style={{ flex: 1 }} />
+          <DateTimeField t={t} label="Fim" value={fim} mode="time" onChange={setFim} style={{ flex: 1 }} />
         </View>
         <Field t={t} value={titulo} onChangeText={setTitulo} placeholder="Título do estudo" />
         <Field t={t} value={obs} onChangeText={setObs} multiline placeholder="Observações" />

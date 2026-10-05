@@ -30,7 +30,8 @@
           "color": "#B98BE8",
           "defaultChannel": "estudos"
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ]
   }
 }
