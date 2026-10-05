@@ -101,6 +101,14 @@ export default function App() {
           await cancelarTudo();
           return;
         }
+        // O alerta de simulado só faz sentido para quem tem prova guardada e
+        // está há mais de uma semana sem abrir a tela.
+        let diasSemSimulado: number | null = null;
+        if ((await getSetting('notif_simulado')) === '1' && sims.length > 0) {
+          const ultimo = await getSetting('ultimo_simulado');
+          const dias = ultimo ? Math.floor((Date.now() - new Date(ultimo).getTime()) / 86400000) : 999;
+          diasSemSimulado = dias;
+        }
         await agendarNotificacoes(
           blocks.map((b) => ({
             id: b.id,
@@ -109,17 +117,24 @@ export default function App() {
             titulo: b.titulo,
             concluido: b.concluido,
           })),
-          (await getSetting('notif_resumo')) === '1'
+          (await getSetting('notif_resumo')) === '1',
+          diasSemSimulado
         );
       } catch (e) {
         console.warn(e);
       }
     })();
-  }, [blocks, logged]);
+  }, [blocks, sims, logged]);
 
   const reload = () => setRefresh((x) => x + 1);
   const go = (a: Tela) => { setTela(a); setSelectedDisc(null); };
-  const abrirSimulados = (de: Aba) => { setVoltarPara(de); go('simulados'); };
+  const abrirSimulados = (de: Aba) => {
+  setVoltarPara(de);
+  // Registra a visita: é o que alimenta o alerta de "faz um simulado?".
+  setSetting('ultimo_simulado', new Date().toISOString()).catch(() => {});
+  go('simulados');
+  reload();
+};
   const sair = async () => {
     await logoutUsuario();
     timer.reset();
@@ -150,7 +165,7 @@ export default function App() {
         {tela === 'registro' && <Registro t={t} discs={discs} metas={metas} records={records} timer={timer} reload={reload} />}
         {tela === 'metas' && <Metas t={t} metas={metas} reload={reload} />}
         {tela === 'simulados' && <Simulados t={t} discs={discs} sims={sims} reload={reload} onBack={() => go(voltarPara)} />}
-        {tela === 'perfil' && <Perfil t={t} user={user} setUser={setUser} dark={dark} setDark={setDark} onLogout={sair} onSimulados={() => abrirSimulados('perfil')} onAbrirTutorial={() => setTutorial(true)} />}
+        {tela === 'perfil' && <Perfil t={t} user={user} setUser={setUser} dark={dark} setDark={setDark} onLogout={sair} onSimulados={() => abrirSimulados('perfil')} onAbrirTutorial={() => setTutorial(true)} onDadosAlterados={reload} />}
       </View>
       <Nav t={t} aba={navAtiva} go={go} />
 

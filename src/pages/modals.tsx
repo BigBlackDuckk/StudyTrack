@@ -103,6 +103,10 @@ function SubjectForm({ t, visible, onClose, reload, initial }: { t: Theme; visib
 }
 
 /* ---------- Detalhe da matéria ---------- */
+
+// Atalhos de duração: na maioria dos casos um toque é melhor que digitar.
+const ATALHOS = [15, 30, 45, 60, 90, 120];
+
 export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Disciplina | null; onClose: () => void; reload: () => void }) {
   const [contents, setContents] = useState<ConteudoDb[]>([]);
   const [records, setRecords] = useState<RegistroDb[]>([]);
@@ -152,7 +156,15 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
         {editing && <ContentEdit t={t} c={editing} onClose={() => setEditing(null)} onSaved={async () => { setEditing(null); await refresh(); reload(); }} />}
 
         <Text style={[m.h, { color: t.text, marginTop: 22 }]}>Registrar estudo</Text>
-        <Field t={t} value={duration} onChangeText={setDuration} keyboardType="numeric" placeholder="Duração em minutos" />
+        <Text style={{ color: t.muted, fontSize: 12, marginBottom: 6 }}>Quanto tempo você estudou?</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+          <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
+            {ATALHOS.map((m2) => (
+              <Chip key={m2} t={t} label={`${m2}min`} on={duration === String(m2)} onPress={() => setDuration(String(m2))} />
+            ))}
+          </View>
+        </ScrollView>
+        <Field t={t} value={duration} onChangeText={setDuration} keyboardType="numeric" placeholder="Ou digite os minutos" style={{ marginTop: 4 }} />
         <Field t={t} value={obs} onChangeText={setObs} multiline placeholder="O que fiz, dificuldades, evolução..." />
         <Btn t={t} label={`Fotos (${photo.length})`} icon="image" kind="secondary" onPress={pickPhotos} />
         {photo.length > 0 && <ScrollView horizontal>{photo.map((p) => <Image key={p} source={{ uri: p }} style={m.thumb} />)}</ScrollView>}

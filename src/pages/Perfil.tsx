@@ -6,10 +6,11 @@ import { Theme, TOP, shadow } from '../global/theme';
 import { NIVEIS, Usuario } from '../global/utils';
 import { getSetting, setSetting, updateUsuario } from '../database/database';
 import { garantirPermissao } from '../services/notificacoes';
+import { descreverBackup, exportarDados, importarDados } from '../services/backup';
 
 type Props = {
   t: Theme; user: Usuario; setUser: React.Dispatch<React.SetStateAction<Usuario>>; dark: boolean; setDark: (v: boolean) => void;
-  onLogout: () => void; onSimulados: () => void; onAbrirTutorial: () => void;
+  onLogout: () => void; onSimulados: () => void; onAbrirTutorial: () => void; onDadosAlterados: () => void;
 };
 
 const NOTIFS: [string, string, boolean][] = [
@@ -28,7 +29,7 @@ const Sw = ({ t, value, onChange }: { t: Theme; value: boolean; onChange: (v: bo
   <Switch value={value} onValueChange={onChange} trackColor={{ false: '#E5E1EE', true: t.accent }} thumbColor="#FFFFFF" ios_backgroundColor="#E5E1EE" />
 );
 
-export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSimulados, onAbrirTutorial }: Props) {
+export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSimulados, onAbrirTutorial, onDadosAlterados }: Props) {
   const [notif, setNotif] = useState<Record<string, boolean>>(Object.fromEntries(NOTIFS.map(([k, , d]) => [k, d])));
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user.nome);
@@ -65,6 +66,45 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
     setSetting(k, v ? '1' : '0').catch(() => {});
   };
   const abrirEdicao = () => { setName(user.nome); setNivel(user.nivel); setIdade(user.idade); setSexo(user.sexo); setEditing(true); };
+
+  const [salvando, setSalvando] = useState(false);
+  const exportar = async () => {
+    setSalvando(true);
+    try {
+      const r = await exportarDados();
+      if (r) Alert.alert('Backup gerado', `Você salvou ${descreverBackup(r)}.\n\nGuarde o arquivo no Drive, no e-mail ou onde preferir. Ele é a única cópia dos seus dados.`);
+    } catch (e: any) {
+      Alert.alert('Não foi possível exportar', e?.message || 'Tente novamente.');
+    } finally {
+      setSalvando(false);
+    }
+  };
+  const confirmarImportar = () => {
+    Alert.alert(
+      'Restaurar backup?',
+      'Os dados que estão neste aparelho serão apagados e trocados pelos do arquivo.\n\nNão dá para desfazer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Escolher arquivo',
+          style: 'destructive',
+          onPress: async () => {
+            setSalvando(true);
+            try {
+              const r = await importarDados();
+              if (!r) return;
+              onDadosAlterados();
+              Alert.alert('Backup restaurado', `Agora há ${descreverBackup(r)} neste aparelho.`);
+            } catch (e: any) {
+              Alert.alert('Não foi possível restaurar', e?.message || 'Tente novamente.');
+            } finally {
+              setSalvando(false);
+            }
+          },
+        },
+      ]
+    );
+  };
   const salvar = async () => {
     if (!name.trim()) return Alert.alert('Digite seu nome');
     try {
@@ -125,6 +165,20 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
       <Grupo t={t}>
         <Linha t={t} last onPress={onSimulados}>
           <Text style={[s.rowText, { color: t.text }]}>Meus simulados (PDFs)</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>BACKUP</Label>
+      <Grupo t={t}>
+        <Linha t={t} onPress={exportar}>
+          <Icon name="upload" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>{salvando ? 'Gerando...' : 'Fazer backup'}</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+        <Linha t={t} last onPress={confirmarImportar}>
+          <Icon name="download" size={18} color={t.warn} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>{salvando ? 'Aguarde...' : 'Restaurar backup'}</Text>
           <Icon name="chevron-right" size={18} color={t.muted} />
         </Linha>
       </Grupo>

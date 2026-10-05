@@ -22,6 +22,9 @@ Notifications.setNotificationHandler({
 
 const CANAL = 'estudos';
 
+// Depois disso sem abrir os simulados, o app sugere fazer uma prova.
+export const DIAS_SEM_SIMULADO = 7;
+
 // No Android a permissão só é exibida depois que existe um canal criado.
 async function garantirCanal() {
   if (Platform.OS !== 'android') return;
@@ -78,7 +81,8 @@ export async function cancelarTudo() {
 /** Agenda os lembretes a partir do que já está salvo no app. */
 export async function agendar(
   blocos: { id: string; data: string; inicio: string; titulo: string; concluido: number }[],
-  resumoDiario: boolean
+  resumoDiario: boolean,
+  diasSemSimulado: number | null = null
 ) {
   try {
     if (Platform.OS === 'web') return 0;
@@ -113,6 +117,23 @@ export async function agendar(
           data: { resumo: true },
         },
         trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: amanha },
+      });
+      total++;
+    }
+
+    // Simulados esquecidos: só avisa se a pessoa tem prova guardada e já faz
+    // alguns dias sem abrir a tela.
+    if (diasSemSimulado != null && diasSemSimulado >= DIAS_SEM_SIMULADO) {
+      const quando = new Date();
+      quando.setDate(quando.getDate() + 1);
+      quando.setHours(18, 30, 0, 0);
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Faz um simulado?',
+          body: 'Você tem provas guardadas e não abre essa tela há mais de uma semana.',
+          data: { simulados: true },
+        },
+        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: quando },
       });
       total++;
     }
