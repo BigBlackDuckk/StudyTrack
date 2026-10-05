@@ -9,6 +9,7 @@ import { Aba, Disciplina, Tela, Usuario } from './src/global/utils';
 import { useTimer } from './src/global/useTimer';
 import { Nav } from './src/componets/ui';
 import Login, { Splash } from './src/pages/login/Login';
+import Tutorial from './src/componets/Tutorial';
 import Inicio from './src/pages/Inicio';
 import Cronograma from './src/pages/Cronograma';
 import Registro from './src/pages/Registro';
@@ -38,6 +39,7 @@ export default function App() {
   const [progressOpen, setProgressOpen] = useState(false);
   const [allSubjectsOpen, setAllSubjectsOpen] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [tutorial, setTutorial] = useState(false);
   const timer = useTimer();
 
   useEffect(() => {
@@ -68,6 +70,25 @@ export default function App() {
   }, [refresh, logged]);
 
   useEffect(() => { setSetting('tema', dark ? 'dark' : 'light').catch(() => {}); }, [dark]);
+
+  // Mostra o tutorial de boas-vindas só na primeira vez que a pessoa entra com
+  // uma conta. O "já viu" fica no banco, então não volta a cada login.
+  useEffect(() => {
+    if (!logged) return;
+    (async () => {
+      try {
+        const visto = await getSetting('tutorial_visto');
+        if (!visto) setTutorial(true);
+      } catch {
+        /* se falhar, apenas não mostra */
+      }
+    })();
+  }, [logged]);
+
+  const fecharTutorial = () => {
+    setTutorial(false);
+    setSetting('tutorial_visto', '1').catch(() => {});
+  };
 
   // Reflete o cronograma real em lembretes no aparelho. Só roda quando o
   // usuário deixou os lembretes ligados; caso contrário, apaga o que houver.
@@ -129,13 +150,15 @@ export default function App() {
         {tela === 'registro' && <Registro t={t} discs={discs} metas={metas} records={records} timer={timer} reload={reload} />}
         {tela === 'metas' && <Metas t={t} metas={metas} reload={reload} />}
         {tela === 'simulados' && <Simulados t={t} discs={discs} sims={sims} reload={reload} onBack={() => go(voltarPara)} />}
-        {tela === 'perfil' && <Perfil t={t} user={user} setUser={setUser} dark={dark} setDark={setDark} onLogout={sair} onSimulados={() => abrirSimulados('perfil')} />}
+        {tela === 'perfil' && <Perfil t={t} user={user} setUser={setUser} dark={dark} setDark={setDark} onLogout={sair} onSimulados={() => abrirSimulados('perfil')} onAbrirTutorial={() => setTutorial(true)} />}
       </View>
       <Nav t={t} aba={navAtiva} go={go} />
 
       <SubjectModal t={t} disc={selectedDisc} onClose={() => setSelectedDisc(null)} reload={reload} />
       <SubjectsModal t={t} visible={allSubjectsOpen} discs={discs} onClose={() => setAllSubjectsOpen(false)} onOpen={setSelectedDisc} reload={reload} />
       <ProgressModal t={t} visible={progressOpen} discs={discs} records={records} metas={metas} onClose={() => setProgressOpen(false)} onOpenSubject={setSelectedDisc} />
+
+      <Tutorial t={t} visible={tutorial} onClose={fecharTutorial} />
     </ImageBackground>
   );
 }

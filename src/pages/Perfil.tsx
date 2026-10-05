@@ -9,7 +9,7 @@ import { garantirPermissao } from '../services/notificacoes';
 
 type Props = {
   t: Theme; user: Usuario; setUser: React.Dispatch<React.SetStateAction<Usuario>>; dark: boolean; setDark: (v: boolean) => void;
-  onLogout: () => void; onSimulados: () => void;
+  onLogout: () => void; onSimulados: () => void; onAbrirTutorial: () => void;
 };
 
 const NOTIFS: [string, string, boolean][] = [
@@ -28,7 +28,7 @@ const Sw = ({ t, value, onChange }: { t: Theme; value: boolean; onChange: (v: bo
   <Switch value={value} onValueChange={onChange} trackColor={{ false: '#E5E1EE', true: t.accent }} thumbColor="#FFFFFF" ios_backgroundColor="#E5E1EE" />
 );
 
-export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSimulados }: Props) {
+export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSimulados, onAbrirTutorial }: Props) {
   const [notif, setNotif] = useState<Record<string, boolean>>(Object.fromEntries(NOTIFS.map(([k, , d]) => [k, d])));
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user.nome);
@@ -125,6 +125,15 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
       <Grupo t={t}>
         <Linha t={t} last onPress={onSimulados}>
           <Text style={[s.rowText, { color: t.text }]}>Meus simulados (PDFs)</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>AJUDA</Label>
+      <Grupo t={t}>
+        <Linha t={t} last onPress={onAbrirTutorial}>
+          <Icon name="help-circle" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Ver o tutorial de novo</Text>
           <Icon name="chevron-right" size={18} color={t.muted} />
         </Linha>
       </Grupo>
