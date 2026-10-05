@@ -85,7 +85,7 @@ export default function App() {
   const navAtiva: Aba = tela === 'simulados' ? voltarPara : tela;
 
   return (
-    <ImageBackground source={require('./assets/bg-app.png')} resizeMode="stretch" style={{ flex: 1, backgroundColor: t.bg }}>
+    <ImageBackground source={require('./assets/bg-app.png')} resizeMode="cover" style={{ flex: 1, backgroundColor: t.bg }}>
       <StatusBar barStyle="light-content" />
       <View style={{ flex: 1 }}>
         {tela === 'inicio' && (

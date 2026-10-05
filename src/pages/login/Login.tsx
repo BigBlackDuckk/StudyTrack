@@ -22,7 +22,7 @@ export function Marca() {
 
 export function Splash() {
   return (
-    <ImageBackground source={require('../../../assets/bg-login.png')} resizeMode="stretch" style={s.root}>
+    <ImageBackground source={require('../../../assets/bg-login.png')} resizeMode="cover" style={s.root}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Marca />
       </View>
@@ -64,7 +64,7 @@ export default function Login({ onAuth }: { onAuth: (u: any) => void }) {
   };
 
   return (
-    <ImageBackground source={require('../../../assets/bg-login.png')} resizeMode="stretch" style={s.root}>
+    <ImageBackground source={require('../../../assets/bg-login.png')} resizeMode="cover" style={s.root}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           <View style={{ marginTop: 20, marginBottom: 44 }}>
