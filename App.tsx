@@ -3,6 +3,7 @@ import { ImageBackground, StatusBar, View } from 'react-native';
 import { getSessaoUsuario, getSetting, logoutUsuario, seedDatabase, setSetting } from './src/database/database';
 import { listarCronograma, listarDisciplinas, listarMetas, listarSimulados, listarTodosRegistros } from './src/services/studytrack';
 import type { CronogramaDb, MetaDb, RegistroDb, SimuladoDb } from './src/services/studytrack';
+import { agendar as agendarNotificacoes, cancelarTudo } from './src/services/notificacoes';
 import { DARK, LIGHT } from './src/global/theme';
 import { Aba, Disciplina, Tela, Usuario } from './src/global/utils';
 import { useTimer } from './src/global/useTimer';
@@ -67,6 +68,33 @@ export default function App() {
   }, [refresh, logged]);
 
   useEffect(() => { setSetting('tema', dark ? 'dark' : 'light').catch(() => {}); }, [dark]);
+
+  // Reflete o cronograma real em lembretes no aparelho. Só roda quando o
+  // usuário deixou os lembretes ligados; caso contrário, apaga o que houver.
+  useEffect(() => {
+    if (!logged) return;
+    (async () => {
+      try {
+        const ligados = (await getSetting('notif_lembretes')) === '1';
+        if (!ligados) {
+          await cancelarTudo();
+          return;
+        }
+        await agendarNotificacoes(
+          blocks.map((b) => ({
+            id: b.id,
+            data: b.data,
+            inicio: b.inicio,
+            titulo: b.titulo,
+            concluido: b.concluido,
+          })),
+          (await getSetting('notif_resumo')) === '1'
+        );
+      } catch (e) {
+        console.warn(e);
+      }
+    })();
+  }, [blocks, logged]);
 
   const reload = () => setRefresh((x) => x + 1);
   const go = (a: Tela) => { setTela(a); setSelectedDisc(null); };

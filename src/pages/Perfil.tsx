@@ -5,6 +5,7 @@ import { Avatar, Btn, Chip, Field, Icon, ModalBox } from '../componets/ui';
 import { Theme, TOP, shadow } from '../global/theme';
 import { NIVEIS, Usuario } from '../global/utils';
 import { getSetting, setSetting, updateUsuario } from '../database/database';
+import { garantirPermissao } from '../services/notificacoes';
 
 type Props = {
   t: Theme; user: Usuario; setUser: React.Dispatch<React.SetStateAction<Usuario>>; dark: boolean; setDark: (v: boolean) => void;
@@ -46,7 +47,20 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
     })().catch(() => {});
   }, []);
 
-  const toggle = (k: string, v: boolean) => {
+  const toggle = async (k: string, v: boolean) => {
+    // As duas primeiras chaves viram notificação de verdade no aparelho.
+    // Se o usuário negar a permissão, o switch volta ao estado anterior em vez
+    // de fingir que ficou ligado.
+    if (v && (k === 'notif_lembretes' || k === 'notif_resumo')) {
+      const ok = await garantirPermissao();
+      if (!ok) {
+        Alert.alert(
+          'Notificações desativadas',
+          'O aparelho não autorizou notificações. Ative o StudyTrack nas configurações do sistema para receber lembretes.'
+        );
+        return;
+      }
+    }
     setNotif((n) => ({ ...n, [k]: v }));
     setSetting(k, v ? '1' : '0').catch(() => {});
   };
@@ -115,13 +129,13 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
         </Linha>
       </Grupo>
 
-      <Label t={t}>SINCRONIZAÇÃO</Label>
+      <Label t={t}>ONDE OS DADOS FICAM</Label>
       <Grupo t={t}>
-        <Linha t={t} last>
-          <Icon name="cloud" size={18} color={t.good} />
-          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Dados no aparelho</Text>
-          <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: t.good, marginRight: 6 }} />
-          <Text style={{ color: t.good, fontWeight: '700', fontSize: 13 }}>Salvo</Text>
+        <Linha t={t} last onPress={() => Alert.alert('Onde os dados ficam', 'Tudo é salvo apenas neste aparelho, no banco SQLite do StudyTrack.\n\nNada é enviado para servidores e o app funciona sem internet.\n\nSe você desinstalar o app ou trocar de celular, os dados serão perdidos. Não existe cópia na nuvem.')}>
+          <Icon name="smartphone" size={18} color={t.warn} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Somente neste aparelho</Text>
+          <Text style={{ color: t.muted, fontSize: 12, marginRight: 6 }}>sem nuvem</Text>
+          <Icon name="info" size={17} color={t.muted} />
         </Linha>
       </Grupo>
 
