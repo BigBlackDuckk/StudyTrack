@@ -163,7 +163,7 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
           <Text style={{ color: t.muted, paddingVertical: 12 }}>Nenhum registro ainda. Use o formulário acima.</Text>
         ) : (
           records.map((r) => {
-            const fotos: string[] = r.fotos ? JSON.parse(r.fotos) : [];
+            const fotos = lerFotos(r.fotos);
             return (
               <View key={r.id} style={[m.record, { borderColor: t.line }]}>
                 <View style={{ flex: 1 }}>
@@ -186,6 +186,18 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
     </ModalBox>
   );
 }
+
+// Fotos guardadas como JSON. Um registro antigo ou corrompido não pode
+// derrubar a tela inteira, então uma falha aqui vira lista vazia.
+const lerFotos = (valor: string | null): string[] => {
+  if (!valor) return [];
+  try {
+    const lido = JSON.parse(valor);
+    return Array.isArray(lido) ? lido.filter((x) => typeof x === 'string') : [];
+  } catch {
+    return [];
+  }
+};
 
 function ContentEdit({ t, c, onClose, onSaved }: { t: Theme; c: ConteudoDb; onClose: () => void; onSaved: () => void }) {
   const [n, setN] = useState(c.nome);
