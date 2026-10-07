@@ -6,6 +6,7 @@ import { Theme, TOP, shadow } from '../global/theme';
 import { NIVEIS, Usuario } from '../global/utils';
 import { getSetting, setSetting, updateUsuario } from '../database/database';
 import { garantirPermissao } from '../services/notificacoes';
+import { enfileirar } from '../services/sync';
 import { descreverBackup, exportarDados, importarDados } from '../services/backup';
 
 type Props = {
@@ -109,6 +110,7 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
     if (!name.trim()) return Alert.alert('Digite seu nome');
     try {
       const n = await updateUsuario(user.id, { nome: name.trim(), nivel, idade, sexo });
+      void enfileirar('usuario', 'upsert', user.id);
       setUser((u) => ({ ...u, nome: n.nome, nivel: n.nivel || '', idade: n.idade || '', sexo: n.sexo || '' }));
       setEditing(false);
     } catch (e: any) {
@@ -121,6 +123,7 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
     const uri = r.assets[0].uri;
     try {
       const n = await updateUsuario(user.id, { avatar: uri });
+      void enfileirar('usuario', 'upsert', user.id);
       setUser((u) => ({ ...u, avatar: n.avatar || uri }));
     } catch (e: any) {
       Alert.alert('Não foi possível salvar a foto', e?.message || 'Tente novamente.');

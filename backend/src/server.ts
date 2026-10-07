@@ -139,6 +139,7 @@ app.post('/registros', (req, res) => {
   const result = run('INSERT INTO registro_estudo (usuario_id,disciplina_id,conteudo_id,data,duracao,observacao) VALUES (?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), conteudoId ? id(conteudoId) : null, data ?? new Date().toISOString(), Number(duracao), observacao ?? null]);
   res.status(201).json(get('SELECT * FROM registro_estudo WHERE id=?', [result.lastInsertRowid]));
 });
+app.delete('/registros/:id', (req, res) => { run('DELETE FROM registro_estudo WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
 app.get('/cronograma', (req, res) => res.json(all('SELECT c.*, d.nome AS disciplina_nome FROM cronograma c JOIN disciplina d ON d.id=c.disciplina_id WHERE c.usuario_id=? ORDER BY c.data,c.inicio', [id(req.query.usuarioId)])));
 app.post('/cronograma', (req, res) => {

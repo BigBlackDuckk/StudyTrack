@@ -37,6 +37,8 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS configuracao (chave TEXT PRIMARY KEY NOT NULL, valor TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS cronograma (id TEXT PRIMARY KEY NOT NULL, disciplina_id TEXT NOT NULL, data TEXT NOT NULL, inicio TEXT NOT NULL, fim TEXT NOT NULL, titulo TEXT NOT NULL, observacao TEXT, concluido INTEGER NOT NULL DEFAULT 0, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
     CREATE TABLE IF NOT EXISTS simulado (id TEXT PRIMARY KEY NOT NULL, titulo TEXT NOT NULL, materia TEXT, arquivo TEXT NOT NULL, data_adicionado TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS sync_outbox (id INTEGER PRIMARY KEY AUTOINCREMENT, tabela TEXT NOT NULL, acao TEXT NOT NULL, id_local TEXT NOT NULL, tentativas INTEGER NOT NULL DEFAULT 0, criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS sync_map (tabela TEXT NOT NULL, id_local TEXT NOT NULL, id_remoto INTEGER NOT NULL, PRIMARY KEY (tabela, id_local));
   `);
   for (const sql of [
     'ALTER TABLE registro_estudo ADD COLUMN fotos TEXT',

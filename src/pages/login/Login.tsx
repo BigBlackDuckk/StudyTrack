@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Icon } from '../../componets/ui';
 import { registerUsuario, loginUsuario } from '../../database/database';
+import { syncConta } from '../../services/sync';
 import { NIVEIS } from '../../global/utils';
 import { TOP } from '../../global/theme';
 
@@ -54,6 +55,17 @@ export default function Login({ onAuth }: { onAuth: (u: any) => void }) {
     setBusy(true);
     try {
       const u = create ? await registerUsuario(name, e, pass, nivel, idade, sexo) : await loginUsuario(e, pass);
+      // Espelha a conta na API (fire-and-forget): se a API estiver fora do
+      // ar o login local continua funcionando normalmente.
+      void syncConta({
+        create,
+        nome: u.nome,
+        email: u.email,
+        senha: pass,
+        nivel: u.nivel || '',
+        idade: u.idade || '',
+        sexo: u.sexo || '',
+      });
       reset();
       onAuth(u);
     } catch (err: any) {

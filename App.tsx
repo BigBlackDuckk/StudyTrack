@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ImageBackground, StatusBar, View } from 'react-native';
 import { getSessaoUsuario, getSetting, logoutUsuario, seedDatabase, setSetting } from './src/database/database';
 import { listarCronograma, listarDisciplinas, listarMetas, listarSimulados, listarTodosRegistros } from './src/services/studytrack';
+import { disparaFlush } from './src/services/sync';
 import type { CronogramaDb, MetaDb, RegistroDb, SimuladoDb } from './src/services/studytrack';
 import { agendar as agendarNotificacoes, cancelarTudo } from './src/services/notificacoes';
 import { DARK, LIGHT } from './src/global/theme';
@@ -49,6 +50,8 @@ export default function App() {
         const [session, tema] = await Promise.all([getSessaoUsuario(), getSetting('tema')]);
         if (tema) setDark(tema === 'dark');
         if (session) { setUser(toUser(session)); setLogged(true); }
+        // Reenvia pendências que ficaram na fila quando o app ficou offline.
+        void disparaFlush();
       } catch (e) {
         console.warn(e);
       } finally {

@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~57.0.2",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -31,7 +33,8 @@
     "android": "node scripts/dev.mjs --android",
     "ios": "node scripts/dev.mjs --ios",
     "web": "node scripts/dev.mjs --web",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "expo lint"
   },
   "private": true
 }

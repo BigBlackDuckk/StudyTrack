@@ -8,6 +8,7 @@ import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
 import { Platform } from 'react-native';
 import { getDatabase, initDatabase } from '../database/database';
+import { enfileirar } from './sync';
 
 // Ordem importa: as tabelas com chave estrangeira vêm depois das referenciadas.
 const TABELAS = [
@@ -108,12 +109,23 @@ export async function importarDados(): Promise<ResumoBackup | null> {
     }
   });
 
+  // O backup preserva os ids locais, então o sync_map continua válido: basta
+  // reenfileirar tudo como upsert para levar a API ao mesmo estado.
+  for (const tabela of ['usuario', 'disciplina', 'conteudo', 'registro_estudo', 'cronograma', 'meta', 'simulado'] as const) {
+    const linhas = await db.getAllAsync<{ id: string }>(`SELECT id FROM ${tabela}`);
+    for (const linha of linhas) void enfileirar(tabela, 'upsert', linha.id);
+  }
+
   return resumoDe(lido.dados);
 }
 
 export async function limparTudo() {
   const db = await getDatabase();
-  for (const tabela of ['registro_estudo', 'conteudo', 'cronograma', 'meta', 'simulado', 'disciplina']) {
+  // Enfileira os deletes ANTES de apagar: o flush lê o mapeamento remoto, não
+  // a linha local, então continua funcionando depois que a linha sumir.
+  for (const tabela of ['registro_estudo', 'conteudo', 'cronograma', 'meta', 'simulado', 'disciplina'] as const) {
+    const linhas = await db.getAllAsync<{ id: string }>(`SELECT id FROM ${tabela}`);
+    for (const linha of linhas) void enfileirar(tabela, 'delete', linha.id);
     await db.runAsync(`DELETE FROM ${tabela}`);
   }
 }
