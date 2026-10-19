@@ -1,0 +1,262 @@
+import React, { useEffect, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+import * as DocumentPicker from 'expo-document-picker';
+import { Avatar, Btn, Chip, Field, Icon, ModalBox } from '../componets/ui';
+import { Theme, TOP, shadow } from '../global/theme';
+import { NIVEIS, Usuario } from '../global/utils';
+import { getSetting, setSetting, updateUsuario } from '../database/database';
+import { garantirPermissao } from '../services/notificacoes';
+import { enfileirar } from '../services/sync';
+import { descreverBackup, exportarDados, importarDados } from '../services/backup';
+
+type Props = {
+  t: Theme; user: Usuario; setUser: React.Dispatch<React.SetStateAction<Usuario>>; dark: boolean; setDark: (v: boolean) => void;
+  onLogout: () => void; onSimulados: () => void; onAbrirTutorial: () => void; onDadosAlterados: () => void;
+};
+
+const NOTIFS: [string, string, boolean][] = [
+  ['notif_lembretes', 'Lembretes de Estudo', true],
+  ['notif_resumo', 'Resumo Diário', true],
+  ['notif_simulado', 'Alertas de Simulado', false],
+];
+
+const Grupo = ({ t, children }: { t: Theme; children: React.ReactNode }) => <View style={[s.group, { backgroundColor: t.surface }]}>{children}</View>;
+const Label = ({ t, children }: { t: Theme; children: string }) => <Text style={[s.label, { color: t.label }]}>{children}</Text>;
+const Linha = ({ t, children, last, onPress }: { t: Theme; children: React.ReactNode; last?: boolean; onPress?: () => void }) => {
+  const C: any = onPress ? TouchableOpacity : View;
+  return <C onPress={onPress} style={[s.row, !last && { borderBottomColor: t.line, borderBottomWidth: 1 }]}>{children}</C>;
+};
+const Sw = ({ t, value, onChange }: { t: Theme; value: boolean; onChange: (v: boolean) => void }) => (
+  <Switch value={value} onValueChange={onChange} trackColor={{ false: '#E5E1EE', true: t.accent }} thumbColor="#FFFFFF" ios_backgroundColor="#E5E1EE" />
+);
+
+export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSimulados, onAbrirTutorial, onDadosAlterados }: Props) {
+  const [notif, setNotif] = useState<Record<string, boolean>>(Object.fromEntries(NOTIFS.map(([k, , d]) => [k, d])));
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(user.nome);
+  const [nivel, setNivel] = useState(user.nivel);
+  const [idade, setIdade] = useState(user.idade);
+  const [sexo, setSexo] = useState(user.sexo);
+
+  useEffect(() => {
+    (async () => {
+      const next: Record<string, boolean> = {};
+      for (const [k, , d] of NOTIFS) {
+        const v = await getSetting(k);
+        next[k] = v == null ? d : v === '1';
+      }
+      setNotif(next);
+    })().catch(() => {});
+  }, []);
+
+  const toggle = async (k: string, v: boolean) => {
+    // As duas primeiras chaves viram notificação de verdade no aparelho.
+    // Se o usuário negar a permissão, o switch volta ao estado anterior em vez
+    // de fingir que ficou ligado.
+    if (v && (k === 'notif_lembretes' || k === 'notif_resumo')) {
+      const ok = await garantirPermissao();
+      if (!ok) {
+        Alert.alert(
+          'Notificações desativadas',
+          'O aparelho não autorizou notificações. Ative o StudyTrack nas configurações do sistema para receber lembretes.'
+        );
+        return;
+      }
+    }
+    setNotif((n) => ({ ...n, [k]: v }));
+    setSetting(k, v ? '1' : '0').catch(() => {});
+  };
+  const abrirEdicao = () => { setName(user.nome); setNivel(user.nivel); setIdade(user.idade); setSexo(user.sexo); setEditing(true); };
+
+  const [salvando, setSalvando] = useState(false);
+  const exportar = async () => {
+    setSalvando(true);
+    try {
+      const r = await exportarDados();
+      if (r) Alert.alert('Backup gerado', `Você salvou ${descreverBackup(r)}.\n\nGuarde o arquivo no Drive, no e-mail ou onde preferir. Ele é a única cópia dos seus dados.`);
+    } catch (e: any) {
+      Alert.alert('Não foi possível exportar', e?.message || 'Tente novamente.');
+    } finally {
+      setSalvando(false);
+    }
+  };
+  const confirmarImportar = () => {
+    Alert.alert(
+      'Restaurar backup?',
+      'Os dados que estão neste aparelho serão apagados e trocados pelos do arquivo.\n\nNão dá para desfazer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Escolher arquivo',
+          style: 'destructive',
+          onPress: async () => {
+            setSalvando(true);
+            try {
+              const r = await importarDados();
+              if (!r) return;
+              onDadosAlterados();
+              Alert.alert('Backup restaurado', `Agora há ${descreverBackup(r)} neste aparelho.`);
+            } catch (e: any) {
+              Alert.alert('Não foi possível restaurar', e?.message || 'Tente novamente.');
+            } finally {
+              setSalvando(false);
+            }
+          },
+        },
+      ]
+    );
+  };
+  const salvar = async () => {
+    if (!name.trim()) return Alert.alert('Digite seu nome');
+    try {
+      const n = await updateUsuario(user.id, { nome: name.trim(), nivel, idade, sexo });
+      void enfileirar('usuario', 'upsert', user.id);
+      setUser((u) => ({ ...u, nome: n.nome, nivel: n.nivel || '', idade: n.idade || '', sexo: n.sexo || '' }));
+      setEditing(false);
+    } catch (e: any) {
+      Alert.alert('Não foi possível salvar', e?.message || 'Tente novamente.');
+    }
+  };
+  const trocarFoto = async () => {
+    const r = await DocumentPicker.getDocumentAsync({ type: 'image/*', copyToCacheDirectory: true });
+    if (r.canceled) return;
+    const uri = r.assets[0].uri;
+    try {
+      const n = await updateUsuario(user.id, { avatar: uri });
+      void enfileirar('usuario', 'upsert', user.id);
+      setUser((u) => ({ ...u, avatar: n.avatar || uri }));
+    } catch (e: any) {
+      Alert.alert('Não foi possível salvar a foto', e?.message || 'Tente novamente.');
+    }
+  };
+
+  return (
+    <ScrollView contentContainerStyle={{ paddingTop: TOP - 8, paddingBottom: 30 }} showsVerticalScrollIndicator={false}>
+      <View style={s.head}>
+        <TouchableOpacity onPress={trocarFoto} activeOpacity={0.85}><Avatar user={user} size={64} /></TouchableOpacity>
+        <View style={{ flex: 1, marginLeft: 14 }}>
+          <Text style={{ color: t.bar, fontSize: 19, fontWeight: '800' }} numberOfLines={1}>{user.nome}</Text>
+          <Text style={{ color: t.muted, fontSize: 13, marginTop: 3 }} numberOfLines={1}>{user.email}</Text>
+        </View>
+        <TouchableOpacity onPress={abrirEdicao} style={s.editBtn}><Text style={{ color: '#1B1035', fontWeight: '700', fontSize: 13 }}>Editar</Text></TouchableOpacity>
+      </View>
+
+      <Label t={t}>NOTIFICAÇÕES</Label>
+      <Grupo t={t}>
+        {NOTIFS.map(([k, nome], i) => (
+          <Linha t={t} key={k} last={i === NOTIFS.length - 1}>
+            <Text style={[s.rowText, { color: t.text }]}>{nome}</Text>
+            <Sw t={t} value={notif[k]} onChange={(v) => toggle(k, v)} />
+          </Linha>
+        ))}
+      </Grupo>
+
+      <Label t={t}>PREFERÊNCIAS</Label>
+      <Grupo t={t}>
+        <Linha t={t}>
+          <Text style={[s.rowText, { color: t.text }]}>Modo Escuro</Text>
+          <Sw t={t} value={dark} onChange={setDark} />
+        </Linha>
+        <Linha t={t} last onPress={abrirEdicao}>
+          <Text style={[s.rowText, { color: t.text }]}>Nível Escolar</Text>
+          <Text style={{ color: t.muted, fontSize: 13, marginRight: 6, flexShrink: 1 }} numberOfLines={1}>{user.nivel || 'Não informado'}</Text>
+          <Icon name="chevron-down" size={16} color={t.text} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>MATERIAL</Label>
+      <Grupo t={t}>
+        <Linha t={t} last onPress={onSimulados}>
+          <Text style={[s.rowText, { color: t.text }]}>Meus simulados (PDFs)</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>BACKUP</Label>
+      <Grupo t={t}>
+        <Linha t={t} onPress={exportar}>
+          <Icon name="upload" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>{salvando ? 'Gerando...' : 'Fazer backup'}</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+        <Linha t={t} last onPress={confirmarImportar}>
+          <Icon name="download" size={18} color={t.warn} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>{salvando ? 'Aguarde...' : 'Restaurar backup'}</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>INFORMAÇÕES</Label>
+      <Grupo t={t}>
+        <Linha t={t} onPress={onAbrirTutorial}>
+          <Icon name="help-circle" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Ver o tutorial de novo</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+        <Linha t={t} last onPress={() => {
+          // Abrir site informativo será implementado
+          Alert.alert('Site Informativo', 'O site informativo do StudyTrack está disponível em: public/index.html\n\nAbra o arquivo no seu navegador para visualizar o site completo.');
+        }}>
+          <Icon name="globe" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Site Informativo</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>AJUDA</Label>
+      <Grupo t={t}>
+        <Linha t={t} last onPress={() => {
+          Alert.alert('Suporte', 'Em caso de dúvidas, entre em contato com a equipe de desenvolvimento.');
+        }}>
+          <Icon name="chatbubbles" size={18} color={t.accent} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Suporte e Contato</Text>
+          <Icon name="chevron-right" size={18} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <Label t={t}>ONDE OS DADOS FICAM</Label>
+      <Grupo t={t}>
+        <Linha t={t} last onPress={() => Alert.alert('Onde os dados ficam', 'Tudo é salvo apenas neste aparelho, no banco SQLite do StudyTrack.\n\nNada é enviado para servidores e o app funciona sem internet.\n\nSe você desinstalar o app ou trocar de celular, os dados serão perdidos. Não existe cópia na nuvem.')}>
+          <Icon name="smartphone" size={18} color={t.warn} />
+          <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Somente neste aparelho</Text>
+          <Text style={{ color: t.muted, fontSize: 12, marginRight: 6 }}>sem nuvem</Text>
+          <Icon name="info" size={17} color={t.muted} />
+        </Linha>
+      </Grupo>
+
+      <TouchableOpacity style={s.link} onPress={() => Alert.alert('StudyTrack', 'Seu copiloto acadêmico.\nVersão 1.0.0')}>
+        <Text style={{ color: t.muted, flex: 1, fontSize: 15 }}>Sobre o StudyTrack</Text>
+        <Icon name="arrow-right" size={17} color={t.muted} />
+      </TouchableOpacity>
+      <TouchableOpacity style={s.link} onPress={onLogout}>
+        <Text style={{ color: t.sub, flex: 1, fontSize: 15, fontWeight: '700' }}>Sair da Conta</Text>
+        <Icon name="log-out" size={17} color={t.sub} />
+      </TouchableOpacity>
+
+      <ModalBox visible={editing} onClose={() => setEditing(false)} t={t} title="Editar perfil">
+        <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          <Btn t={t} label="Trocar foto" icon="camera" kind="secondary" small onPress={trocarFoto} style={{ alignSelf: 'flex-start' }} />
+          <Field t={t} value={name} onChangeText={setName} placeholder="Seu nome" />
+          <Text style={[s.mLabel, { color: t.text }]}>Escolaridade</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>{NIVEIS.map((v) => <Chip key={v} t={t} label={v} on={nivel === v} onPress={() => setNivel(v)} />)}</View>
+          <Text style={[s.mLabel, { color: t.text }]}>Idade</Text>
+          <Field t={t} value={idade} onChangeText={setIdade} keyboardType="numeric" placeholder="Ex.: 17" style={{ marginTop: 6 }} />
+          <Text style={[s.mLabel, { color: t.text }]}>Sexo</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>{['Feminino', 'Masculino', 'Outro', 'Prefiro não informar'].map((v) => <Chip key={v} t={t} label={v} on={sexo === v} onPress={() => setSexo(v)} />)}</View>
+          <Btn t={t} label="Salvar" onPress={salvar} />
+        </ScrollView>
+      </ModalBox>
+    </ScrollView>
+  );
+}
+
+const s = StyleSheet.create({
+  head: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 24, marginBottom: 26 },
+  editBtn: { backgroundColor: '#FFFFFF', borderRadius: 14, paddingHorizontal: 16, paddingVertical: 8, ...shadow, shadowOpacity: 0.1, elevation: 2 },
+  label: { fontSize: 11, fontWeight: '600', marginLeft: 24, marginBottom: 8, marginTop: 4 },
+  group: { marginHorizontal: 24, borderRadius: 14, marginBottom: 20, overflow: 'hidden' },
+  row: { minHeight: 54, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center' },
+  rowText: { flex: 1, fontSize: 15 },
+  link: { marginHorizontal: 24, paddingVertical: 14, flexDirection: 'row', alignItems: 'center' },
+  mLabel: { fontWeight: '700', marginTop: 16 },
+});

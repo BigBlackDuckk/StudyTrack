@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "StudyTrack",
+    "slug": "StudyTrack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.hzn_rei.StudyTrack"
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "color": "#B98BE8",
+          "defaultChannel": "estudos"
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-sharing"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c60300dd-fe59-49cf-aeb2-ff65637b7bca"
+      }
+    },
+    "owner": "hzn_rei"
+  }
+}

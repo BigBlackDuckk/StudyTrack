@@ -1,0 +1,1 @@
+@echo off\necho.\necho ========================================\necho    StudyTrack - Site Informativo\necho ========================================\necho.\necho Abrindo site no navegador...\necho.\nstart "" "%~dp0index.html"\ntimeout /t 2 >nul
