@@ -1,9 +1,9 @@
-import express from 'express';
+﻿import express from 'express';
 import cors from 'cors';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { DatabaseSync } from 'node:sqlite';
+import { createPool, Pool } from 'mysql2/promise';
 
 const app = express();
 app.use(cors());
@@ -26,14 +26,41 @@ app.use((req, res, next) => {
 });
 
 const port = Number(process.env.PORT) || 3333;
-const dbFile = process.env.DATABASE_FILE || path.resolve(process.cwd(), 'database', 'studytrack.db');
-fs.mkdirSync(path.dirname(dbFile), { recursive: true });
 
-const db = new DatabaseSync(dbFile);
-db.exec('PRAGMA foreign_keys = ON;');
-const schemaPath = path.resolve(process.cwd(), 'database', 'schema.sql');
-db.exec(fs.readFileSync(schemaPath, 'utf8'));
-for (const sql of ['ALTER TABLE usuario ADD COLUMN idade TEXT','ALTER TABLE usuario ADD COLUMN sexo TEXT']) { try { db.exec(sql); } catch {} }
+const pool: Pool = createPool({
+  host: process.env.MYSQL_HOST || 'localhost',
+  port: Number(process.env.MYSQL_PORT) || 3306,
+  user: process.env.MYSQL_USER || 'root',
+  password: process.env.MYSQL_PASSWORD || '',
+  database: process.env.MYSQL_DATABASE || 'studytrack',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
+
+async function initDb() {
+  const schemaPath = path.resolve(process.cwd(), 'database', 'schema.mysql.sql');
+  const sql = fs.readFileSync(schemaPath, 'utf8');
+  const statements = sql.split(';').map(s => s.trim()).filter(Boolean);
+  for (const stmt of statements) {
+    try {
+      await pool.query(stmt);
+    } catch (e) {
+      console.warn('Aviso ao executar statement SQL:', stmt.substring(0, 60).replace(/\s+/g, ' '), '...', (e as Error).message);
+    }
+  }
+  // Garante colunas idade/sexo em bancos criados por versões anteriores
+  for (const sql of [
+    'ALTER TABLE usuario ADD COLUMN idade VARCHAR(20)',
+    'ALTER TABLE usuario ADD COLUMN sexo VARCHAR(20)',
+  ]) {
+    try {
+      await pool.query(sql);
+    } catch {}
+  }
+}
+
+initDb().then(() => console.log('Banco MySQL inicializado com sucesso.')).catch(console.error);
 
 function hashPassword(password: string) {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -47,14 +74,17 @@ function verifyPassword(password: string, stored: string) {
   return crypto.timingSafeEqual(Buffer.from(actual, 'hex'), Buffer.from(expected, 'hex'));
 }
 
-function run(sql: string, params: unknown[] = []) {
-  return db.prepare(sql).run(...params);
+async function run(sql: string, params: unknown[] = []) {
+  const [result] = await pool.query(sql, params);
+  return result as { insertId: number; affectedRows: number };
 }
-function get<T = Record<string, unknown>>(sql: string, params: unknown[] = []) {
-  return db.prepare(sql).get(...params) as T | undefined;
+async function get<T = Record<string, unknown>>(sql: string, params: unknown[] = []) {
+  const [rows] = await pool.query(sql, params);
+  return (rows as T[])[0] as T | undefined;
 }
-function all<T = Record<string, unknown>>(sql: string, params: unknown[] = []) {
-  return db.prepare(sql).all(...params) as T[];
+async function all<T = Record<string, unknown>>(sql: string, params: unknown[] = []) {
+  const [rows] = await pool.query(sql, params);
+  return rows as T[];
 }
 function id(value: unknown) {
   const n = Number(value);
@@ -62,107 +92,107 @@ function id(value: unknown) {
   return n;
 }
 
-app.get('/health', (_req, res) => res.json({ ok: true, service: 'StudyTrack API', database: 'SQLite + SQL puro' }));
+app.get('/health', (_req, res) => res.json({ ok: true, service: 'StudyTrack API', database: 'MySQL' }));
 
-app.post('/auth/register', (req, res) => {
+app.post('/auth/register', async (req, res) => {
   try {
     const { nome, email, senha, nivelEscolar, idade, sexo } = req.body;
     const normalizedEmail = String(email ?? '').trim().toLowerCase();
     if (!nome || !normalizedEmail || !senha) return res.status(400).json({ error: 'nome, email e senha são obrigatórios' });
     if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) return res.status(400).json({ error: 'Informe um e-mail válido' });
     if (String(senha).length < 6) return res.status(400).json({ error: 'A senha precisa ter pelo menos 6 caracteres' });
-    const result = run('INSERT INTO usuario (nome,email,senha,nivel_escolar,idade,sexo) VALUES (?,?,?,?,?,?)', [String(nome).trim(), normalizedEmail, hashPassword(String(senha)), nivelEscolar ?? null, idade ?? null, sexo ?? null]);
-    const usuario = get('SELECT id,nome,email,nivel_escolar AS nivelEscolar,idade,sexo,foto FROM usuario WHERE id=?', [result.lastInsertRowid]);
+    const result = await run('INSERT INTO usuario (nome,email,senha,nivel_escolar,idade,sexo) VALUES (?,?,?,?,?,?)', [String(nome).trim(), normalizedEmail, hashPassword(String(senha)), nivelEscolar ?? null, idade ?? null, sexo ?? null]);
+    const usuario = await get('SELECT id,nome,email,nivel_escolar AS nivelEscolar,idade,sexo,foto FROM usuario WHERE id=?', [result.insertId]);
     res.status(201).json(usuario);
   } catch {
     res.status(400).json({ error: 'Não foi possível criar a conta. O e-mail pode já estar cadastrado.' });
   }
 });
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', async (req, res) => {
   const { email, senha } = req.body;
   const normalizedEmail = String(email ?? '').trim().toLowerCase();
-  const usuario = get<any>('SELECT * FROM usuario WHERE email=?', [normalizedEmail]);
+  const usuario = await get<any>('SELECT * FROM usuario WHERE email=?', [normalizedEmail]);
   if (!usuario || !verifyPassword(String(senha ?? ''), String(usuario.senha))) return res.status(401).json({ error: 'E-mail ou senha inválidos' });
-  if (!String(usuario.senha).includes(':')) run('UPDATE usuario SET senha=? WHERE id=?', [hashPassword(String(senha)), usuario.id]);
-  res.json({id:usuario.id,nome:usuario.nome,email:usuario.email,nivelEscolar:usuario.nivel_escolar,idade:usuario.idade,sexo:usuario.sexo,foto:usuario.foto});
+  if (!String(usuario.senha).includes(':')) await run('UPDATE usuario SET senha=? WHERE id=?', [hashPassword(String(senha)), usuario.id]);
+  res.json({ id: usuario.id, nome: usuario.nome, email: usuario.email, nivelEscolar: usuario.nivel_escolar, idade: usuario.idade, sexo: usuario.sexo, foto: usuario.foto });
 });
 
-app.get('/disciplinas', (req, res) => {
+app.get('/disciplinas', async (req, res) => {
   const usuarioId = id(req.query.usuarioId);
-  const disciplinas = all('SELECT * FROM disciplina WHERE usuario_id=? ORDER BY nome', [usuarioId]);
-  const conteudos = all('SELECT * FROM conteudo WHERE disciplina_id IN (SELECT id FROM disciplina WHERE usuario_id=?) ORDER BY nome', [usuarioId]);
+  const disciplinas = await all('SELECT * FROM disciplina WHERE usuario_id=? ORDER BY nome', [usuarioId]);
+  const conteudos = await all('SELECT * FROM conteudo WHERE disciplina_id IN (SELECT id FROM disciplina WHERE usuario_id=?) ORDER BY nome', [usuarioId]);
   res.json(disciplinas.map((d: any) => ({ ...d, usuario_id: undefined, conteudos: conteudos.filter((c: any) => c.disciplina_id === d.id) })));
 });
 
-app.post('/disciplinas', (req, res) => {
+app.post('/disciplinas', async (req, res) => {
   try {
     const { usuarioId, nome, area, nota = 0 } = req.body;
-    const result = run('INSERT INTO disciplina (usuario_id,nome,area,nota) VALUES (?,?,?,?)', [id(usuarioId), nome, area, Number(nota)]);
-    res.status(201).json(get('SELECT * FROM disciplina WHERE id=?', [result.lastInsertRowid]));
+    const result = await run('INSERT INTO disciplina (usuario_id,nome,area,nota) VALUES (?,?,?,?)', [id(usuarioId), nome, area, Number(nota)]);
+    res.status(201).json(await get('SELECT * FROM disciplina WHERE id=?', [result.insertId]));
   } catch { res.status(400).json({ error: 'Não foi possível criar a disciplina' }); }
 });
 
-app.put('/disciplinas/:id', (req, res) => {
+app.put('/disciplinas/:id', async (req, res) => {
   const { nome, area, nota } = req.body;
-  run('UPDATE disciplina SET nome=?,area=?,nota=? WHERE id=?', [nome, area, Number(nota ?? 0), id(req.params.id)]);
-  res.json(get('SELECT * FROM disciplina WHERE id=?', [id(req.params.id)]));
+  await run('UPDATE disciplina SET nome=?,area=?,nota=? WHERE id=?', [nome, area, Number(nota ?? 0), id(req.params.id)]);
+  res.json(await get('SELECT * FROM disciplina WHERE id=?', [id(req.params.id)]));
 });
 
-app.delete('/disciplinas/:id', (req, res) => {
-  run('DELETE FROM disciplina WHERE id=?', [id(req.params.id)]);
+app.delete('/disciplinas/:id', async (req, res) => {
+  await run('DELETE FROM disciplina WHERE id=?', [id(req.params.id)]);
   res.status(204).end();
 });
 
-app.get('/conteudos', (req, res) => res.json(all('SELECT * FROM conteudo WHERE disciplina_id=? ORDER BY nome', [id(req.query.disciplinaId)])));
-app.post('/conteudos', (req, res) => {
+app.get('/conteudos', async (req, res) => res.json(await all('SELECT * FROM conteudo WHERE disciplina_id=? ORDER BY nome', [id(req.query.disciplinaId)])));
+app.post('/conteudos', async (req, res) => {
   const { disciplinaId, nome } = req.body;
-  const result = run('INSERT INTO conteudo (disciplina_id,nome) VALUES (?,?)', [id(disciplinaId), nome]);
-  res.status(201).json(get('SELECT * FROM conteudo WHERE id=?', [result.lastInsertRowid]));
+  const result = await run('INSERT INTO conteudo (disciplina_id,nome) VALUES (?,?)', [id(disciplinaId), nome]);
+  res.status(201).json(await get('SELECT * FROM conteudo WHERE id=?', [result.insertId]));
 });
-app.put('/conteudos/:id', (req, res) => {
-  run('UPDATE conteudo SET nome=?,estudado=? WHERE id=?', [req.body.nome, req.body.estudado ? 1 : 0, id(req.params.id)]);
-  res.json(get('SELECT * FROM conteudo WHERE id=?', [id(req.params.id)]));
+app.put('/conteudos/:id', async (req, res) => {
+  await run('UPDATE conteudo SET nome=?,estudado=? WHERE id=?', [req.body.nome, req.body.estudado ? 1 : 0, id(req.params.id)]);
+  res.json(await get('SELECT * FROM conteudo WHERE id=?', [id(req.params.id)]));
 });
-app.delete('/conteudos/:id', (req, res) => { run('DELETE FROM conteudo WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+app.delete('/conteudos/:id', async (req, res) => { await run('DELETE FROM conteudo WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
-app.get('/registros', (req, res) => res.json(all('SELECT r.*, d.nome AS disciplina_nome, c.nome AS conteudo_nome FROM registro_estudo r JOIN disciplina d ON d.id=r.disciplina_id LEFT JOIN conteudo c ON c.id=r.conteudo_id WHERE r.usuario_id=? ORDER BY r.data DESC', [id(req.query.usuarioId)])));
-app.post('/registros', (req, res) => {
+app.get('/registros', async (req, res) => res.json(await all('SELECT r.*, d.nome AS disciplina_nome, c.nome AS conteudo_nome FROM registro_estudo r JOIN disciplina d ON d.id=r.disciplina_id LEFT JOIN conteudo c ON c.id=r.conteudo_id WHERE r.usuario_id=? ORDER BY r.data DESC', [id(req.query.usuarioId)])));
+app.post('/registros', async (req, res) => {
   const { usuarioId, disciplinaId, conteudoId, data, duracao = 0, observacao } = req.body;
-  const result = run('INSERT INTO registro_estudo (usuario_id,disciplina_id,conteudo_id,data,duracao,observacao) VALUES (?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), conteudoId ? id(conteudoId) : null, data ?? new Date().toISOString(), Number(duracao), observacao ?? null]);
-  res.status(201).json(get('SELECT * FROM registro_estudo WHERE id=?', [result.lastInsertRowid]));
+  const result = await run('INSERT INTO registro_estudo (usuario_id,disciplina_id,conteudo_id,data,duracao,observacao) VALUES (?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), conteudoId ? id(conteudoId) : null, data ?? new Date().toISOString(), Number(duracao), observacao ?? null]);
+  res.status(201).json(await get('SELECT * FROM registro_estudo WHERE id=?', [result.insertId]));
 });
 
-app.get('/cronograma', (req, res) => res.json(all('SELECT c.*, d.nome AS disciplina_nome FROM cronograma c JOIN disciplina d ON d.id=c.disciplina_id WHERE c.usuario_id=? ORDER BY c.data,c.inicio', [id(req.query.usuarioId)])));
-app.post('/cronograma', (req, res) => {
+app.get('/cronograma', async (req, res) => res.json(await all('SELECT c.*, d.nome AS disciplina_nome FROM cronograma c JOIN disciplina d ON d.id=c.disciplina_id WHERE c.usuario_id=? ORDER BY c.data,c.inicio', [id(req.query.usuarioId)])));
+app.post('/cronograma', async (req, res) => {
   const { usuarioId, disciplinaId, data, inicio, fim, titulo, observacao } = req.body;
-  const result = run('INSERT INTO cronograma (usuario_id,disciplina_id,data,inicio,fim,titulo,observacao) VALUES (?,?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), data, inicio, fim, titulo, observacao ?? null]);
-  res.status(201).json(get('SELECT * FROM cronograma WHERE id=?', [result.lastInsertRowid]));
+  const result = await run('INSERT INTO cronograma (usuario_id,disciplina_id,data,inicio,fim,titulo,observacao) VALUES (?,?,?,?,?,?,?)', [id(usuarioId), id(disciplinaId), data, inicio, fim, titulo, observacao ?? null]);
+  res.status(201).json(await get('SELECT * FROM cronograma WHERE id=?', [result.insertId]));
 });
-app.put('/cronograma/:id', (req, res) => {
+app.put('/cronograma/:id', async (req, res) => {
   const { disciplinaId, data, inicio, fim, titulo, observacao, concluido } = req.body;
-  run('UPDATE cronograma SET disciplina_id=?,data=?,inicio=?,fim=?,titulo=?,observacao=?,concluido=? WHERE id=?', [id(disciplinaId), data, inicio, fim, titulo, observacao ?? null, concluido ? 1 : 0, id(req.params.id)]);
-  res.json(get('SELECT * FROM cronograma WHERE id=?', [id(req.params.id)]));
+  await run('UPDATE cronograma SET disciplina_id=?,data=?,inicio=?,fim=?,titulo=?,observacao=?,concluido=? WHERE id=?', [id(disciplinaId), data, inicio, fim, titulo, observacao ?? null, concluido ? 1 : 0, id(req.params.id)]);
+  res.json(await get('SELECT * FROM cronograma WHERE id=?', [id(req.params.id)]));
 });
-app.delete('/cronograma/:id', (req, res) => { run('DELETE FROM cronograma WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+app.delete('/cronograma/:id', async (req, res) => { await run('DELETE FROM cronograma WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
-app.get('/metas', (req, res) => res.json(all('SELECT * FROM meta WHERE usuario_id=? ORDER BY id DESC', [id(req.query.usuarioId)])));
-app.post('/metas', (req, res) => {
+app.get('/metas', async (req, res) => res.json(await all('SELECT * FROM meta WHERE usuario_id=? ORDER BY id DESC', [id(req.query.usuarioId)])));
+app.post('/metas', async (req, res) => {
   const { usuarioId, texto, observacao } = req.body;
-  const result = run('INSERT INTO meta (usuario_id,texto,observacao) VALUES (?,?,?)', [id(usuarioId), texto, observacao ?? null]);
-  res.status(201).json(get('SELECT * FROM meta WHERE id=?', [result.lastInsertRowid]));
+  const result = await run('INSERT INTO meta (usuario_id,texto,observacao) VALUES (?,?,?)', [id(usuarioId), texto, observacao ?? null]);
+  res.status(201).json(await get('SELECT * FROM meta WHERE id=?', [result.insertId]));
 });
-app.put('/metas/:id', (req, res) => { run('UPDATE meta SET texto=?,observacao=?,feita=? WHERE id=?', [req.body.texto, req.body.observacao ?? null, req.body.feita ? 1 : 0, id(req.params.id)]); res.json(get('SELECT * FROM meta WHERE id=?', [id(req.params.id)])); });
-app.delete('/metas/:id', (req, res) => { run('DELETE FROM meta WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+app.put('/metas/:id', async (req, res) => { await run('UPDATE meta SET texto=?,observacao=?,feita=? WHERE id=?', [req.body.texto, req.body.observacao ?? null, req.body.feita ? 1 : 0, id(req.params.id)]); res.json(await get('SELECT * FROM meta WHERE id=?', [id(req.params.id)])); });
+app.delete('/metas/:id', async (req, res) => { await run('DELETE FROM meta WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
-app.get('/simulados', (req, res) => res.json(all('SELECT s.*, d.nome AS disciplina_nome FROM simulado s LEFT JOIN disciplina d ON d.id=s.disciplina_id WHERE s.usuario_id=? ORDER BY s.data_adicionado DESC', [id(req.query.usuarioId)])));
-app.post('/simulados', (req, res) => { const { usuarioId, disciplinaId, titulo, arquivo } = req.body; const result = run('INSERT INTO simulado (usuario_id,disciplina_id,titulo,arquivo) VALUES (?,?,?,?)', [id(usuarioId), disciplinaId ? id(disciplinaId) : null, titulo, arquivo]); res.status(201).json(get('SELECT * FROM simulado WHERE id=?', [result.lastInsertRowid])); });
-app.delete('/simulados/:id', (req, res) => { run('DELETE FROM simulado WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
+app.get('/simulados', async (req, res) => res.json(await all('SELECT s.*, d.nome AS disciplina_nome FROM simulado s LEFT JOIN disciplina d ON d.id=s.disciplina_id WHERE s.usuario_id=? ORDER BY s.data_adicionado DESC', [id(req.query.usuarioId)])));
+app.post('/simulados', async (req, res) => { const { usuarioId, disciplinaId, titulo, arquivo } = req.body; const result = await run('INSERT INTO simulado (usuario_id,disciplina_id,titulo,arquivo) VALUES (?,?,?,?)', [id(usuarioId), disciplinaId ? id(disciplinaId) : null, titulo, arquivo]); res.status(201).json(await get('SELECT * FROM simulado WHERE id=?', [result.insertId])); });
+app.delete('/simulados/:id', async (req, res) => { await run('DELETE FROM simulado WHERE id=?', [id(req.params.id)]); res.status(204).end(); });
 
-app.patch('/usuarios/:id', (req, res) => {
+app.patch('/usuarios/:id', async (req, res) => {
   const { nome, email, foto, nivelEscolar, idade, sexo } = req.body;
-  run('UPDATE usuario SET nome=COALESCE(?,nome),email=COALESCE(?,email),foto=COALESCE(?,foto),nivel_escolar=COALESCE(?,nivel_escolar),idade=COALESCE(?,idade),sexo=COALESCE(?,sexo) WHERE id=?', [nome ?? null, email ?? null, foto ?? null, nivelEscolar ?? null, idade ?? null, sexo ?? null, id(req.params.id)]);
-  res.json(get('SELECT id,nome,email,foto,nivel_escolar AS nivelEscolar,idade,sexo FROM usuario WHERE id=?', [id(req.params.id)]));
+  await run('UPDATE usuario SET nome=COALESCE(?,nome),email=COALESCE(?,email),foto=COALESCE(?,foto),nivel_escolar=COALESCE(?,nivel_escolar),idade=COALESCE(?,idade),sexo=COALESCE(?,sexo) WHERE id=?', [nome ?? null, email ?? null, foto ?? null, nivelEscolar ?? null, idade ?? null, sexo ?? null, id(req.params.id)]);
+  res.json(await get('SELECT id,nome,email,foto,nivel_escolar AS nivelEscolar,idade,sexo FROM usuario WHERE id=?', [id(req.params.id)]));
 });
 
 app.listen(port, () => console.log(`StudyTrack API SQL em http://localhost:${port}`));
