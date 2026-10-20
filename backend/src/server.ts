@@ -85,6 +85,15 @@ async function initDatabase() {
       ]) {
         try { await conn.query(sql); } catch { /* coluna ja existe */ }
       }
+      // Retro-migração N-para-M: vínculos 1-N legados viram linhas nas junctions.
+      // INSERT IGNORE (MySQL) garante idempotência em bancos já migrados.
+      for (const sql of [
+        'INSERT IGNORE INTO conteudo_disciplina (conteudo_id, disciplina_id) SELECT id, disciplina_id FROM conteudo',
+        'INSERT IGNORE INTO registro_conteudo (registro_id, conteudo_id) SELECT id, conteudo_id FROM registro_estudo WHERE conteudo_id IS NOT NULL',
+        'INSERT IGNORE INTO simulado_disciplina (simulado_id, disciplina_id) SELECT id, disciplina_id FROM simulado WHERE disciplina_id IS NOT NULL',
+      ]) {
+        try { await conn.query(sql); } catch { /* tabela legada sem a coluna — ignora */ }
+      }
       console.log(`[DB] Conectado ao MySQL (banco: ${process.env.MYSQL_DATABASE || 'studytrack'})`);
     } finally {
       conn.release();
@@ -107,6 +116,13 @@ async function initDatabase() {
     'ALTER TABLE usuario ADD COLUMN sexo TEXT',
   ]) {
     try { sqliteDb.exec(sql); } catch { /* coluna ja existe */ }
+  }
+  for (const sql of [
+    'INSERT OR IGNORE INTO conteudo_disciplina (conteudo_id, disciplina_id) SELECT id, disciplina_id FROM conteudo',
+    'INSERT OR IGNORE INTO registro_conteudo (registro_id, conteudo_id) SELECT id, conteudo_id FROM registro_estudo WHERE conteudo_id IS NOT NULL',
+    'INSERT OR IGNORE INTO simulado_disciplina (simulado_id, disciplina_id) SELECT id, disciplina_id FROM simulado WHERE disciplina_id IS NOT NULL',
+  ]) {
+    try { sqliteDb.exec(sql); } catch { /* banco legado sem a coluna — ignora */ }
   }
   console.log(`[DB] Conectado ao SQLite em ${dbFile}`);
 }
@@ -255,6 +271,87 @@ app.patch('/usuarios/:id', async (req, res) => {
   const { nome, email, foto, nivelEscolar, idade, sexo } = req.body;
   await run('UPDATE usuario SET nome=COALESCE(?,nome),email=COALESCE(?,email),foto=COALESCE(?,foto),nivel_escolar=COALESCE(?,nivel_escolar),idade=COALESCE(?,idade),sexo=COALESCE(?,sexo) WHERE id=?', [nome ?? null, email ?? null, foto ?? null, nivelEscolar ?? null, idade ?? null, sexo ?? null, id(req.params.id)]);
   res.json(await get('SELECT id,nome,email,foto,nivel_escolar AS nivelEscolar,idade,sexo FROM usuario WHERE id=?', [id(req.params.id)]));
+});
+
+// ---------------------------------------------------------------------------
+// Endpoints N-para-M (junctions). POST com disciplinaIds/conteudoIds substitui
+// todos os vínculos (sincroniza o conjunto); DELETE remove um vínculo.
+// ---------------------------------------------------------------------------
+function ids(body, key) {
+  const raw = body?.[key];
+  const list = Array.isArray(raw) ? raw : [];
+  return [...new Set(list.map((v) => id(v)))];
+}
+
+app.get('/simulados/:id/disciplinas', async (req, res) => {
+  res.json(await all('SELECT d.* FROM disciplina d JOIN simulado_disciplina sd ON sd.disciplina_id=d.id WHERE sd.simulado_id=? ORDER BY d.nome', [id(req.params.id)]));
+});
+app.post('/simulados/:id/disciplinas', async (req, res) => {
+  const sid = id(req.params.id);
+  const list = ids(req.body, 'disciplinaIds');
+  await run('DELETE FROM simulado_disciplina WHERE simulado_id=?', [sid]);
+  for (const did of list) {
+    try { await run('INSERT INTO simulado_disciplina (simulado_id,disciplina_id) VALUES (?,?)', [sid, did]); } catch { /* duplicado — ignora */ }
+  }
+  res.json(await all('SELECT d.* FROM disciplina d JOIN simulado_disciplina sd ON sd.disciplina_id=d.id WHERE sd.simulado_id=? ORDER BY d.nome', [sid]));
+});
+app.delete('/simulados/:id/disciplinas/:disciplinaId', async (req, res) => {
+  await run('DELETE FROM simulado_disciplina WHERE simulado_id=? AND disciplina_id=?', [id(req.params.id), id(req.params.disciplinaId)]);
+  res.status(204).end();
+});
+app.get('/disciplinas/:id/simulados', async (req, res) => {
+  res.json(await all('SELECT s.* FROM simulado s JOIN simulado_disciplina sd ON sd.simulado_id=s.id WHERE sd.disciplina_id=? ORDER BY s.data_adicionado DESC', [id(req.params.id)]));
+});
+
+app.get('/conteudos/:id/disciplinas', async (req, res) => {
+  res.json(await all('SELECT d.* FROM disciplina d JOIN conteudo_disciplina cd ON cd.disciplina_id=d.id WHERE cd.conteudo_id=? ORDER BY d.nome', [id(req.params.id)]));
+});
+app.post('/conteudos/:id/disciplinas', async (req, res) => {
+  const cid = id(req.params.id);
+  const list = ids(req.body, 'disciplinaIds');
+  await run('DELETE FROM conteudo_disciplina WHERE conteudo_id=?', [cid]);
+  for (const did of list) {
+    try { await run('INSERT INTO conteudo_disciplina (conteudo_id,disciplina_id) VALUES (?,?)', [cid, did]); } catch { /* duplicado — ignora */ }
+  }
+  res.json(await all('SELECT d.* FROM disciplina d JOIN conteudo_disciplina cd ON cd.disciplina_id=d.id WHERE cd.conteudo_id=? ORDER BY d.nome', [cid]));
+});
+app.delete('/conteudos/:id/disciplinas/:disciplinaId', async (req, res) => {
+  await run('DELETE FROM conteudo_disciplina WHERE conteudo_id=? AND disciplina_id=?', [id(req.params.id), id(req.params.disciplinaId)]);
+  res.status(204).end();
+});
+
+app.get('/metas/:id/disciplinas', async (req, res) => {
+  res.json(await all('SELECT d.* FROM disciplina d JOIN meta_disciplina md ON md.disciplina_id=d.id WHERE md.meta_id=? ORDER BY d.nome', [id(req.params.id)]));
+});
+app.post('/metas/:id/disciplinas', async (req, res) => {
+  const mid = id(req.params.id);
+  const list = ids(req.body, 'disciplinaIds');
+  await run('DELETE FROM meta_disciplina WHERE meta_id=?', [mid]);
+  for (const did of list) {
+    try { await run('INSERT INTO meta_disciplina (meta_id,disciplina_id) VALUES (?,?)', [mid, did]); } catch { /* duplicado — ignora */ }
+  }
+  res.json(await all('SELECT d.* FROM disciplina d JOIN meta_disciplina md ON md.disciplina_id=d.id WHERE md.meta_id=? ORDER BY d.nome', [mid]));
+});
+app.delete('/metas/:id/disciplinas/:disciplinaId', async (req, res) => {
+  await run('DELETE FROM meta_disciplina WHERE meta_id=? AND disciplina_id=?', [id(req.params.id), id(req.params.disciplinaId)]);
+  res.status(204).end();
+});
+
+app.get('/registros/:id/conteudos', async (req, res) => {
+  res.json(await all('SELECT c.* FROM conteudo c JOIN registro_conteudo rc ON rc.conteudo_id=c.id WHERE rc.registro_id=? ORDER BY c.nome', [id(req.params.id)]));
+});
+app.post('/registros/:id/conteudos', async (req, res) => {
+  const rid = id(req.params.id);
+  const list = ids(req.body, 'conteudoIds');
+  await run('DELETE FROM registro_conteudo WHERE registro_id=?', [rid]);
+  for (const cid of list) {
+    try { await run('INSERT INTO registro_conteudo (registro_id,conteudo_id) VALUES (?,?)', [rid, cid]); } catch { /* duplicado — ignora */ }
+  }
+  res.json(await all('SELECT c.* FROM conteudo c JOIN registro_conteudo rc ON rc.conteudo_id=c.id WHERE rc.registro_id=? ORDER BY c.nome', [rid]));
+});
+app.delete('/registros/:id/conteudos/:conteudoId', async (req, res) => {
+  await run('DELETE FROM registro_conteudo WHERE registro_id=? AND conteudo_id=?', [id(req.params.id), id(req.params.conteudoId)]);
+  res.status(204).end();
 });
 
 // Middleware final de erros (evita crashar o processo em erro nao tratado).

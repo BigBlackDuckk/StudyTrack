@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-import { Btn, Card, Check, Field, Header, Icon, ModalBox, TopPill } from '../componets/ui';
+import { Btn, Card, Check, Chip, Field, Header, Icon, ModalBox, TopPill } from '../componets/ui';
 import { Theme, TOP, shadow } from '../global/theme';
-import { adicionarMeta, alternarMetaDb, editarMeta, excluirMeta } from '../services/studytrack';
+import { Disciplina } from '../global/utils';
+import { adicionarMeta, alternarMetaDb, definirDisciplinasDeMeta, disciplinasDeMeta, editarMeta, excluirMeta } from '../services/studytrack';
 import type { MetaDb } from '../services/studytrack';
 
-export default function Metas({ t, metas, reload }: { t: Theme; metas: MetaDb[]; reload: () => void }) {
+export default function Metas({ t, metas, discs, reload }: { t: Theme; metas: MetaDb[]; discs: Disciplina[]; reload: () => void }) {
   const [form, setForm] = useState(false);
   const [edit, setEdit] = useState<MetaDb | null>(null);
+  const [vinc, setVinc] = useState<Record<string, string[]>>({});
+  useEffect(() => {
+    (async () => {
+      const x: Record<string, string[]> = {};
+      for (const m of metas) x[m.id] = (await disciplinasDeMeta(m.id)).map((d) => d.nome);
+      setVinc(x);
+    })();
+  }, [metas.map((m) => m.id).join(',')]);
   const done = metas.filter((m) => !!m.feita).length;
   const pct = metas.length ? Math.round((done / metas.length) * 100) : 0;
 
@@ -32,6 +41,7 @@ export default function Metas({ t, metas, reload }: { t: Theme; metas: MetaDb[];
           <View style={{ flex: 1, marginLeft: 14 }}>
             <Text style={{ color: m.feita ? t.muted : t.text, fontWeight: '700', fontSize: 15, textDecorationLine: m.feita ? 'line-through' : 'none' }}>{m.texto}</Text>
             {!!m.observacao && <Text style={{ color: t.muted, fontSize: 12, marginTop: 4 }}>{m.observacao}</Text>}
+            {!!vinc[m.id]?.length && <Text style={{ color: t.accent, fontSize: 12, marginTop: 4 }}>{vinc[m.id].join(' · ')}</Text>}
             {!!m.foto && <Image source={{ uri: m.foto }} style={{ width: 72, height: 72, borderRadius: 12, marginTop: 8 }} />}
           </View>
           <TouchableOpacity onPress={() => setEdit(m)} hitSlop={8} style={{ marginRight: 14 }}><Icon name="edit-2" size={17} color={t.accent} /></TouchableOpacity>
@@ -41,26 +51,32 @@ export default function Metas({ t, metas, reload }: { t: Theme; metas: MetaDb[];
         </View>
       ))}
 
-      <MetaForm t={t} visible={form || !!edit} initial={edit || undefined} onClose={() => { setForm(false); setEdit(null); }} reload={reload} />
+      <MetaForm t={t} visible={form || !!edit} initial={edit || undefined} discs={discs} onClose={() => { setForm(false); setEdit(null); }} reload={reload} />
     </ScrollView>
   );
 }
 
-function MetaForm({ t, visible, onClose, reload, initial }: { t: Theme; visible: boolean; onClose: () => void; reload: () => void; initial?: MetaDb }) {
+function MetaForm({ t, visible, onClose, reload, initial, discs }: { t: Theme; visible: boolean; onClose: () => void; reload: () => void; initial?: MetaDb; discs: Disciplina[] }) {
   const [texto, setTexto] = useState('');
   const [obs, setObs] = useState('');
   const [foto, setFoto] = useState<string | null>(null);
+  const [vincs, setVincs] = useState<string[]>([]);
   useEffect(() => {
     if (!visible) return;
     setTexto(initial?.texto || '');
     setObs(initial?.observacao || '');
     setFoto(initial?.foto || null);
+    setVincs([]);
+    if (initial) disciplinasDeMeta(initial.id).then((ds) => setVincs(ds.map((d) => d.id)));
   }, [visible, initial]);
 
+  const toggle = (id: string) => setVincs((v) => (v.includes(id) ? v.filter((x) => x !== id) : [...v, id]));
   const save = async () => {
     if (!texto.trim()) return Alert.alert('Digite a meta');
+    let mid = initial?.id;
     if (initial) await editarMeta(initial.id, texto, obs, foto);
-    else await adicionarMeta(texto, obs, foto || undefined);
+    else mid = await adicionarMeta(texto, obs, foto || undefined);
+    if (mid) await definirDisciplinasDeMeta(mid, vincs);
     onClose();
     reload();
   };
@@ -68,6 +84,14 @@ function MetaForm({ t, visible, onClose, reload, initial }: { t: Theme; visible:
     <ModalBox visible={visible} onClose={onClose} t={t} title={initial ? 'Editar meta' : 'Nova meta'}>
       <Field t={t} value={texto} onChangeText={setTexto} placeholder="O que você quer alcançar?" />
       <Field t={t} value={obs} onChangeText={setObs} multiline placeholder="Como pretende alcançar / observações" />
+      {!!discs.length && (
+        <>
+          <Text style={{ color: t.muted, fontSize: 12, marginTop: 10 }}>Matérias da meta (pode marcar várias)</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 6 }}>
+            {discs.map((d) => <Chip key={d.id} t={t} label={d.nome} on={vincs.includes(d.id)} onPress={() => toggle(d.id)} />)}
+          </ScrollView>
+        </>
+      )}
       <Btn t={t} label={foto ? 'Trocar foto' : 'Adicionar foto'} icon="image" kind="secondary" onPress={async () => {
         const r = await DocumentPicker.getDocumentAsync({ type: 'image/*', copyToCacheDirectory: true });
         if (!r.canceled) setFoto(r.assets[0].uri);

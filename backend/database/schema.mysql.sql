@@ -97,6 +97,39 @@ CREATE TABLE IF NOT EXISTS configuracao (
     CONSTRAINT fk_config_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tabelas associativas N-para-M (junctions com PK composta + CASCADE).
+CREATE TABLE IF NOT EXISTS simulado_disciplina (
+    simulado_id INT NOT NULL,
+    disciplina_id INT NOT NULL,
+    PRIMARY KEY (simulado_id, disciplina_id),
+    CONSTRAINT fk_sd_simulado FOREIGN KEY (simulado_id) REFERENCES simulado(id) ON DELETE CASCADE,
+    CONSTRAINT fk_sd_disciplina FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS conteudo_disciplina (
+    conteudo_id INT NOT NULL,
+    disciplina_id INT NOT NULL,
+    PRIMARY KEY (conteudo_id, disciplina_id),
+    CONSTRAINT fk_cd_conteudo FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE,
+    CONSTRAINT fk_cd_disciplina FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS meta_disciplina (
+    meta_id INT NOT NULL,
+    disciplina_id INT NOT NULL,
+    PRIMARY KEY (meta_id, disciplina_id),
+    CONSTRAINT fk_md_meta FOREIGN KEY (meta_id) REFERENCES meta(id) ON DELETE CASCADE,
+    CONSTRAINT fk_md_disciplina FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS registro_conteudo (
+    registro_id INT NOT NULL,
+    conteudo_id INT NOT NULL,
+    PRIMARY KEY (registro_id, conteudo_id),
+    CONSTRAINT fk_rc_registro FOREIGN KEY (registro_id) REFERENCES registro_estudo(id) ON DELETE CASCADE,
+    CONSTRAINT fk_rc_conteudo FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE INDEX idx_disciplina_usuario ON disciplina(usuario_id);
 CREATE INDEX idx_conteudo_disciplina ON conteudo(disciplina_id);
 CREATE INDEX idx_registro_usuario_data ON registro_estudo(usuario_id, data);

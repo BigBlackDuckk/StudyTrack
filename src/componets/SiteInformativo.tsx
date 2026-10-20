@@ -46,7 +46,7 @@ const SiteInformativo: React.FC<SiteInformativoProps> = ({ visible, onClose }) =
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: '#0a0a0f',
     zIndex: 9999,
   },

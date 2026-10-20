@@ -208,7 +208,7 @@ export default function Perfil({ t, user, setUser, dark, setDark, onLogout, onSi
         <Linha t={t} last onPress={() => {
           Alert.alert('Suporte', 'Em caso de dúvidas, entre em contato com a equipe de desenvolvimento.');
         }}>
-          <Icon name="chatbubbles" size={18} color={t.accent} />
+          <Icon name="message-circle" size={18} color={t.accent} />
           <Text style={[s.rowText, { color: t.text, marginLeft: 10 }]}>Suporte e Contato</Text>
           <Icon name="chevron-right" size={18} color={t.muted} />
         </Linha>

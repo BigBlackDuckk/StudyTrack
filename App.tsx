@@ -166,13 +166,13 @@ export default function App() {
         )}
         {tela === 'cronograma' && <Cronograma t={t} discs={discs} blocks={blocks} reload={reload} />}
         {tela === 'registro' && <Registro t={t} discs={discs} metas={metas} records={records} timer={timer} reload={reload} />}
-        {tela === 'metas' && <Metas t={t} metas={metas} reload={reload} />}
+        {tela === 'metas' && <Metas t={t} metas={metas} discs={discs} reload={reload} />}
         {tela === 'simulados' && <Simulados t={t} discs={discs} sims={sims} reload={reload} onBack={() => go(voltarPara)} />}
         {tela === 'perfil' && <Perfil t={t} user={user} setUser={setUser} dark={dark} setDark={setDark} onLogout={sair} onSimulados={() => abrirSimulados('perfil')} onAbrirTutorial={() => setTutorial(true)} onDadosAlterados={reload} />}
       </View>
       <Nav t={t} aba={navAtiva} go={go} />
 
-      <SubjectModal t={t} disc={selectedDisc} onClose={() => setSelectedDisc(null)} reload={reload} />
+      <SubjectModal t={t} disc={selectedDisc} discs={discs} onClose={() => setSelectedDisc(null)} reload={reload} />
       <SubjectsModal t={t} visible={allSubjectsOpen} discs={discs} onClose={() => setAllSubjectsOpen(false)} onOpen={setSelectedDisc} reload={reload} />
       <ProgressModal t={t} visible={progressOpen} discs={discs} records={records} metas={metas} onClose={() => setProgressOpen(false)} onOpenSubject={setSelectedDisc} />
 

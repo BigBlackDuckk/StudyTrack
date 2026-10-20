@@ -39,11 +39,21 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS simulado (id TEXT PRIMARY KEY NOT NULL, titulo TEXT NOT NULL, materia TEXT, arquivo TEXT NOT NULL, data_adicionado TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS sync_outbox (id INTEGER PRIMARY KEY AUTOINCREMENT, tabela TEXT NOT NULL, acao TEXT NOT NULL, id_local TEXT NOT NULL, tentativas INTEGER NOT NULL DEFAULT 0, criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS sync_map (tabela TEXT NOT NULL, id_local TEXT NOT NULL, id_remoto INTEGER NOT NULL, PRIMARY KEY (tabela, id_local));
+    CREATE TABLE IF NOT EXISTS simulado_disciplina (simulado_id TEXT NOT NULL, disciplina_id TEXT NOT NULL, PRIMARY KEY (simulado_id, disciplina_id), FOREIGN KEY (simulado_id) REFERENCES simulado(id) ON DELETE CASCADE, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
+    CREATE TABLE IF NOT EXISTS conteudo_disciplina (conteudo_id TEXT NOT NULL, disciplina_id TEXT NOT NULL, PRIMARY KEY (conteudo_id, disciplina_id), FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
+    CREATE TABLE IF NOT EXISTS meta_disciplina (meta_id TEXT NOT NULL, disciplina_id TEXT NOT NULL, PRIMARY KEY (meta_id, disciplina_id), FOREIGN KEY (meta_id) REFERENCES meta(id) ON DELETE CASCADE, FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE);
+    CREATE TABLE IF NOT EXISTS registro_conteudo (registro_id TEXT NOT NULL, conteudo_id TEXT NOT NULL, PRIMARY KEY (registro_id, conteudo_id), FOREIGN KEY (registro_id) REFERENCES registro_estudo(id) ON DELETE CASCADE, FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE);
   `);
   for (const sql of [
     'ALTER TABLE registro_estudo ADD COLUMN fotos TEXT',
     'ALTER TABLE meta ADD COLUMN observacao TEXT',
     'ALTER TABLE meta ADD COLUMN foto TEXT',
+  ]) { try { await db.execAsync(sql); } catch {} }
+  // Retro-migração N-para-M: vínculos 1-N legados viram linhas nas junctions.
+  // INSERT OR IGNORE garante idempotência em bancos já migrados.
+  for (const sql of [
+    'INSERT OR IGNORE INTO conteudo_disciplina (conteudo_id, disciplina_id) SELECT id, disciplina_id FROM conteudo',
+    'INSERT OR IGNORE INTO registro_conteudo (registro_id, conteudo_id) SELECT id, conteudo_id FROM registro_estudo WHERE conteudo_id IS NOT NULL',
   ]) { try { await db.execAsync(sql); } catch {} }
   return db;
 }

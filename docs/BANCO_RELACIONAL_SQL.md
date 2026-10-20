@@ -21,6 +21,27 @@ DISCIPLINA 1 ─── N SIMULADO
 USUARIO 1 ─── 1 CONFIGURACAO
 ```
 
+## Relacionamentos N-para-M (tabelas associativas)
+
+Resolvidos com junctions de PK composta + `ON DELETE CASCADE`:
+
+```text
+SIMULADO N ─── simulado_disciplina ─── N DISCIPLINA
+CONTEUDO N ─── conteudo_disciplina ─── N DISCIPLINA
+META N ─── meta_disciplina ─── N DISCIPLINA
+REGISTRO_ESTUDO N ─── registro_conteudo ─── N CONTEUDO
+```
+
+- `simulado_disciplina(simulado_id, disciplina_id)` — um simulado cobre várias matérias.
+- `conteudo_disciplina(conteudo_id, disciplina_id)` — um conteúdo vale para várias matérias.
+- `meta_disciplina(meta_id, disciplina_id)` — uma meta visa várias matérias.
+- `registro_conteudo(registro_id, conteudo_id)` — uma sessão marca vários conteúdos.
+
+As colunas 1-N legadas (`conteudo.disciplina_id`, `registro_estudo.conteudo_id`,
+`simulado.disciplina_id`) foram mantidas por compatibilidade e migradas para as
+junctions na inicialização (`INSERT OR IGNORE` / `INSERT IGNORE`, idempotente).
+O caminho canônico de leitura/escrita passa pelas junctions via `JOIN`.
+
 ## Chaves
 
 Cada tabela possui uma chave primária (`PRIMARY KEY`). As tabelas dependentes usam chaves estrangeiras (`FOREIGN KEY`) para manter a integridade referencial.

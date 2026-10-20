@@ -99,6 +99,50 @@ CREATE TABLE IF NOT EXISTS configuracao (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
+-- ---------------------------------------------------------------------------
+-- Tabelas associativas N-para-M (junctions com PK composta + CASCADE).
+-- Mantêm as colunas legadas (disciplina_id única) por compatibilidade, mas o
+-- caminho canônico passa a ser a junction correspondente.
+-- ---------------------------------------------------------------------------
+
+-- Um simulado pode cobrir várias disciplinas; uma disciplina tem vários simulados.
+CREATE TABLE IF NOT EXISTS simulado_disciplina (
+    simulado_id INTEGER NOT NULL,
+    disciplina_id INTEGER NOT NULL,
+    PRIMARY KEY (simulado_id, disciplina_id),
+    FOREIGN KEY (simulado_id) REFERENCES simulado(id) ON DELETE CASCADE,
+    FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+);
+
+-- Um conteúdo pode ser compartilhado por várias disciplinas (ex.: "Funções"
+-- em Matemática e Física); uma disciplina tem vários conteúdos.
+CREATE TABLE IF NOT EXISTS conteudo_disciplina (
+    conteudo_id INTEGER NOT NULL,
+    disciplina_id INTEGER NOT NULL,
+    PRIMARY KEY (conteudo_id, disciplina_id),
+    FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE,
+    FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+);
+
+-- Uma meta pode visar várias disciplinas; uma disciplina tem várias metas.
+CREATE TABLE IF NOT EXISTS meta_disciplina (
+    meta_id INTEGER NOT NULL,
+    disciplina_id INTEGER NOT NULL,
+    PRIMARY KEY (meta_id, disciplina_id),
+    FOREIGN KEY (meta_id) REFERENCES meta(id) ON DELETE CASCADE,
+    FOREIGN KEY (disciplina_id) REFERENCES disciplina(id) ON DELETE CASCADE
+);
+
+-- Um registro de estudo pode marcar vários conteúdos de uma vez (ex.: sessão
+-- que cobriu 3 tópicos); um conteúdo aparece em vários registros.
+CREATE TABLE IF NOT EXISTS registro_conteudo (
+    registro_id INTEGER NOT NULL,
+    conteudo_id INTEGER NOT NULL,
+    PRIMARY KEY (registro_id, conteudo_id),
+    FOREIGN KEY (registro_id) REFERENCES registro_estudo(id) ON DELETE CASCADE,
+    FOREIGN KEY (conteudo_id) REFERENCES conteudo(id) ON DELETE CASCADE
+);
+
 CREATE INDEX IF NOT EXISTS idx_disciplina_usuario ON disciplina(usuario_id);
 CREATE INDEX IF NOT EXISTS idx_conteudo_disciplina ON conteudo(disciplina_id);
 CREATE INDEX IF NOT EXISTS idx_registro_usuario_data ON registro_estudo(usuario_id, data);

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-import { Btn, Card, Check, Field, Header, Icon, SectionTitle } from '../componets/ui';
+import { Btn, Card, Check, Chip, Field, Header, Icon, SectionTitle } from '../componets/ui';
 import { Theme, TOP, shadow } from '../global/theme';
 import { Disciplina, clock, fmtDate, fmtDur, isoDate } from '../global/utils';
-import { alternarMetaDb, excluirRegistro, listarRegistros, registrarEstudo } from '../services/studytrack';
-import type { MetaDb, RegistroDb } from '../services/studytrack';
+import { alternarMetaDb, conteudosDeRegistro, definirConteudosDeRegistro, excluirRegistro, listarConteudos, listarRegistros, registrarEstudo } from '../services/studytrack';
+import type { ConteudoDb, MetaDb, RegistroDb } from '../services/studytrack';
 import type { useTimer } from '../global/useTimer';
 
 // Anel de progresso feito só com Views (sem react-native-svg).
@@ -36,18 +36,32 @@ export default function Registro({ t, discs, metas, records, timer, reload }: Pr
   const [lista, setLista] = useState<RegistroDb[]>([]);
   const [obs, setObs] = useState('');
   const [photos, setPhotos] = useState<string[]>([]);
+  const [conts, setConts] = useState<ConteudoDb[]>([]);
+  const [selConts, setSelConts] = useState<string[]>([]);
+  const [vincReg, setVincReg] = useState<Record<string, string[]>>({});
 
   const atual = discs.find((d) => d.id === disc) || discs[0];
   useEffect(() => { if (!disc && discs[0]) setDisc(discs[0].id); }, [discs, disc]);
   useEffect(() => { if (atual) listarRegistros(atual.id).then(setLista); }, [atual?.id, records]);
+  useEffect(() => { if (atual) listarConteudos(atual.id).then(setConts); setSelConts([]); }, [atual?.id]);
+  useEffect(() => {
+    (async () => {
+      const x: Record<string, string[]> = {};
+      for (const r of lista) x[r.id] = (await conteudosDeRegistro(r.id)).map((c) => c.nome);
+      setVincReg(x);
+    })();
+  }, [lista.map((r) => r.id).join(',')]);
+  const toggleCont = (id: string) => setSelConts((v) => (v.includes(id) ? v.filter((x) => x !== id) : [...v, id]));
 
   const encerrar = async () => {
     if (!atual) return;
     if (sec < 1) return Alert.alert('Nada para salvar', 'Inicie o cronômetro antes de encerrar.');
-    await registrarEstudo(atual.id, sec, undefined, obs, photos);
+    const rid = await registrarEstudo(atual.id, sec, selConts[0], obs, photos);
+    if (selConts.length) await definirConteudosDeRegistro(rid, selConts);
     reset();
     setObs('');
     setPhotos([]);
+    setSelConts([]);
     reload();
   };
   const pick = async () => {
@@ -101,6 +115,14 @@ export default function Registro({ t, discs, metas, records, timer, reload }: Pr
         <Card t={t} style={{ marginTop: 16 }}>
           <Text style={{ color: t.text, fontWeight: '800' }}>Anotações da sessão</Text>
           <Field t={t} value={obs} onChangeText={setObs} multiline placeholder="O que você estudou, dificuldades..." />
+          {!!conts.length && (
+            <>
+              <Text style={{ color: t.muted, fontSize: 12, marginTop: 10 }}>Conteúdos da sessão (pode marcar vários)</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 6 }}>
+                {conts.map((c) => <Chip key={c.id} t={t} label={c.nome} on={selConts.includes(c.id)} onPress={() => toggleCont(c.id)} />)}
+              </ScrollView>
+            </>
+          )}
           <Btn t={t} label={`Adicionar fotos (${photos.length})`} icon="image" kind="secondary" small onPress={pick} />
           {photos.length > 0 && <ScrollView horizontal>{photos.map((p) => <Image key={p} source={{ uri: p }} style={s.thumb} />)}</ScrollView>}
           <TouchableOpacity onPress={reset} style={{ alignSelf: 'flex-start', marginTop: 12 }}>
@@ -140,6 +162,7 @@ export default function Registro({ t, discs, metas, records, timer, reload }: Pr
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{ flex: 1 }}>
                   <Text style={{ color: t.text, fontWeight: '800' }}>{fmtDate(r.data)} · {fmtDur(r.duracao)}</Text>
+                  {!!vincReg[r.id]?.length && <Text style={{ color: t.accent, marginTop: 4, fontSize: 12 }}>{vincReg[r.id].join(' · ')}</Text>}
                   {!!r.observacao && <Text style={{ color: t.muted, marginTop: 4 }}>{r.observacao}</Text>}
                 </View>
                 <TouchableOpacity hitSlop={8} onPress={() => Alert.alert('Excluir registro?', undefined, [{ text: 'Cancelar', style: 'cancel' }, { text: 'Excluir', style: 'destructive', onPress: async () => { await excluirRegistro(r.id); reload(); } }])}>

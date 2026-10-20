@@ -5,7 +5,7 @@ import { Btn, Card, Check, Chip, Field, Icon, ModalBox } from '../componets/ui';
 import { Theme, areaColor } from '../global/theme';
 import { AREAS, Disciplina, fmtDate, fmtDur } from '../global/utils';
 import {
-  adicionarConteudo, adicionarDisciplina, editarConteudo, editarDisciplina, excluirConteudo, excluirDisciplina, excluirRegistro,
+  adicionarConteudo, adicionarDisciplina, conteudosDeRegistro, definirConteudosDeRegistro, definirDisciplinasDeConteudo, disciplinasDeConteudo, editarConteudo, editarDisciplina, excluirConteudo, excluirDisciplina, excluirRegistro,
   listarConteudos, listarRegistros, marcarConteudo, registrarEstudo,
 } from '../services/studytrack';
 import type { ConteudoDb, MetaDb, RegistroDb } from '../services/studytrack';
@@ -107,7 +107,7 @@ function SubjectForm({ t, visible, onClose, reload, initial }: { t: Theme; visib
 // Atalhos de duração: na maioria dos casos um toque é melhor que digitar.
 const ATALHOS = [15, 30, 45, 60, 90, 120];
 
-export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Disciplina | null; onClose: () => void; reload: () => void }) {
+export function SubjectModal({ t, disc, discs, onClose, reload }: { t: Theme; disc: Disciplina | null; discs: Disciplina[]; onClose: () => void; reload: () => void }) {
   const [contents, setContents] = useState<ConteudoDb[]>([]);
   const [records, setRecords] = useState<RegistroDb[]>([]);
   const [newC, setNewC] = useState('');
@@ -115,11 +115,16 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
   const [photo, setPhoto] = useState<string[]>([]);
   const [duration, setDuration] = useState('30');
   const [editing, setEditing] = useState<ConteudoDb | null>(null);
+  const [vincReg, setVincReg] = useState<Record<string, string[]>>({});
 
   const refresh = async () => {
     if (!disc) return;
     setContents(await listarConteudos(disc.id));
-    setRecords(await listarRegistros(disc.id));
+    const regs = await listarRegistros(disc.id);
+    setRecords(regs);
+    const x: Record<string, string[]> = {};
+    for (const r of regs) x[r.id] = (await conteudosDeRegistro(r.id)).map((c) => c.nome);
+    setVincReg(x);
   };
   useEffect(() => { refresh(); }, [disc]);
   if (!disc) return null;
@@ -151,9 +156,9 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
         ))}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Field t={t} value={newC} onChangeText={setNewC} placeholder="Inserir conteúdo que estudou" style={{ flex: 1 }} />
-          <Btn t={t} label="" icon="plus" small style={{ marginTop: 10 }} onPress={async () => { if (newC.trim()) { await adicionarConteudo(disc.id, newC); setNewC(''); await refresh(); reload(); } }} />
+          <Btn t={t} label="" icon="plus" small style={{ marginTop: 10 }} onPress={async () => { if (newC.trim()) { const cid = await adicionarConteudo(disc.id, newC); await definirDisciplinasDeConteudo(cid, [disc.id]); setNewC(''); await refresh(); reload(); } }} />
         </View>
-        {editing && <ContentEdit t={t} c={editing} onClose={() => setEditing(null)} onSaved={async () => { setEditing(null); await refresh(); reload(); }} />}
+        {editing && <ContentEdit t={t} c={editing} discs={discs} atual={disc.id} onClose={() => setEditing(null)} onSaved={async () => { setEditing(null); await refresh(); reload(); }} />}
 
         <Text style={[m.h, { color: t.text, marginTop: 22 }]}>Registrar estudo</Text>
         <Text style={{ color: t.muted, fontSize: 12, marginBottom: 6 }}>Quanto tempo você estudou?</Text>
@@ -168,7 +173,7 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
         <Field t={t} value={obs} onChangeText={setObs} multiline placeholder="O que fiz, dificuldades, evolução..." />
         <Btn t={t} label={`Fotos (${photo.length})`} icon="image" kind="secondary" onPress={pickPhotos} />
         {photo.length > 0 && <ScrollView horizontal>{photo.map((p) => <Image key={p} source={{ uri: p }} style={m.thumb} />)}</ScrollView>}
-        <Btn t={t} label="Salvar registro" onPress={async () => { await registrarEstudo(disc.id, (Number(duration) || 0) * 60, undefined, obs, photo); setObs(''); setPhoto([]); await refresh(); reload(); }} />
+        <Btn t={t} label="Salvar registro" onPress={async () => { const rid = await registrarEstudo(disc.id, (Number(duration) || 0) * 60, contents.filter((c) => !!c.estudado).map((c) => c.id)[0], obs, photo); const marcados = contents.filter((c) => !!c.estudado).map((c) => c.id); if (marcados.length) await definirConteudosDeRegistro(rid, marcados); setObs(''); setPhoto([]); await refresh(); reload(); }} />
 
         <Text style={[m.h, { color: t.text, marginTop: 22 }]}>Anotações e fotos</Text>
         {records.length === 0 ? (
@@ -180,6 +185,7 @@ export function SubjectModal({ t, disc, onClose, reload }: { t: Theme; disc: Dis
               <View key={r.id} style={[m.record, { borderColor: t.line }]}>
                 <View style={{ flex: 1 }}>
                   <Text style={{ color: t.text, fontWeight: '800' }}>{fmtDate(r.data)} · {fmtDur(r.duracao)}</Text>
+                  {!!vincReg[r.id]?.length && <Text style={{ color: t.accent, marginTop: 4, fontSize: 12 }}>{vincReg[r.id].join(' · ')}</Text>}
                   {!!r.observacao && <Text style={{ color: t.muted, marginTop: 4 }}>{r.observacao}</Text>}
                   {fotos.length > 0 && (
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
@@ -211,12 +217,23 @@ const lerFotos = (valor: string | null): string[] => {
   }
 };
 
-function ContentEdit({ t, c, onClose, onSaved }: { t: Theme; c: ConteudoDb; onClose: () => void; onSaved: () => void }) {
+function ContentEdit({ t, c, discs, atual, onClose, onSaved }: { t: Theme; c: ConteudoDb; discs: Disciplina[]; atual: string; onClose: () => void; onSaved: () => void }) {
   const [n, setN] = useState(c.nome);
+  const [vincs, setVincs] = useState<string[]>([atual]);
+  useEffect(() => { disciplinasDeConteudo(c.id).then((ds) => { if (ds.length) setVincs(ds.map((d) => d.id)); }); }, [c.id]);
+  const toggle = (id: string) => setVincs((v) => (v.includes(id) ? v.filter((x) => x !== id) : [...v, id]));
   return (
     <ModalBox visible onClose={onClose} t={t} title="Editar conteúdo">
       <Field t={t} value={n} onChangeText={setN} />
-      <Btn t={t} label="Salvar" onPress={async () => { await editarConteudo(c.id, n); onSaved(); }} />
+      {!!discs.length && (
+        <>
+          <Text style={{ color: t.muted, fontSize: 12, marginTop: 10 }}>Também vale para (pode marcar várias)</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 6 }}>
+            {discs.map((d) => <Chip key={d.id} t={t} label={d.nome} on={vincs.includes(d.id)} onPress={() => toggle(d.id)} />)}
+          </ScrollView>
+        </>
+      )}
+      <Btn t={t} label="Salvar" onPress={async () => { await editarConteudo(c.id, n); await definirDisciplinasDeConteudo(c.id, vincs.length ? vincs : [atual]); onSaved(); }} />
     </ModalBox>
   );
 }

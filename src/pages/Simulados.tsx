@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Linking, Modal, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { WebView } from 'react-native-webview';
 import { Btn, Card, Chip, Field, Header, Icon } from '../componets/ui';
 import { LIGHT, Theme, TOP, areaColor, shadow } from '../global/theme';
 import { Disciplina, fmtDate } from '../global/utils';
-import { adicionarSimulado, excluirSimulado } from '../services/studytrack';
+import { adicionarSimulado, definirDisciplinasDeSimulado, disciplinasDeSimulado, excluirSimulado } from '../services/studytrack';
 import type { SimuladoDb } from '../services/studytrack';
 
 export default function Simulados({ t, discs, sims, reload, onBack }: { t: Theme; discs: Disciplina[]; sims: SimuladoDb[]; reload: () => void; onBack: () => void }) {
-  const [materia, setMateria] = useState('');
+  const [materias, setMaterias] = useState<string[]>([]);
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState<SimuladoDb | null>(null);
-  const escolhida = discs.find((d) => d.id === materia) || discs[0];
+  const [vinc, setVinc] = useState<Record<string, string[]>>({});
+  useEffect(() => {
+    (async () => {
+      const x: Record<string, string[]> = {};
+      for (const sm of sims) x[sm.id] = (await disciplinasDeSimulado(sm.id)).map((d) => d.nome);
+      setVinc(x);
+    })();
+  }, [sims.map((s) => s.id).join(',')]);
+
+  const toggle = (id: string) => setMaterias((m) => (m.includes(id) ? m.filter((x) => x !== id) : [...m, id]));
 
   const pick = async () => {
     const r = await DocumentPicker.getDocumentAsync({ type: 'application/pdf', copyToCacheDirectory: true });
     if (r.canceled) return;
     const a = r.assets[0];
-    await adicionarSimulado(title || a.name.replace(/\.pdf$/i, ''), escolhida?.nome || '', a.uri);
+    const escolhidas = discs.filter((d) => materias.includes(d.id));
+    const primeira = escolhidas[0] || discs[0];
+    const sid = await adicionarSimulado(title || a.name.replace(/\.pdf$/i, ''), primeira?.nome || '', a.uri);
+    if (escolhidas.length) await definirDisciplinasDeSimulado(sid, escolhidas.map((d) => d.id));
     setTitle('');
+    setMaterias([]);
     reload();
   };
 
@@ -30,21 +43,23 @@ export default function Simulados({ t, discs, sims, reload, onBack }: { t: Theme
       <Card t={t}>
         <Text style={{ color: t.text, fontWeight: '800' }}>Novo simulado</Text>
         <Field t={t} value={title} onChangeText={setTitle} placeholder="Nome do simulado (opcional)" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
-          {discs.map((d) => <Chip key={d.id} t={t} label={d.nome} on={d.id === escolhida?.id} onPress={() => setMateria(d.id)} />)}
+        <Text style={{ color: t.muted, fontSize: 12, marginTop: 10 }}>Matérias (pode marcar várias)</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 6 }}>
+          {discs.map((d) => <Chip key={d.id} t={t} label={d.nome} on={materias.includes(d.id)} onPress={() => toggle(d.id)} />)}
         </ScrollView>
         <Btn t={t} label="Inserir PDF" icon="upload" onPress={pick} />
       </Card>
 
       {sims.length === 0 && <Card t={t}><Text style={{ color: t.muted }}>Nenhum simulado salvo ainda.</Text></Card>}
       {sims.map((sm) => {
-        const cor = areaColor(discs.find((d) => d.nome === sm.materia)?.area);
+        const nomes = vinc[sm.id] && vinc[sm.id].length ? vinc[sm.id] : (sm.materia ? [sm.materia] : []);
+        const cor = areaColor(discs.find((d) => d.nome === nomes[0])?.area);
         return (
           <View key={sm.id} style={[s.item, { backgroundColor: t.surface, borderLeftColor: cor }]}>
             <View style={[s.icon, { backgroundColor: t.line }]}><Icon name="file-text" size={20} color={t.primary} /></View>
             <View style={{ flex: 1, marginLeft: 12 }}>
               <Text style={{ color: t.text, fontWeight: '800', fontSize: 15 }} numberOfLines={1}>{sm.titulo}</Text>
-              <Text style={{ color: t.muted, fontSize: 12, marginTop: 3 }}>{sm.materia || 'Sem matéria'} · {fmtDate(sm.data_adicionado)}</Text>
+              <Text style={{ color: t.muted, fontSize: 12, marginTop: 3 }}>{nomes.length ? nomes.join(' · ') : 'Sem matéria'} · {fmtDate(sm.data_adicionado)}</Text>
             </View>
             <Btn t={t} label="Abrir" small style={{ marginTop: 0, marginRight: 10 }} onPress={() => setOpen(sm)} />
             <TouchableOpacity hitSlop={8} onPress={() => Alert.alert('Excluir PDF?', undefined, [{ text: 'Cancelar', style: 'cancel' }, { text: 'Excluir', style: 'destructive', onPress: async () => { await excluirSimulado(sm.id); reload(); } }])}>
