@@ -1,0 +1,42 @@
+═══════════════════════════════════════════
+  STUDYTRACK - SITE INFORMATIVO
+═══════════════════════════════════════════
+
+COMO ABRIR O SITE:
+──────────────────
+1. Clique duas vezes em: ABRIR.bat
+   OU
+2. Abra o arquivo: index.html no navegador
+
+O QUE VOCÊ ENCONTRA:
+────────────────────
+✓ O que é o StudyTrack
+✓ 8 recursos principais
+✓ Como usar em 4 passos
+✓ 6 perguntas frequentes
+✓ Tecnologias utilizadas
+✓ Acesso ao Google Drive
+
+ESTRUTURA DOS ARQUIVOS:
+───────────────────────
+📄 index.html   - Estrutura do site
+🎨 styles.css   - Estilos e cores
+⚙️  script.js    - Animações e interações
+🚀 ABRIR.bat    - Script para abrir
+
+LINKS DO GOOGLE DRIVE:
+──────────────────────
+Os botões "Acessar StudyTrack" e "Começar Agora"
+levam para: https://drive.google.com/drive/folders/1AsiPdVDi6egdoYwR0ZyfWp63qOYIQzLa
+
+MELHORIAS IMPLEMENTADAS:
+────────────────────────
+✓ Cores mais elegantes (azul escuro #0f0f1a)
+✓ Gradientes suaves roxos/azuis
+✓ Animações fluidas (fade, float, pulse)
+✓ Design moderno e clean
+✓ Totalmente responsivo
+✓ Efeitos hover sofisticados
+✓ Separado em 3 arquivos organizados
+
+Pronto para usar! 🎓
