@@ -9,6 +9,22 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+// ============================================================================
+// Middleware de log de requisições em tempo real
+// Mostra no terminal: data/hora | método | URL | status | tempo de resposta
+// ============================================================================
+app.use((req, res, next) => {
+  const start = Date.now();
+  const timestamp = () => new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    console.log(`[${timestamp()}] ${req.method.padEnd(7)} ${req.originalUrl.padEnd(30)} ${res.statusCode} - ${duration}ms`);
+  });
+
+  next();
+});
+
 const port = Number(process.env.PORT) || 3333;
 const dbFile = process.env.DATABASE_FILE || path.resolve(process.cwd(), 'database', 'studytrack.db');
 fs.mkdirSync(path.dirname(dbFile), { recursive: true });
