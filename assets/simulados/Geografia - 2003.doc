@@ -1,0 +1,417 @@
+{\rtf1\ansi\ansicpg1252\uc1 \deff0\deflang1033\deflangfe1046{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}
+{\f16\fswiss\fcharset0\fprq2{\*\panose 020b0506020202030204}Arial Narrow;}{\f23\froman\fcharset238\fprq2 Times New Roman CE;}{\f24\froman\fcharset204\fprq2 Times New Roman Cyr;}{\f26\froman\fcharset161\fprq2 Times New Roman Greek;}
+{\f27\froman\fcharset162\fprq2 Times New Roman Tur;}{\f28\froman\fcharset186\fprq2 Times New Roman Baltic;}{\f29\fswiss\fcharset238\fprq2 Arial CE;}{\f30\fswiss\fcharset204\fprq2 Arial Cyr;}{\f32\fswiss\fcharset161\fprq2 Arial Greek;}
+{\f33\fswiss\fcharset162\fprq2 Arial Tur;}{\f34\fswiss\fcharset186\fprq2 Arial Baltic;}{\f119\fswiss\fcharset238\fprq2 Arial Narrow CE;}{\f120\fswiss\fcharset204\fprq2 Arial Narrow Cyr;}{\f122\fswiss\fcharset161\fprq2 Arial Narrow Greek;}
+{\f123\fswiss\fcharset162\fprq2 Arial Narrow Tur;}{\f124\fswiss\fcharset186\fprq2 Arial Narrow Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;
+\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;}{\stylesheet{
+\nowidctlpar\widctlpar\adjustright \fs20\lang1046\cgrid \snext0 Normal;}{\s2\qc\sb60\sa60\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs42\cf1\lang2070\cgrid \sbasedon0 \snext0 heading 2;}{\s3\qc\sl216\slmult1
+\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\f1\fs20\cf1\lang2070\cgrid \sbasedon0 \snext0 heading 3;}{\s5\qc\keepn\nowidctlpar\widctlpar\outlinelevel4\adjustright \f16\fs32\cf1\lang1046\cgrid \sbasedon0 \snext0 heading 5;}{\*\cs10 \additive 
+Default Paragraph Font;}{\s15\qj\fi-397\li397\sb240\sa120\keep\keepn\nowidctlpar\widctlpar\jclisttab\tx397\ls13\outlinelevel0\adjustright \f1\fs18\lang1046\cgrid \sbasedon0 \snext16 \sautoupd 1.quest\'e3o;}{\s16\qj\fi-425\li822\nowidctlpar\widctlpar
+\jclisttab\tx822\ls13\ilvl1\outlinelevel1\adjustright \f1\fs18\cf1\lang1046\cgrid \sbasedon0 \snext16 \sautoupd 1) proposi\'e7\'e3o;}{\s17\qj\nowidctlpar\widctlpar\jclisttab\tx360\ls13\ilvl2\outlinelevel2\adjustright \f1\fs18\lang1046\cgrid 
+\sbasedon0 \snext17 \sautoupd (   ) proposi\'e7\'e3o;}{\s18\qj\fi-397\li397\sb60\sa60\keep\keepn\nowidctlpar\widctlpar\jclisttab\tx397\ls13\ilvl3\outlinelevel3\adjustright \f1\fs18\cf6\lang1046\cgrid \sbasedon0 \snext0 \sautoupd texto;}{
+\s19\qj\fi-425\li822\keep\nowidctlpar\widctlpar\jclisttab\tx822\ls13\ilvl4\outlinelevel4\adjustright \f1\fs18\lang1046\cgrid \sbasedon0 \snext19 \sautoupd A) alternativa;}{\s20\qj\li360\nowidctlpar\widctlpar\ilvl12\adjustright \f1\fs19\cf1\lang2070\cgrid 
+\sbasedon0 \snext20 Body Text 2;}{\s21\qj\sl144\slmult1\nowidctlpar\widctlpar\box\brdrs\brdrw20\brsp100 \adjustright \f1\cf1\lang2070\cgrid \sbasedon0 \snext21 Body Text;}{\s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid 
+\sbasedon0 \snext22 Enunciado;}{\s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid \sbasedon0 \snext23 Proposi\'e7\'e3o;}{\s24\qc\nowidctlpar\widctlpar\adjustright \b\f1\fs28\lang1046\cgrid \sbasedon0 \snext24 Title;}{\*\cs25 
+\additive \sbasedon10 page number;}{\s26\nowidctlpar\widctlpar\tqc\tx4419\tqr\tx8838\adjustright \fs20\lang1046\cgrid \sbasedon0 \snext26 header;}}{\*\listtable{\list\listtemplateid1942805000\listsimple{\listlevel\levelnfc0\leveljc0\levelfollow0
+\levelstartat32\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-405\li802\jclisttab\tx802 }{\listname ;}\listid39943070}{\list\listtemplateid-746020990{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\'02\'00.;}{\levelnumbers\'01;}\fbias0 \fi-390\li750\jclisttab\tx750 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\jclisttab\tx1440 }
+{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'02.;}{\levelnumbers\'01;}\fi-180\li2160\jclisttab\tx2160 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2880\jclisttab\tx2880 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3600\jclisttab\tx3600 }{\listlevel\levelnfc2\leveljc2
+\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}\fi-180\li4320\jclisttab\tx4320 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}
+\fi-360\li5040\jclisttab\tx5040 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5760\jclisttab\tx5760 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1
+\levelspace0\levelindent0{\leveltext\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6480\jclisttab\tx6480 }{\listname ;}\listid219294521}{\list\listtemplateid56381726\listsimple{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0
+{\leveltext\'02\'00.;}{\levelnumbers\'01;}\b\i0 \fi-360\li360\jclisttab\tx360 }{\listname ;}\listid336084398}{\list\listtemplateid1251479352\listsimple{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat64\levelspace0\levelindent0{\leveltext
+\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-405\li802\jclisttab\tx802 }{\listname ;}\listid491914067}{\list\listtemplateid1149018266\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat4\levelspace0\levelindent0{\leveltext
+\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-405\li802\jclisttab\tx802 }{\listname ;}\listid567149151}{\list\listtemplateid398730374\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-360\li757\jclisttab\tx757 }{\listname ;}\listid592974058}{\list\listtemplateid672149526\listsimple{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat32\levelspace0\levelindent0{\leveltext
+\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-405\li802\jclisttab\tx802 }{\listname ;}\listid625702002}{\list\listtemplateid2046721936{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace360\levelindent0{\leveltext\'02\'00.;}{\levelnumbers
+\'01;}\fbias0 \fi-375\li735\jclisttab\tx735 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\jclisttab\tx1440 }{\listlevel\levelnfc2\leveljc2\levelfollow0
+\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'02.;}{\levelnumbers\'01;}\fi-180\li2160\jclisttab\tx2160 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2880
+\jclisttab\tx2880 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3600\jclisttab\tx3600 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}\fi-180\li4320\jclisttab\tx4320 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}\fi-360\li5040\jclisttab\tx5040 }
+{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5760\jclisttab\tx5760 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6480\jclisttab\tx6480 }{\listname ;}\listid742332273}{\list\listtemplateid-614046090{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'00.;}{\levelnumbers\'01;}
+\fbias0 \fi-360\li720\jclisttab\tx720 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\jclisttab\tx1440 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1
+\levelspace0\levelindent0{\leveltext\'02\'02.;}{\levelnumbers\'01;}\fi-180\li2160\jclisttab\tx2160 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2880
+\jclisttab\tx2880 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3600\jclisttab\tx3600 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}\fi-180\li4320\jclisttab\tx4320 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}\fi-360\li5040\jclisttab\tx5040 }
+{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5760\jclisttab\tx5760 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6480\jclisttab\tx6480 }{\listname ;}\listid808398674}{\list\listtemplateid78561404\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat4\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers
+\'01;}\fbias0 \fi-360\li757\jclisttab\tx757 }{\listname ;}\listid1114714244}{\list\listtemplateid-2102764436{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'00.;}{\levelnumbers\'01;}
+\b\i0\f1\fs22\cf0\fbias0 \s15\fi-397\li397\jclisttab\tx397 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01);}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 \s16\fi-425\li822\jclisttab\tx822 }{\listlevel
+\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'06\'02(   );}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 \s17\fi-425\li822\jclisttab\tx822 }{\listlevel\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\'01\'03;}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 \s18\fi-397\li397\jclisttab\tx397 }{\listlevel\levelnfc3\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04);}{\levelnumbers\'01;}
+\b0\i0\f1\fs18\fbias0 \s19\fi-425\li822\jclisttab\tx822 }{\listlevel\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'03B\'05);}{\levelnumbers\'02;}\b0\i0\f1\fs18\fbias0 \fi-425\li822\jclisttab\tx822 }{\listlevel
+\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'03\'06C);}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 \fi-425\li822\jclisttab\tx822 }{\listlevel\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0
+{\leveltext\'03\'07D);}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 \fi-425\li822\jclisttab\tx822 }{\listlevel\levelnfc255\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'03\'08E);}{\levelnumbers\'01;}\b0\i0\f1\fs18\fbias0 
+\fi-425\li822\jclisttab\tx822 }{\listname ;}\listid1469661934}{\list\listtemplateid621205922{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat16\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-390\li787\jclisttab\tx787 
+}{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1477\jclisttab\tx1477 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'02.;}{\levelnumbers\'01;}\fi-180\li2197\jclisttab\tx2197 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2917\jclisttab\tx2917 }{\listlevel\levelnfc4\leveljc0
+\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3637\jclisttab\tx3637 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}
+\fi-180\li4357\jclisttab\tx4357 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}\fi-360\li5077\jclisttab\tx5077 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1
+\levelspace0\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5797\jclisttab\tx5797 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6517
+\jclisttab\tx6517 }{\listname ;}\listid1612854323}{\list\listtemplateid1616575354{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat2\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-390\li787\jclisttab\tx787 }
+{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1477\jclisttab\tx1477 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\'02\'02.;}{\levelnumbers\'01;}\fi-180\li2197\jclisttab\tx2197 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2917\jclisttab\tx2917 }{\listlevel\levelnfc4\leveljc0
+\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3637\jclisttab\tx3637 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}
+\fi-180\li4357\jclisttab\tx4357 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}\fi-360\li5077\jclisttab\tx5077 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1
+\levelspace0\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5797\jclisttab\tx5797 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6517
+\jclisttab\tx6517 }{\listname ;}\listid1768580543}{\list\listtemplateid-1822411714\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat8\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-405\li802
+\jclisttab\tx802 }{\listname ;}\listid1845391742}{\list\listtemplateid-2055990836\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat8\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-360\li757\jclisttab\tx757 
+}{\listname ;}\listid1926725184}{\list\listtemplateid1752475814\listsimple{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'00);}{\levelnumbers\'01;}\fbias0 \fi-360\li757\jclisttab\tx757 }{\listname 
+;}\listid1936473620}{\list\listtemplateid1667298950{\listlevel\levelnfc22\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'00.;}{\levelnumbers\'01;}\fbias0 \fi-405\li765\jclisttab\tx765 }{\listlevel\levelnfc4\leveljc0
+\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\jclisttab\tx1440 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'02.;}{\levelnumbers\'01;}
+\fi-180\li2160\jclisttab\tx2160 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'03.;}{\levelnumbers\'01;}\fi-360\li2880\jclisttab\tx2880 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1
+\levelspace0\levelindent0{\leveltext\'02\'04.;}{\levelnumbers\'01;}\fi-360\li3600\jclisttab\tx3600 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'05.;}{\levelnumbers\'01;}\fi-180\li4320
+\jclisttab\tx4320 }{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'06.;}{\levelnumbers\'01;}\fi-360\li5040\jclisttab\tx5040 }{\listlevel\levelnfc4\leveljc0\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\'02\'07.;}{\levelnumbers\'01;}\fi-360\li5760\jclisttab\tx5760 }{\listlevel\levelnfc2\leveljc2\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'02\'08.;}{\levelnumbers\'01;}\fi-180\li6480\jclisttab\tx6480 }
+{\listname ;}\listid1988853741}}{\*\listoverridetable{\listoverride\listid567149151\listoverridecount0\ls1}{\listoverride\listid1845391742\listoverridecount0\ls2}{\listoverride\listid491914067\listoverridecount0\ls3}{\listoverride\listid336084398
+\listoverridecount0\ls4}{\listoverride\listid625702002\listoverridecount0\ls5}{\listoverride\listid39943070\listoverridecount0\ls6}{\listoverride\listid219294521\listoverridecount0\ls7}{\listoverride\listid1988853741\listoverridecount0\ls8}
+{\listoverride\listid808398674\listoverridecount0\ls9}{\listoverride\listid742332273\listoverridecount0\ls10}{\listoverride\listid1612854323\listoverridecount0\ls11}{\listoverride\listid1768580543\listoverridecount0\ls12}{\listoverride\listid1469661934
+\listoverridecount0\ls13}{\listoverride\listid1936473620\listoverridecount0\ls14}{\listoverride\listid1114714244\listoverridecount0\ls15}{\listoverride\listid1926725184\listoverridecount0\ls16}{\listoverride\listid592974058\listoverridecount0\ls17}}{\info
+{\upr{\title UFPR   ?   PROCESSO SELETIVO 2003   ?   NC}{\*\ud\uc0{\title UFPR   {\uc1\u-3881 ?   PROCESSO SELETIVO 2003   \u-3881 ?   NC}}}}{\author CCCV}{\operator N.C.}{\creatim\yr2002\mo12\dy19\hr19\min1}{\revtim\yr2002\mo12\dy27\hr18\min6}
+{\printim\yr2002\mo11\dy19\hr18\min57}{\version4}{\edmins1}{\nofpages4}{\nofwords2600}{\nofchars14043}{\*\company UFPR}{\nofcharsws0}{\vern73}}\paperw11907\paperh16840\margl567\margr567\margt851\margb737\gutter284 
+\deftab708\widowctrl\ftnbj\aenddoc\hyphhotz425\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\formshade\viewkind1\viewscale100\pgbrdrhead\pgbrdrfoot \fet0\sectd \psz9\linex0\headery709\footery709\colsx709\endnhere\titlepg\sectdefaultcl 
+{\header \pard\plain \s26\nowidctlpar\widctlpar\tqc\tx4419\tqr\tx8838\pvpara\phmrg\posxc\posy0\adjustright \fs20\lang1046\cgrid {\field{\*\fldinst {\cs25\f1\fs16 PAGE  }}{\fldrslt {\cs25\f1\fs16\lang1024 2}}}{\cs25\f1\fs16 
+\par }\pard \s26\nowidctlpar\widctlpar\tqc\tx4419\tqr\tx8838\adjustright {
+\par }}{\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}
+{\*\pnseclvl5\pndec\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl8
+\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl9\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}\pard\plain \s22\qc\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\fs28 GEOGRAFIA }{\b0\fs28 
+
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright {\kerning28 
+\par Q -\tab }{Tendo em vista a hist\'f3ria dos pa\'edses socialistas, assinale a(s) alternativa(s) correta(s):}{\kerning28 
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {\fs12 
+\par }{V)\tab Com o socialismo, a distribui\'e7\'e3o de renda melhorou na maioria dos pa\'edses que o adotaram, sendo que a pobreza absoluta quase chegou a desaparecer em muitos deles. Apesar disso, continuou havendo 
+desigualdades no socialismo real, muitas vezes at\'e9 maiores que as vigentes nos pa\'edses capitalistas desenvolvidos.
+\par V)\tab A planifica\'e7\'e3o centralizada, caracter\'edstica dos pa\'edses socialistas, gerou in\'fameros problemas. Isso refor\'e7a a tese de que as sociedades complexas demandam um sistema descentralizado de tomada de decis\'e3o para responder com efici
+\'eancia a problemas locais e setoriais que n\'e3o podem ser antecipados por um plano econ\'f4mico nacional.
+\par F)\tab O fracasso do socialismo explica-se pelo fato de os pa\'edses socialistas n\'e3o terem sido capazes de romper os la\'e7os de depend\'eancia em rela\'e7\'e3o ao mundo capitalista desenvolvido: eles continuaram a ser exportadores de mat\'e9
+rias-primas e importadores de m\'e1quinas e equipamentos.
+\par F)\tab A economia planificada revelou-se superior \'e0 economia de mercado no que diz respeito \'e0 promo\'e7\'e3o do desenvolvimento econ\'f4mico e tecnol\'f3gico, mas a elevada corrup\'e7\'e3o na burocracia estatal terminou por minar esses resultados.
+
+\par V)\tab Desde 1989, praticamente todos os pa\'edses que compunham o Segundo Mundo transformaram-se em "economias de transi\'e7\'e3o" entre o modelo planificado e a economia de mercado, na medida em que reinstitu\'ed
+ram a propriedade privada da terra, privatizaram empresas estatais e flexibilizaram os sal\'e1rios e as rela\'e7\'f5es de trabalho.
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par 
+\par Q -\tab }{\b0\kerning28 "O mapa n\'e3o deve ser entendido apenas como uma simples ilustra\'e7\'e3o. Ele \'e9 um meio de comunica\'e7\'e3o, uma fonte de conhecimento sobre determinada realidade. Segundo Yves Lacoste, ge\'f3grafo franc\'ea
+s, ler uma carta ou um mapa significa saber agir sobre o terreno." }{\b0\fs14\kerning28 (LUCCI, E. A. }{\b0\i\fs14\kerning28 Geografia}{\b0\fs14\kerning28 : o homem no espa\'e7o global. S\'e3o Paulo: Saraiva, 1998. p. 307.)
+\par }{\b0\fs8\kerning28 
+\par }{\kerning28 \tab Em rela\'e7\'e3o ao tema, \'e9 correto afirmar:
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {\fs12 
+\par }{V)\tab A escala de um mapa \'e9 considerada pequena quando se reduz muito uma informa\'e7\'e3o. Assim, \'e9 imposs\'edvel localizar uma rua da cidade de Curitiba em um mapa do Brasil, na escala de 1:1 000 000. 
+\par V)\tab As proje\'e7\'f5es cartogr\'e1ficas classificam-se em tr\'eas categorias principais: cil\'edndrica, c\'f4nica e azimutal.
+\par V)\tab O relevo submarino pode ser representado atrav\'e9s de curvas denominadas batim\'e9tricas. 
+\par V)\tab Em um mapa, uma das formas de representar o relevo \'e9 atrav\'e9s das curvas de n\'edvel, as quais guardam entre si uma mesma dist\'e2ncia vertical, isto \'e9, s\'e3o eq\'fcidistantes. Assim, se as curvas est\'e3o pr\'f3
+ximas, a leitura que se faz \'e9 de que o terreno representado naquele ponto \'e9 \'edngreme, e se elas est\'e3o afastadas entre si, o terreno tem um relevo mais suave. 
+\par V)\tab A representa\'e7\'e3o da superf\'edcie curva da Terra numa superf\'edcie plana, como em um mapa, se faz atrav\'e9s de representa\'e7\'f5es cartogr\'e1ficas, com o uso de rela\'e7\'f5es matem\'e1ticas e geom\'e9
+tricas. Procura-se, com isso, minimizar as deforma\'e7\'f5es decorrentes da representa\'e7\'e3o do espa\'e7o tridimensional em um plano. 
+\par F)\tab A \'fanica representa\'e7\'e3o cartogr\'e1fica da Terra que n\'e3o apresenta deforma\'e7\'e3o \'e9 o Planisf\'e9rio de Mercator. 
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par 
+\par 
+\par Q -}{\b0\kerning28 \tab "As for\'e7as naturais trabalham constantemente, moldando e alterando as paisagens da Terra. As mudan\'e7as clim\'e1ticas a longo prazo \endash  atribu\'eddas \'e0s leves oscila\'e7\'f5es da \'f3rbita terrestre e \'e0
+s pequenas mudan\'e7as na quantidade de energia irradiada pelo Sol \endash  exp\'f5em a superf\'edcie do planeta a oscila\'e7\'f5es dos n\'edveis de temperatura e umidade. Do mesmo modo, mas em tempos distintos, o lento processo geol\'f3
+gico das placas tect\'f4nicas desloca incansavelmente as massas terrestres desde as regi\'f5es polares \'e0s tropicais, determinando mudan\'e7as na paisagem terrestre." }{\b0\fs14\kerning28 (Adaptado de: }{\b0\i\fs14\kerning28 Atlas do extraordin\'e1rio}{
+\b0\fs14\kerning28 : a forma\'e7\'e3o da terra. Rio de Janeiro: Fernando Chinaglia, 1996. p. 178.)
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright {\fs12 
+\par }\pard\plain \s23\qj\fi-29\li426\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {\b Em rela\'e7\'e3o ao tema, \'e9 correto afirmar:
+\par }\pard \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright {\fs12 
+\par }{V)\tab Na hist\'f3ria geol\'f3gica da Terra as placas tect\'f4nicas chocam-se, separam-se e fragmentam-se, criando novos continentes,  novas paisagens. Essas paisagens, por sua vez, ficar\'e3o expostas a a\'e7\'f5es clim\'e1
+ticas, as quais influem nos processos de eros\'e3o e deposi\'e7\'e3o de sedimentos e na distribui\'e7\'e3o da vegeta\'e7\'e3o.
+\par V)\tab Tendo como um de seus condicionantes o clima, a vegeta\'e7\'e3o funciona como um agente estabilizador da paisagem, diminuindo a a\'e7\'e3o dos processos erosivos.
+\par V)\tab Dentre as esp\'e9cies que coabitam com a vegeta\'e7\'e3o, uma delas est\'e1 exercendo um profundo efeito sobre as paisagens do mundo: o homem. A esp\'e9cie humana est\'e1 acelerando o ritmo de mudan\'e7as do planeta e provocando transforma\'e7\'f5
+es (em parte imprevis\'edveis) para a sua pr\'f3pria sobreviv\'eancia.
+\par V)\tab Do ponto de vista local, al\'e9m dos fatores de ordem natural, a agricultura intensiva \'e9 uma das respons\'e1veis pela perda de grande quantidade de solo f\'e9rtil, podendo transformar muito rapidamente uma paisagem.
+\par F)\tab A press\'e3o demogr\'e1fica \'e9 um mecanismo que estimula a conserva\'e7\'e3o das paisagens naturais do planeta Terra.
+\par }\pard \s23\qj\li397\nowidctlpar\widctlpar\adjustright {
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par \page 
+\par Q -\tab }{\b0\kerning28 "}{\b0 Em 1964, o Estatuto da Terra estabeleceu o conceito de \lquote m\'f3dulo rural\rquote  para orientar a pol\'edtica de reforma agr\'e1ria, o qual consiste numa propriedade com extens\'e3
+o de terra suficiente para oferecer condi\'e7\'f5es de vida adequadas para uma fam\'edlia de quatro membros adultos. Isso significa que o tamanho de um m\'f3dulo rural varia de regi\'e3o para regi\'e3o, dependendo da fertilidade do solo, da localiza\'e7
+\'e3o da propriedade em rela\'e7\'e3o aos mercados consumidores e do tipo de produto cultivado na regi\'e3o. Desse modo, foi poss\'edvel classificar os v\'e1rios tipos de propriedades rurais conforme suas dimens\'f5es em rela\'e7\'e3o ao m\'f3
+dulo rural definido para a regi\'e3o onde cada propriedade se localiza." }{\b0\fs16 (}{\b0\fs14 Adaptado de: SENE, E.; MOREIRA, J. C. }{\b0\i\fs14 Geografia geral e do Brasil}{\b0\fs14 : espa\'e7o geogr\'e1fico e globaliza\'e7\'e3o. S\'e3o Paulo: 
+Scipione, 1998. p. 280.)
+\par }{\b0\fs8 
+\par }{\kerning28 \tab }{O texto acima mostra que, na pol\'edtica de reforma agr\'e1ria, o importante n\'e3o \'e9 o tamanho da propriedade em si, mas o uso que se faz dela. Sobre o assunto, e seguindo os crit\'e9rios usados para fins de reforma agr\'e1
+ria, assinale a(s) alternativa(s) correta(s).}{\kerning28 
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {\fs12 
+\par }{V)\tab O }{\i minif\'fandio}{ \'e9 um tipo de propriedade com extens\'e3o inferior ao m\'f3dulo rural da regi\'e3o, sendo portanto impr\'f3prio para gerar renda suficiente ao sustento digno de uma fam\'edlia de tamanho m\'e9dio.
+\par *V/F)O }{\i latif\'fandio por dimens\'e3o}{ \'e9 um tipo de propriedade com tamanho superior a 600 vezes o m\'f3dulo rural da regi\'e3o e produ\'e7\'e3o agroindustrial em larga escala.
+\par V)\tab O }{\i latif\'fandio por explora\'e7\'e3o}{ tem como principal caracter\'edstica a improdutividade, j\'e1 que a \'e1rea desse tipo de latif\'fandio \'e9 destinada sobretudo \'e0 especula\'e7\'e3o imobili\'e1ria.
+\par F)\tab A }{\i empresa rural}{ \'e9 um tipo de propriedade explorada de forma inadequada; utiliza intensamente agrot\'f3xicos e t\'e9cnicas agr\'edcolas que degradam a fertilidade dos solos, sendo por isso objeto de desapropria\'e7\'e3o para fins de 
+reforma agr\'e1ria.
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par }\pard \s22\qj\li397\nowidctlpar\widctlpar\adjustright {\b0 * Ambas as respostas ser\'e3o consideradas corretas.}{\kerning28 
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright {\kerning28 
+\par 
+\par Q -\tab }{\b0\kerning28 "O sol j\'e1 quente crepita sobre o pavimento das ruas, sobre as janelas, as placas esmaltadas, marmorizadas de poeira. Os rostos dos homens que cruzam as ruas s\'e3o enrugados e cinzentos. [...] Homens limpam os balc\'f5es de m
+\'e1rmore dos caf\'e9s.[...]. De vez em quando um guindaste assobia. Ouve-se o barulho de correias e uma nova viga se eleva, obl\'edqua, pelos ares [...]. \'c0 hora da sa\'ed
+da dos teatros, os homens bem vestidos, as mulheres com decotes [...]. A cidade vai dormir. Os t\'e1xis buzinam e rangem. O c\'e9u cintila na explos\'e3o dourada dos an\'fancios luminosos."  }{\b0\fs14\kerning28 
+(PASSOS, J. DOS. Manhattan Transfer. In: PITTE, J.R. }{\b0\i\fs14\kerning28 Geografia, a natureza humanizada.}{\b0\fs14\kerning28  S\'e3o Paulo: FTD, 1998. p. 61). 
+\par }\pard \s22\qj\nowidctlpar\widctlpar\adjustright {\fs12\kerning28 
+\par }\pard \s22\qj\li397\nowidctlpar\widctlpar\adjustright {Considerando o  tema, assinale a(s) alternativa(s) correta(s).}{\b0\kerning28 
+\par }\pard \s22\qj\nowidctlpar\widctlpar\adjustright {\fs12\kerning28 
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {V)\tab O ambiente urbano \'e9 caracterizado pela dinamiza\'e7\'e3o de trocas culturais e sociais.
+\par V)\tab Dentre as v\'e1rias defini\'e7\'f5es existentes, considera-se a cidade como o espa\'e7o de produ\'e7\'e3o, de trocas e de servi\'e7os.
+\par V)\tab O tecido urbano de uma cidade \'e9 constitu\'eddo pelo conjunto de edifica\'e7\'f5es de distintos usos, distribu\'eddas em determinada por\'e7\'e3o do espa\'e7o.
+\par F)\tab As trocas monet\'e1rias decorrentes de servi\'e7os como seguran\'e7a e abastecimento de \'e1gua s\'e3o a base do crescimento econ\'f4mico das cidades.
+\par F)\tab A infra-estrutura urbana, que pode ser variada e complexa dependendo do tamanho da cidade, est\'e1 a cargo da iniciativa privada, enquanto o poder p\'fablico trata de quest\'f5es administrativas, tais como transporte e educa\'e7\'e3o.  
+\par F)\tab O bem-estar social presente nas cidades contempor\'e2neas \'e9 fruto da possibilidade de acesso a produtos industrializados que facilitam a vida moderna, independentemente da classe social.
+\par 
+\par 
+\par 
+\par }\pard\plain \s22\qj\fi-397\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 Q -}{\b0\kerning28 \tab "}{\b0 Desde 1992, quando assinou o acordo de livre com\'e9rcio que deu origem ao Nafta, o M\'e9
+xico tem experimentado avan\'e7os impressionantes. As exporta\'e7\'f5es triplicaram e o pa\'eds acumula grande super\'e1vit no seu com\'e9rcio com os EUA. O PIB nacional atingiu a marca de US$ 600 bilh\'f5es em 2001, ultrapassando o PIB brasileiro. Gra
+\'e7as ao crescimento econ\'f4mico impulsionado pelas exporta\'e7\'f5es industriais, o M\'e9xico apresenta hoje uma taxa de desemprego de 2,5% (uma das menores do mundo) e infla\'e7\'e3o anual de apenas 4,4%." }{\b0\fs14 
+(Adaptado de: STEFANO, F.; ATTUCH, L. Neg\'f3cios na ALCA: a nova fronteira do lucro. }{\b0\i\fs14 Isto\'c9 Dinheiro}{\b0\fs14 , p. 32-33, 08 maio 2002}{\b0\fs14\kerning28 .}{\b0\fs14 )}{\b0\fs14\kerning28 
+\par }{\b0\fs12 
+\par }{\fs16\kerning28 \tab }{Com base no texto acima e no conhecimento sobre o assunto, assinale a(s) alternativa(s) correta(s).}{\fs16\kerning28 
+\par }{\b0\fs12 
+\par }\pard\plain \s23\qj\fi-397\li794\sl230\slmult1\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {F)\tab Ao aceitar o convite norte-americano para integrar o Nafta, o governo do M\'e9xico desarticulou a estrat\'e9gia brasileira de integra\'e7\'e3
+o do continente sul-americano, que consistia em fortalecer o Pacto Andino, do qual o M\'e9xico era signat\'e1rio at\'e9 ent\'e3o.
+\par V)\tab O crescimento mexicano foi impulsionado principalmente pela expans\'e3o de ind\'fastrias de montagem de componentes, as quais trabalham para as multinacionais norte-americanas e se aproveitam dos baixos sal\'e1rios pagos no M\'e9
+xico para exportar produtos a pre\'e7os menores.
+\par V)\tab Os interesses dos EUA em participar do Nafta n\'e3o s\'e3o apenas econ\'f4micos. Eles objetivam tamb\'e9m criar empregos no M\'e9xico para tentar conter a entrada de imigrantes mexicanos ilegais nos EUA.
+\par V)\tab Os EUA, que t\'eam em suas m\'e3os a lideran\'e7a do Nafta, v\'eaem no M\'e9xico a possibilidade de ampliar as vendas de suas ind\'fastrias, sobretudo considerando o tamanho do mercado mexicano.
+\par }\pard \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright {
+\par 
+\par \page 
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 Q -\tab A}{nalisando os dados da tabela abaixo}{\kerning28  e considerando o tema a que se referem, }{assinale a(s) alternativa(s) correta(s).
+\par }{\b0\fs12 
+\par }\trowd \trleft426\trkeep \clvertalc\cltxlrtb \cellx10490\pard\plain \nowidctlpar\widctlpar\intbl\adjustright \fs20\lang1046\cgrid {\b\f1\fs18 Indicadores Sociais Selecionados
+\par Brasil 
+\par 1970-2000\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\trowd \trrh255\trleft426 \clvertalc\clbrdrt\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx7149\clvertalc\clbrdrt\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \cltxlrtb 
+\cellx7984\clvertalc\clbrdrt\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx8819\clvertalc\clbrdrt\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx9654\clvertalc\clbrdrt\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx10490\pard 
+\qc\nowidctlpar\widctlpar\intbl\adjustright {\b\f1\fs18 Indicadores\cell }\pard \qr\nowidctlpar\widctlpar\intbl\adjustright {\b\f1\fs18 1970\cell 1980\cell 1991\cell 2000\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\trowd 
+\trrh255\trleft426 \clvertalc\cltxlrtb \cellx7149\clvertalc\cltxlrtb \cellx7984\clvertalc\cltxlrtb \cellx8819\clvertalc\cltxlrtb \cellx9654\clvertalc\cltxlrtb \cellx10490\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 PIB per capita (em US$)
+\cell }\pard \qr\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18\cf1 2.315}{\f1\fs18 \cell }{\f1\fs18\cf1 4.882\cell 5.023}{\f1\fs18 \cell 5.912\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\pard 
+\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 Participa\'e7\'e3o do 1% mais rico da popula\'e7\'e3o nos rendimentos (em %)\cell }\pard \qr\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 14,7}{\f1\fs18\cf1 \cell 16,9\cell 17,3\cell 17,3\cell 
+}\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 Esperan\'e7a de vida ao nascer (em anos)\cell }\pard \qr\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 51,4\cell 56,9\cell 63,3
+\cell 68,6\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\trowd \trrh255\trleft426 \clvertalc\clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx7149\clvertalc\clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx7984\clvertalc\clbrdrb\brdrs\brdrw10 \cltxlrtb 
+\cellx8819\clvertalc\clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx9654\clvertalc\clbrdrb\brdrs\brdrw10 \cltxlrtb \cellx10490\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 Taxa de mortalidade infantil (por mil nascidos vivos)\cell }\pard 
+\qr\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 123,2\cell 85,2\cell 49,5\cell 29,6\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row }\trowd \trrh-720\trleft426\trkeep \clvertalc\cltxlrtb \cellx10490\pard 
+\qj\nowidctlpar\widctlpar\intbl\adjustright {\f1\fs4 
+\par }{\f1\fs14 Fonte: PNUD/Ipea/IBGE/FJP. }{\i\f1\fs14 Desenvolvimento humano e condi\'e7\'f5es de vida}{\f1\fs14 : indicadores brasileiros}{\i\f1\fs14 . }{\f1\fs14 Bras\'edlia: Ipea, 1998; SENE, E.; MOREIRA, J. C. }{\i\f1\fs14 Geografia geral e do Brasil}{
+\f1\fs14 : espa\'e7o geogr\'e1fico e globaliza\'e7\'e3o. S\'e3o Paulo: Scipione, 1998; IBGE. }{\i\f1\fs14 Censo demogr\'e1fico 2000}{\f1\fs14 : resultados preliminares da amostra. Rio de Janeiro: IBGE, 2002; IBGE. }{\i\f1\fs14 
+Pesquisa nacional por amostra de domic\'edlio}{\f1\fs14 . Rio de Janeiro: IBGE, 2001; IBGE. }{\i\f1\fs14 Sistema de contas nacionais}{\f1\fs14 . Rio de Janeiro: IBGE, 2002. v. 7.\cell }\pard \nowidctlpar\widctlpar\intbl\adjustright {\f1\fs18 \row 
+}\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\b0\fs12 
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {V)\tab Os dados mostram que o problema da desigualdade de renda \'e9 grave e persistente. Assim, n\'e3o basta combater a pobreza atrav\'e9
+s do aumento da renda per capita, j\'e1 que a riqueza \'e9 mal distribu\'edda.
+\par V)\tab A melhora observada nos indicadores sociais selecionados n\'e3o pode ser explicada somente como resultado do crescimento econ\'f4mico; os investimentos do Estado em pol\'edticas sociais tamb\'e9m desempenharam um papel relevante.
+\par F)\tab Os indicadores de qualidade de vida, por trabalharem com m\'e9dias, acabam mascarando o fato de que os avan\'e7os sociais ocorridos beneficiam apenas uma pequena parcela da popula\'e7\'e3o. Isso \'e9 comprovado, n
+a tabela, pelo indicador de concentra\'e7\'e3o de renda.
+\par F)\tab A diminui\'e7\'e3o da taxa de mortalidade infantil deve-se \'e0 queda da fecundidade, que reduz o n\'famero de crian\'e7as com menos de um ano de idade.
+\par V)\tab A eleva\'e7\'e3o do PIB per capita indica um crescimento econ\'f4mico superior ao crescimento demogr\'e1fico.
+\par }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par 
+\par 
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright {\lang1024 {\shpgrp{\*\shpinst\shpleft2430\shptop223\shpright7929\shpbottom3744\shpfhdr0\shpbxcolumn\shpbypara\shpwr3\shpwrk0\shpfblwtxt0\shpz0\shplid1026
+{\sp{\sn groupLeft}{\sv 3281}}{\sp{\sn groupTop}{\sv 7457}}{\sp{\sn groupRight}{\sv 8780}}{\sp{\sn groupBottom}{\sv 10978}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn lidRegroup}{\sv 0}}{\shp{\*\shpinst\shplid1027{\sp{\sn relLeft}{\sv 3884}}
+{\sp{\sn relTop}{\sv 7763}}{\sp{\sn relRight}{\sv 8357}}{\sp{\sn relBottom}{\sv 10868}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 65536}}{\sp{\sn hspNext}{\sv 1027}}{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \nowidctlpar\widctlpar\adjustright \fs20\lang1046\cgrid {\b\kerning28 {\*\shppict{\pict{\*\picprop\shplid1025{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn pibFlags}{\sv 2}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}\picscalex40\picscaley40\piccropl0\piccropr0\piccropt0\piccropb0
+\picw17859\pich12541\picwgoal10125\pichgoal7110\pngblip\bliptag-783866619{\*\blipuid d14725055363d91057f1176e61f05459}89504e470d0a1a0a0000000d49484452000002a3000001da080000000011311f200000000467414d410000b1889598f4a60000101049444154789ceddd5d96ab
+b8964561b246b5aaba413bdd8ddbad5b0fcef0b0411212e8670ae6f79023f2641c1bec9d7b2110e29fff2e12daff8cde00e980352a3a6b5474d6a8e8ac51d159
+a3a2b34645f7bfa33740255ecbb28ede86eeeca3a2b34645f78fd742a7f1fafbe161716f1f159d352a3ac7f533781dffca8dd94745678d8a6ebeacffcebdcc01
+eeadce7caf37db9f63f651d159a3a2c39dc34fe4d87e749b48bce05078e2847cefcffac433f9f651d159a3a24b647d2c751b8e2a13395694ddb173ded38f89ab
+1fc16c5e10f9d1d84745678d8a2e96f5fbd47dfd8e2a978ac170986089ecce7cb59cbf3881a20fe2c40b223f17fba8e8ac51d105b3fe73be78f3277b15b22167
+a89a3f9cbd73d0bf55fc2a8a2e8a8c631f159d352aba9cebf587f9596b54997ab9d38704f96f31932a67596618d42ff651f159a3a24bccc3df8feeab5b97ec80
+7e6fc7e6975f913fbfbff5f7e7d7e58908d4a05feca3e2b3464517ccfa57e4e74e3663d6ef19031bc3837eb391bde7c86fdeb5e1948a91eca3a2b34645b73f87
+7f2e3913e7dd0ff22676723e1859b1b3cea51b7d3d03db5dd82873653b5a9cb969f09af651d159a3a2ebb096ce41f7cf198956bf51aef59d77738ca7ab6fe56b
+f7438df7b28f8ace1a155dbbac3f1c70067e61ddfdeb8c17e2e708fab4eac3f30b4757f651d159a3a21bb546ee71d06f7e291dfafd8f0a62ef78291e4baff737
+dae7cdf0bcd6c69c8d7bfba8e8ac51d1bdafd757c98cd8fdf8c193f4db775c43c192be949fb9b65ec2c5616be545074aef803b7703c3e12593c383aa13dbb07f
+9192a308fba8e8ac51d155ccfa2534572e38fc3d1e852726d8a7f3a1684f1acdd0ab93f5872f94b96c50e9e4bdde574d8e3f2dfba8e8ac51d1d5cdfae537a563
+89fdf9f3d4fdf5c139f639315a34debdaece8234d79feb73d1e95b1a6abe77987d5474d6a8e8ded7eb2bdea7be39391b7ccd77ca1f8c39f76779e173dece6f1e
+61fd3af02448fba8e8ac51d17dcfcdab7832b7601a563af23fcbc3b4b83facca6bc28f406ec03e2a3a6b5474e9f5f02f0ef6b2e6aad73de5de7f519dab1a4dc9
+9b89e7f035396b5474e97beeae9fdbffbe341f9e7b3de94df4d5049703fef61a7b31bd35e7e6697ed6a8e8aa3ce72e26715160dbe18beef44a9bec697787f7d4
+e7cc809894f7dce91eac51d1e564fd722dee5fbf3f7cfebcf8cdaa9fc66765fd9277b7fb0dce83147eeef651d159a3a26bbd6e5e6c85f49f7f2d0af15a014d08
+fa33a1bd7f98ddddd94745678d8a6ed41ab951d743ec300909297fc9ec415f780b847d5474d6a8e872b2be6db4547fdecdc441dffaf17b73b28f8ace1a155d4e
+d6af9c13c717ef48eb16a4a56bfda5fefee3d94745678d8a2ef31c7ebfd166bb94ebb30ffbed4f0cd6d7e02f25e626dee018a0fc6bb08f8ace1a155de63cfca5
+db99fcd247b56c241e8dd734eb2b4cfebf418ee730eb753fd6a8e832c7f57573683b40ad15f42dfe6275375f1aa701fba8e8ac51d1f59f871f3813fdb9996e6d
+1085b1b5e862ffa91b833e937d5474d6a8e83a67fdfaf7cfc064bfa64f6a0dbed1e19275994e6cf94383fed4076d1f159d352aba51f7dc355c372fadface3c34
+b50fd59b49681f159d352a3adc5a3a7b7d66d69d7bfd736976ffc3837dd05ff8feeca3a2b34645977f7ffd48f941d1735bef1fd9e7ecbfad6b076af651d159a3
+a29b605cdf7a50df73447f7fc183ad6b5fa17d5474d6a8e83a67fd6636dcba3408cd357b9a3de746bcb9bd3fc7efefb6ea976a1f159d352aba516be9fcac1857
+fc77464b6cf3f80b1e3dc5be92e0a378cfb28f8ace1a15dd90b5745abc603fe94d9f78c7a8eca3a2b34645678d8a6eecb318cbae33d55ab2a148d1ca509e788a
+ba30adc43e2a3a6b547413cc1fdde81ff4993897c16ec63e2a3a6b54748759df749c7ae6c55bdf3a72f8eefa57af6fc23e9ae2212681352abaf4fc5174b2b56b
+72afd06323363744046d6e53417f7cb5c496e372bd273dc77ce747bbf8eb868fe88474891ac57d3f9babe16307f831ef8dc47d76edbcfefeb9f9325cc7b9bd95
+f87fc02359a331af95d9a89f877e3cfa9d187d0234fd768709f6a094efc53e9a60bd2158a36986fd78b173f8b816120bd9ea45f4fd2e9b934f6be4d7beff13ee
+83eb297126df73f86dd84411acd1b867dd9dc415ccfaa637d99d79f15892366a74afbf570fbe9d759b128b7bb35e37668da6ac1e910204cfe1b73b103bf9b2af
+df6d6a5d39c1fd37e847a15f671ac7164a618d86d93539a6a9d1ee0be9bcbedfc8a69aabc1441cc74c319625c5347db437631e2358a3adbf9f190ef642f789b0
+b798ea7220d947a3bc140ae1f1a8e8facfcddb9e8c3f7ca79e67efd36cabc71a7c43f651d159a3a21b32ae2f782342d0bf1c3f0d651f159d352abacef3f0cb7c
+4fbf1f12f4940f622e5eafd7d358a3a29be35aa873909ecc3e2a3a6b5474dcac1f9eef0eea73359e6b691f159d352a3a6ed60f37c3dd0218afddcff58ed5eca3
+a2b3464547ccfae1237a1558fffee9b85e8f658d8a2eb66ede326a443b3ce81dc8d3d84745678d8a8e38ae7f829bdcc4177c5081f3f0f534d6a8e858593f7c50
+9f631fd32782fb86f7ec37db1ffba8e8ac51d1c5b2fe5629942fb1dbfbe5f1bf9f747fb7e03eb4eefed5ebf57a2c6b5474ac713d56f084c39a11f78947debf32
+d7089e42cbbdb08f8ace1a151d28eb0927f0af0c4f83717f8f243f9eade9b85e4f668d8a2e96f55dcf4913523e21b1799be5fa5f91ff1433c791c07ab44871e3
+ddb08f8ace1a155dec39774bb7200206fd893ddf4c487fc43a3cb19d741ebe9ec61a15ddd873f8c09c3f63336d2ff860bee9733f98ec5df6ca3e2a3a6b547489
+71fdd2be9513b3be749f63fbf09fbf1ffeef0641bf446ea54ffc5a3df651d159a3a203cdcd233811cac1d5dfdfd7b73f71bf4666eecdadd7fed84745678d8a2e
+3dae5f0abbf97e50b7399f1d7835ced8fe7a70c54ee05779f1f112b3105a7e8bf651d159a3a2cbccfa9c215c66bbdfbe0e24eb1b65f1ad26e9c54ee337fe0aed
+a3a2b346457798f5dfaa5ca97d56d6dfcd3eeedb7f7ff651d159a3a2ab95f5451dffe77508596fd017e8fe85d94745678d8aeee9f7dc11539e7cde7fc437661f
+159d352aba47cfc367c669c1148967b08f8ace1a15ddd8ac7f2de3c6f64382b420c05fec017e47f651d159a3a2ab95f5c105d337cbc32fc1dcea38c92bf0a668
+b401fea0c332fba8e8ac51d115cdcd5b4aa6e207d7493f0eadcf3141d36019189e9ce82e336e6e857d5474d6a8e84ab3fe2d27f163f7601f9c9bde3f2daebae1
+517b32ee072eaf3f7412a57d5474d6a8e8ce65fddbc525f50a5ea16ed44c99f50397e11b7db7847d5474d6a8e8ae64fd5b4eeaa4d222f399ef15036778d62f27
+e2fed2b1d229b1f917de5f2f6d58a3a2bb9ef5cbd1735d12d9f0dafc52ad7578d30859bf94c67d6ccf335f227f4affe14185592f6d58a3a2ab92f51f89b82f18
+137e5fd16f71f99e93f5cb52e3f826ff158a0e0c62ef62d64b1bd6a8e8fa64fdc7c99ca83b2d1f92f5cb61dc9f7cc240f215cec5bde37a29c11a155dddb5740e
+4f4b9f0cedd1b3c35a897e585576b8c5a7e61ab9d29e352abaeaebe6d1d77a836e59b70c2d3d9fbf8c3c7bff661f159d352ababae7f0f7fa3ee93c0f31ee63f7
+cee77c60c1fda978957f34fba8e8ac51d13dfad93720578e3ff6574eaec774cea142af8301fba8e8ac51d13d31eb675da536e1c42e9dfb14467c70f651d159a3
+a26b9df59b44e9381a7cacb5f00a7bfe6981414748f651d159a3a2eb3faedf06c6e1e2af8da693df73687f62c70e837ef4019a7d5474d6a8e83a647d6efcf47f
+9c0b3dee4b13b6c565fad7df3fd761f758d84745678d8aaecfb83e95ab87d1d16e1d1774dc77985f77a8c3c30932d84745678d8aaef53d77dfeae46abb67de05
+a37fd8f140d33ccdb94d0f73bba47d5474d6a8e87a66fddbb98bca3faac7cef715e9c4bcb67ea1df3fe8376f9a3818e8feb43bfba8e8ac51d1f5cffa3756d617
+e991f8adf7f030ca0f99f5d287352aba5159bf5ccfcc5189df3cebfbec58ec14fde9e7de36631f159d352aba8159bf30afe01f6a98f563f7e4e233ee9bb18f8a
+ce1a15ddc075f3b853e09feb74d0b7bc886f1f159d352aba29afd7eff51c68d63f4699e86a4422e813bf708d7d5474d6a8e886647d93117db7c0bc4fd62fa1d3
+f889dd3b0cfac35f3ec53e2a3a6b547443eeb96b62d6a13de1f900e9f5f30fcfcf971e1e14b28f8ace1a15dd139f73a7a8e06cbd745ea78f7b6aaca56f1f159d
+352abacee3fa3b0ceadfaaed09615cbf5c1b9b1f7e16fb557a4af6da3e2a3a6b54749dc7f5e815e81fedca377378b3deb5b512eda3a2b34645779febf51f934d
+d2838ceb3fae9c75cfff441cd7eb4eac51d1dde41cfe86713f469bf575eda3a2b34645d7f31c7ebfb3f735668429c3e6cefa9c13f5e55f8c7d5474d6a8e86e3b
+0fbffbd3d8aa826f7de2fafb893bf48fd84745678d8aee9ee7f0bfb50bcc5653f1d377bb0f9713e5dfc72a9757d5b38f8ace1a15dd6dc7f51f8dcee7b73a6ac1
+dea690bf61afaf1f5c4b474f608d8aee11f7dc558ffbc7057da6e007ed5a3aba3d6b5474f7590fff1034ee6337a7a34ee017eded5af932847d5474d6a8e8ee7f
+0e9fecdf24a40de72f6ecfebf767c7f5ba3d6b547443b2ded5f358a3f61fbc6fc63e2a3a6b5474a3c6f5bde37eb26ce56e6eb9cb437bfba8e8ac51d10d3c87df
+2fee5b2467c3adbf53d0d7601f159d352abab1d7ebd7a57dde039373731b3a48a30dba36b4b78f8ace1a15ddf8b9794d87f74d83fe6ed30ea83b631f159d352a
+ba21f7dc0534ca99d683fa139bbddd24d4dd764de3feec7ed94745678d8a6efcb8be1df2d9fb9f3fbabc8aecbdd94745678d8aeece590f14be70fd89fb7b07fd
+d9abf6f651d159a3a2bbed397ce623ec270873de697cfba8e8ac51d1dd735ccf8c54e656fd404ecfb38f8ace1a15dd3db3bea7ccd9f813043d957d5474d6a8e8
+ac51d1218e47eb9ef1001ef901376922f651d159a3a21b9ff515831e18a9c04d3a63ddcdfeac70476c2efba8e8ac51d18d9f3f7a31eb21f759dce7c90b998f4c
+2efdda5cdb5137668d8a6efcb8fe3a66a432b7ea58e676775cd8d23e2a3a6b547463b3fe6a5a30f394b955f5e5c7bdcf62d4bd59a3a2bbc3b89ee029f93e827d
+5474d6a8e826ce7ae375bc9ca1fde5efc93e2a3a6b54745366bd29ff28f651d159a3a29b2feb0dfa99d4f8b6eca3a2b3464537f09ebbe28979a63c57e57b0e7f
+6ea3b48f8ace1a15dd34e37a831eedfdf5d4b90b6ffb2af651d159a3a29b23eb0dfa09d40ffa7f97eab38f8ace1a15dd04596fd03f9c7d5474d6a8e8d0596fca
+4feccc97b73935e0f57a4dc21a151d34eb4df9f95c5d35371cf48b7d547cd6a8e806667dc715d5d559d9b15a34e5dfeca3a2b346453730eba341efa07e6ef9df
+5fa004027fd93e2a3a6b5474b873f806fdc48abebcbca05feca3e2b3464587cbfa9771ff04d941bfd847c5678d8ace1a159d352a3a6b547403d7c85d6297ec1d
+d73fc2cf979ffaceeda3a2b34645c73a876fca3f48f6976d1f159d352a3a6b5474d6a8e8ac51d159a3a2b34645678d8a6eecf5fa65f93cbed4f9f78ab08f8a8e
+d247dfeca4da1b7fbddee5f394c6ca7a8b557be3fbe8622b5512ab8f4a7b883efae6804941e3c7f5529a592f3a6b5474d6a8e8ac51d159a3a2b34645678d8ace1a15ddff0348a2f3863c59df0e0000000049454e44ae426082}}}{
+\par }}}}{\shp{\*\shpinst\shplid1028{\sp{\sn relLeft}{\sv 3884}}{\sp{\sn relTop}{\sv 7457}}{\sp{\sn relRight}{\sv 8363}}{\sp{\sn relBottom}{\sv 7457}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 20}}{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn fFillOK}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn lineWidth}{\sv 19050}}{\sp{\sn fArrowheadsOK}{\sv 1}}{\sp{\sn fLine}{\sv 1}}}}{\shp{\*\shpinst\shplid1029{\sp{\sn relLeft}{\sv 4308}}{\sp{\sn relTop}{\sv 8729}}
+{\sp{\sn relRight}{\sv 4740}}{\sp{\sn relBottom}{\sv 9017}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1030{\sp{\sn relLeft}{\sv 4840}}{\sp{\sn relTop}{\sv 9826}}
+{\sp{\sn relRight}{\sv 5272}}{\sp{\sn relBottom}{\sv 10114}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1031{\sp{\sn relLeft}{\sv 5704}}{\sp{\sn relTop}{\sv 9250}}
+{\sp{\sn relRight}{\sv 6136}}{\sp{\sn relBottom}{\sv 9538}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1032{\sp{\sn relLeft}{\sv 5848}}{\sp{\sn relTop}{\sv 8674}}
+{\sp{\sn relRight}{\sv 6280}}{\sp{\sn relBottom}{\sv 8962}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1033{\sp{\sn relLeft}{\sv 6280}}{\sp{\sn relTop}{\sv 9106}}
+{\sp{\sn relRight}{\sv 6778}}{\sp{\sn relBottom}{\sv 9394}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1034{\sp{\sn relLeft}{\sv 6947}}{\sp{\sn relTop}{\sv 8961}}
+{\sp{\sn relRight}{\sv 7379}}{\sp{\sn relBottom}{\sv 9249}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}{\shp{\*\shpinst\shplid1035{\sp{\sn relLeft}{\sv 3281}}{\sp{\sn relTop}{\sv 8400}}
+{\sp{\sn relRight}{\sv 4289}}{\sp{\sn relBottom}{\sv 8976}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 131072}}{\sp{\sn hspNext}{\sv 1035}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt 
+\pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright \b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28  Am\'e9rica
+\par do}{\fs16\kerning28  }{\i\fs16\kerning28 Norte}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1036{\sp{\sn relLeft}{\sv 3595}}{\sp{\sn relTop}{\sv 9302}}{\sp{\sn relRight}{\sv 4603}}{\sp{\sn relBottom}{\sv 9878}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 196608}}{\sp{\sn hspNext}{\sv 1036}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1037{\sp{\sn relLeft}{\sv 3884}}{\sp{\sn relTop}{\sv 9970}}{\sp{\sn relRight}{\sv 4892}}{\sp{\sn relBottom}{\sv 10546}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 262144}}{\sp{\sn hspNext}{\sv 1037}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 Am\'e9rica
+\par   do Sul}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1038{\sp{\sn relLeft}{\sv 5075}}{\sp{\sn relTop}{\sv 8700}}{\sp{\sn relRight}{\sv 5939}}{\sp{\sn relBottom}{\sv 9184}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 327680}}{\sp{\sn hspNext}{\sv 1038}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 Europa}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1039{\sp{\sn relLeft}{\sv 7628}}{\sp{\sn relTop}{\sv 7862}}{\sp{\sn relRight}{\sv 8636}}{\sp{\sn relBottom}{\sv 8256}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 393216}}{\sp{\sn hspNext}{\sv 1039}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 Ex-URSS}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1040{\sp{\sn relLeft}{\sv 7484}}{\sp{\sn relTop}{\sv 9106}}{\sp{\sn relRight}{\sv 8780}}{\sp{\sn relBottom}{\sv 9531}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 458752}}{\sp{\sn hspNext}{\sv 1040}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 \'c1sia-Pac\'edfico}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1041{\sp{\sn relLeft}{\sv 6410}}{\sp{\sn relTop}{\sv 9487}}{\sp{\sn relRight}{\sv 7274}}{\sp{\sn relBottom}{\sv 10063}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 524288}}{\sp{\sn hspNext}{\sv 1041}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 Oriente
+\par  M\'e9dio}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1042{\sp{\sn relLeft}{\sv 5900}}{\sp{\sn relTop}{\sv 10231}}{\sp{\sn relRight}{\sv 6764}}{\sp{\sn relBottom}{\sv 10559}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 589824}}{\sp{\sn hspNext}{\sv 1042}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \s22\qj\nowidctlpar\widctlpar\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\i\fs16\kerning28 \'c1frica}{\i\fs16 
+\par }}}}{\shp{\*\shpinst\shplid1043{\sp{\sn relLeft}{\sv 4216}}{\sp{\sn relTop}{\sv 8740}}{\sp{\sn relRight}{\sv 4840}}{\sp{\sn relBottom}{\sv 9028}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 655360}}{\sp{\sn hspNext}{\sv 1043}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 64,4}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1044{\sp{\sn relLeft}{\sv 4748}}{\sp{\sn relTop}{\sv 9837}}{\sp{\sn relRight}{\sv 5372}}{\sp{\sn relBottom}{\sv 10125}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 720896}}{\sp{\sn hspNext}{\sv 1044}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 95,6}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1045{\sp{\sn relLeft}{\sv 5612}}{\sp{\sn relTop}{\sv 9261}}{\sp{\sn relRight}{\sv 6236}}{\sp{\sn relBottom}{\sv 9549}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 786432}}{\sp{\sn hspNext}{\sv 1045}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 74,8}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1046{\sp{\sn relLeft}{\sv 5756}}{\sp{\sn relTop}{\sv 8685}}{\sp{\sn relRight}{\sv 6380}}{\sp{\sn relBottom}{\sv 8973}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 851968}}{\sp{\sn hspNext}{\sv 1046}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 19,1}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1047{\sp{\sn relLeft}{\sv 6712}}{\sp{\sn relTop}{\sv 8530}}{\sp{\sn relRight}{\sv 7144}}{\sp{\sn relBottom}{\sv 8818}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 1}}}}
+{\shp{\*\shpinst\shplid1048{\sp{\sn relLeft}{\sv 6175}}{\sp{\sn relTop}{\sv 9117}}{\sp{\sn relRight}{\sv 6895}}{\sp{\sn relBottom}{\sv 9405}}{\sp{\sn fRelFlipH}{\sv 0}}{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 917504}}
+{\sp{\sn hspNext}{\sv 1048}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright \fs20\lang1046\cgrid {\b\fs14 683,5}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1049{\sp{\sn relLeft}{\sv 6855}}{\sp{\sn relTop}{\sv 8972}}{\sp{\sn relRight}{\sv 7479}}{\sp{\sn relBottom}{\sv 9260}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 983040}}{\sp{\sn hspNext}{\sv 1049}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 44,0}{\b\f1\fs14 
+\par }}}}{\shp{\*\shpinst\shplid1050{\sp{\sn relLeft}{\sv 3884}}{\sp{\sn relTop}{\sv 10690}}{\sp{\sn relRight}{\sv 8060}}{\sp{\sn relBottom}{\sv 10978}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 1048576}}{\sp{\sn hspNext}{\sv 1050}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright \fs20\lang1046\cgrid {\b\fs12 Adaptado de: }{\b\i\f1\fs12 
+Balan\'e7o Setorial, Gazeta Mercantil}{\b\f1\fs12 , jun. 2002
+\par }}}}{\shp{\*\shpinst\shplid1051{\sp{\sn relLeft}{\sv 6620}}{\sp{\sn relTop}{\sv 8541}}{\sp{\sn relRight}{\sv 7244}}{\sp{\sn relBottom}{\sv 8829}}{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}{\sp{\sn shapeType}{\sv 202}}{\sp{\sn lTxid}{\sv 1114112}}{\sp{\sn hspNext}{\sv 1051}}{\sp{\sn fFitShapeToText}{\sv 0}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}{\shptxt \pard\plain \qc\nowidctlpar\widctlpar\adjustright 
+\fs20\lang1046\cgrid {\b\fs14 65,3}{\b\f1\fs14 
+\par }}}}}{\shprslt{\*\do\dobxcolumn\dobypara\dodhgt8192\dppolygon\dppolycount4\dpptx0\dppty0\dpptx5499\dppty0\dpptx5499\dppty3521\dpptx0\dppty3521\dpx2430\dpy223\dpxsize5499\dpysize3521
+\dpfillfgcr255\dpfillfgcg255\dpfillfgcb255\dpfillbgcr255\dpfillbgcg255\dpfillbgcb255\dpfillpat1\dplinew15\dplinecor0\dplinecog0\dplinecob0}}}}{\b0\kerning28 \tab \tab \tab \tab \tab     }{\fs20\kerning28 Onde est\'e1 o \'f3leo
+\par }{\fs4\kerning28 \tab \tab \tab \tab \tab \tab }{\b0\fs4\kerning28 
+\par }{\b0\fs15\kerning28 \tab \tab \tab \tab \tab       Reservas provadas de petr\'f3leo (Em bilh\'f5es de barris, ano 2000)
+\par }\pard \s22\qc\fi-397\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright {\b0\kerning28 
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright {\b0\kerning28 
+\par }\pard \s22\qj\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright {\b0\kerning28 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par 
+\par }{\b0\fs16\kerning28 CONSUMO DE ENERGIA PRIM\'c1RIA* EM ALGUNS PA\'cdSES  (1992)
+\par }\trowd \trgaph70\trleft426\trbrdrt\brdrs\brdrw10 \trbrdrl\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trbrdrr\brdrs\brdrw10 \trbrdrh\brdrs\brdrw10 \trbrdrv\brdrs\brdrw10 \clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr
+\brdrs\brdrw10 \cltxlrtb \cellx1914\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx3343\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr
+\brdrs\brdrw10 \cltxlrtb \cellx4772\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx6202\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr
+\brdrs\brdrw10 \cltxlrtb \cellx7631\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx9060\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr
+\brdrs\brdrw10 \cltxlrtb \cellx10490\pard \s22\qj\nowidctlpar\widctlpar\intbl\outlinelevel0\adjustright {\b0\fs16\kerning28 PA\'cdSES\cell }\pard \s22\qc\nowidctlpar\widctlpar\intbl\outlinelevel0\adjustright {\b0\fs16\kerning28 EUA\cell JAP\'c3O\cell 
+ALEMANHA\cell UGANDA\cell BURUNDI\cell RUANDA\cell }\pard\plain \nowidctlpar\widctlpar\intbl\adjustright \fs20\lang1046\cgrid {\fs16\kerning28 \row }\trowd \trgaph70\trleft426\trbrdrt\brdrs\brdrw10 \trbrdrl\brdrs\brdrw10 \trbrdrb\brdrs\brdrw10 \trbrdrr
+\brdrs\brdrw10 \trbrdrh\brdrs\brdrw10 \trbrdrv\brdrs\brdrw10 \clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx1914\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb
+\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx3343\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx4772\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb
+\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx6202\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx7631\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb
+\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx9060\clvertalt\clbrdrt\brdrs\brdrw10 \clbrdrl\brdrs\brdrw10 \clbrdrb\brdrs\brdrw10 \clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx10490\pard\plain \s22\qj\nowidctlpar\widctlpar\intbl\outlinelevel0\adjustright 
+\b\f1\fs18\lang1046\cgrid {\b0\fs16\kerning28 CONSUMO (kg)\cell }\pard \s22\qc\nowidctlpar\widctlpar\intbl\outlinelevel0\adjustright {\b0\fs16\kerning28 10737\cell 4735\cell 5890\cell 28\cell 18\cell 30\cell }\pard\plain 
+\nowidctlpar\widctlpar\intbl\adjustright \fs20\lang1046\cgrid {\fs16\kerning28 \row }\pard\plain \s22\qj\fi-397\li397\nowidctlpar\widctlpar\outlinelevel0\adjustright \b\f1\fs18\lang1046\cgrid {\b0\fs16\kerning28           }{\b0\fs14\kerning28 * petr\'f3
+leo, carv\'e3o, g\'e1s natural, energia nuclear e hidroeletricidade, convertidos em unidade equivalente de petr\'f3leo
+\par              (Adaptado de: LUCCI, E. A. }{\b0\i\fs14\kerning28 Geografia}{\b0\fs14\kerning28 :}{\b0\i\fs14\kerning28  }{\b0\fs14\kerning28 o homem no espa\'e7o global. S\'e3o Paulo: Saraiva, 1998. p. 105.)}{\b0\fs16\kerning28  
+\par }{\b0\fs12\kerning28               
+\par }\pard \s22\qj\fi-397\li397\nowidctlpar\widctlpar\adjustright {\kerning28 
+\par 
+\par Q -}{\b0\kerning28 \tab }{Em rela\'e7\'e3o ao tema, e com aux\'edlio da figura e do quadro acima, assinale a(s) alternativa(s) correta(s):
+\par }{\fs12 
+\par }\pard\plain \s23\qj\fi-397\li794\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {F)\tab A divis\'e3o do mundo em pa\'edses desenvolvidos e subdesenvolvidos est\'e1 diretamente relacionada \'e0s suas respectivas reservas energ\'e9
+ticas, marcadamente de petr\'f3leo.
+\par V)\tab O consumo de energia prim\'e1ria \'e9 um indicador do n\'edvel de desenvolvimento de um pa\'eds.
+\par V)\tab Conflitos mundiais contempor\'e2neos t\'eam como uma de suas causas a rela\'e7\'e3o produ\'e7\'e3o }{\i versus }{consumo de petr\'f3leo.
+\par F)\tab As maiores reservas de petr\'f3leo do mundo est\'e3o concentradas em regi\'f5es que s\'e3o, ao mesmo tempo, grandes produtoras e consumidoras de petr\'f3leo.
+\par V)\tab Modernamente, o \'f3leo \'e9 transportado das \'e1reas de produ\'e7\'e3o at\'e9 os terminais mar\'edtimos ou terrestres por oleodutos. 
+\par V)\tab As maiores reservas brasileiras de petr\'f3leo est\'e3o localizadas na plataforma continental, como \'e9 o caso da Bacia de Campos, no Rio de Janeiro.
+\par F)\tab A descoberta de novas jazidas petrol\'edferas em \'e1reas do complexo cristalino brasileiro torna o Brasil auto-suficiente em petr\'f3leo.
+\par 
+\par \page 
+\par }\pard\plain \s22\qj\fi-397\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 Q -\tab }{\b0\kerning28 "Em sil\'eancio, o Brasil est\'e1 multiplicando o n\'famero de bases e tropas militares na Amaz\'f4
+nia, com expressiva concentra\'e7\'e3o na faixa de 1,6 mil quil\'f4metros da fronteira com a Col\'f4mbia. (...) O conte\'fa
+do marca o sepultamento de uma era, iniciada em 1870, na Guerra do Paraguai. Durante 132 anos, a premissa brasileira para um conflito foi sempre no Cone Sul, especialmente com a Argentina. Essa hip\'f3tese de guerra na fronteira sul \'e9
+ coisa do passado. (...) Agora o foco \'e9 na Amaz\'f4nia." }{\b0\fs14\kerning28 (CASADO, J. O Brasil refor\'e7a sua fronteira com a Col\'f4mbia. }{\b0\i\fs14\kerning28 Gazeta Mercantil}{\b0\fs14\kerning28 , 2 set. 2002. p. A-1.)}{\b0\kerning28 
+\par }{\kerning28 
+\par }\pard \s22\qj\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright {\kerning28 Sobre o tema, \'e9 correto afirmar:
+\par }\pard \s22\qj\fi-397\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright {\b0\fs12 
+\par }\pard\plain \s23\qj\fi-397\li794\sl230\slmult1\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {V)\tab Uma das raz\'f5es para que a hip\'f3tese de guerra na fronteira sul seja "coisa do passado" foi a cria\'e7\'e3
+o do Mercosul em 1991. Com ele, as diferen\'e7as entre os pa\'edses integrantes do acordo podem ser resolvidas com maior facilidade por via diplom\'e1tica, tendo em vista que esses pa\'edses s\'e3o parceiros econ\'f4micos e formam um bloco regional.
+
+\par V)\tab A necessidade de vigiar a Amaz\'f4nia prende-se \'e0 grande extens\'e3o de \'e1reas lim\'edtrofes entre o territ\'f3rio amaz\'f4nico brasileiro e pa\'edses vizinhos, ocupada pela Floresta Amaz\'f4nica, que ultrapassa o territ\'f3
+rio nacional e dificulta o controle das fronteiras. 
+\par F)\tab Embora ainda se verifiquem a\'e7\'f5es locais de prote\'e7\'e3o para garantir a posse do territ\'f3rio no mundo amaz\'f4nico, as fronteiras perderam completamente o sentido no mundo globalizado.
+\par V)\tab O vazio demogr\'e1fico da Amaz\'f4nia, devido em parte aos fatores f\'edsicos dominantes, contribuiu para fragilizar suas fronteiras.
+\par F)\tab A SUDAM (Superintend\'eancia de Desenvolvimento da Amaz\'f4nia) \'e9 o \'f3rg\'e3o do governo federal criado para gerenciar um projeto de prote\'e7\'e3o militar das fronteiras na Amaz\'f4nia.
+\par }\pard\plain \s22\qj\fi-397\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright \b\f1\fs18\lang1046\cgrid {\kerning28 
+\par Q -\tab }{\b0\kerning28 "As \'e1reas costeiras representam, na realidade, uma zona de interc\'e2mbio de energia e de mat\'e9ria, por processos naturais e antr\'f3picos, entre os continentes e os oceanos. Essa troca ocorre pela intera\'e7\'e3o de v\'e1
+rios fen\'f4menos naturais, que s\'e3o muito suscet\'edveis \'e0s mudan\'e7as." }{\b0\fs14\kerning28 (SUGUIO, K. }{\b0\i\fs14\kerning28 Geologia do Quatern\'e1rio e mudan\'e7as ambientais}{\b0\fs14\kerning28 :}{\b0\i\fs14\kerning28  }{\b0\fs14\kerning28 
+passado + presente = futuro? S\'e3o Paulo: Paulo\rquote s Comunica\'e7\'e3o e Artes Gr\'e1ficas, 1999. p. 335.)}{\fs14\kerning28 
+\par }{\fs16\kerning28 
+\par }\pard \s22\qj\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright {\kerning28 Sobre o tema, \'e9 correto afirmar:
+\par }\pard \s22\qj\fi-397\li397\sl230\slmult1\nowidctlpar\widctlpar\adjustright {\fs12\kerning28 
+\par }\pard\plain \s23\qj\fi-397\li794\sl230\slmult1\nowidctlpar\widctlpar\adjustright \f1\fs18\lang1046\cgrid {V)\tab As mar\'e9s, que influenciam a vida das popula\'e7\'f5es das regi\'f5es costeiras, s\'e3o resultantes da combina\'e7\'e3o de for\'e7
+as que o Sol e principalmente a Lua exercem sobre as \'e1guas do mar. Quando a Terra est\'e1 alinhada em rela\'e7\'e3o ao Sol e \'e0 Lua, ocorrem as mar\'e9s de siz\'edgia ou mar\'e9s vivas. 
+\par V)\tab As correntes marinhas influem nos climas do mundo. A Corrente do Golfo, por exemplo, ameniza o inverno nas \'e1reas litor\'e2neas ocidentais da Irlanda, da Noruega e da Gr\'e3-Bretanha. 
+\par V)\tab As \'e1reas costeiras exercem uma grande atra\'e7\'e3o sobre as popula\'e7\'f5es. Nessas \'e1reas, fatores antr\'f3picos comumente se sobrep\'f5em \'e0s for\'e7as naturais, resultando, por exemplo, na modifica\'e7\'e3o de \'e1
+reas como os manguezais, que constituem uma forma\'e7\'e3o vegetal presente em reentr\'e2ncias litor\'e2neas baixas.
+\par V)\tab Em sua maioria, os rios que t\'eam no litoral o seu n\'edvel final de eros\'e3o carregam para o mar res\'edduos qu\'edmicos de ind\'fastrias e agrot\'f3xicos e fertilizantes das \'e1reas agr\'edcolas, poluindo e afetando a produ\'e7\'e3
+o pesqueira dos espa\'e7os litor\'e2neos. 
+\par F)\tab A zona abissal, como parte das \'e1reas costeiras, corresponde ao mar raso at\'e9 a profundidade de 200 m.
+\par }}
